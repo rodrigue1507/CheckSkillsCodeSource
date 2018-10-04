@@ -1,0 +1,33 @@
+﻿@model CreateConfirmationSurveyViewModel;
+@{
+    ViewData["Title"] = "SaveSurvey";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div><h2> Formulaire  enregistré</h2></div>
+
+<div>
+    <h3>details</h3>
+    <table>
+        <tr>
+            <th>Name</th>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <th>Questions</th>
+            <td>
+                <ol>
+                    @foreach (var question in Model.SurveySelectedQuestions)
+                    {
+                    <li>
+                        @Html.Raw(question.Content)
+                    </li>
+                    }
+                </ol>
+            </td>
+        </tr>
+
+    </table>
+    <div>@Html.ActionLink("retour", "Create", "Survey", null, new { type = "button", @class = "btn btn-primary" })</div>
+</div>
+

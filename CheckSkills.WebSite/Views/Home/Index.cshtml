@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+<div>
+    <div class="text-center">
+        <ul>
+            <li class="menu-element"><a href="@Url.Action("Create","Survey")">Créer un formulaire</a></li>
+            <li class="menu-element"><a href="@Url.Action("Create","Question")">Créer une question</a></li>
+            <li class="menu-element"><a href="@Url.Action("SurveyList","Survey")">Consulter les formulaires</a></li>
+            <li class="menu-element"><a href="@Url.Action("List","Question")">Consulter les questions</a></li>
+
+        </ul>
+    </div>
+</div>

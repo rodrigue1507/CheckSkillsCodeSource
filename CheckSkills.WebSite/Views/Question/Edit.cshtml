@@ -1,0 +1,23 @@
+﻿@model CreateOrUpdateQuestionViewModel
+@{
+    ViewData["Title"] = "Modifier";
+    var type = Model.EditQuestionViewModel.TypeName;
+    var typeselected = Model.EditQuestionViewModel.TypeId;
+}
+
+
+
+@using (Html.BeginForm("EditQuestionSave", "Question", FormMethod.Post))
+{
+    Html.RenderPartial("_EditQuestion", Model.EditQuestionViewModel);
+}
+
+@if (type == "QCM")
+{
+    Html.RenderPartial("_EditAnswers", Model.EditAnswerViewModel);
+}
+
+
+<div>
+    @Html.ActionLink("retour à la Liste", "List")
+</div>

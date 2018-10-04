@@ -1,0 +1,45 @@
+﻿@model CheckSkills.WebSite.ViewModels.Answer.QuestionAnswerViewModel
+
+@{
+    ViewData["Title"] = "AddOrUpdateQuestionAnswer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ajout de reponse</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddOrUpdateQuestionAnswer" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group hidden">
+                <label asp-for="AnswerId" class="control-label"></label>
+                <input asp-for="AnswerId" class="form-control" />
+                <span asp-validation-for="AnswerId" class="text-danger"></span>
+            </div>
+            <div class="form-group hidden">
+                <label asp-for="QuestionId" class="control-label"></label>
+                <input asp-for="QuestionId" class="form-control" />
+                <span asp-validation-for="QuestionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestionContent" class="control-label"></label>
+                <input asp-for="QuestionContent" class="form-control" />
+                <span asp-validation-for="QuestionContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnswerContent" class="control-label"></label>
+                <input asp-for="AnswerContent" class="form-control" />
+                <span asp-validation-for="AnswerContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("retour à la liste", "List", "Question", null, new { type = "button", @class = "btn btn-primary" })
+</div>
+

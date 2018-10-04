@@ -1,0 +1,12 @@
+D:\CheckSkills\src\CheckSkills\CheckSkills.DAL\bin\Debug\netstandard2.0\CheckSkills.DAL.deps.json
+D:\CheckSkills\src\CheckSkills\CheckSkills.DAL\bin\Debug\netstandard2.0\CheckSkills.DAL.dll
+D:\CheckSkills\src\CheckSkills\CheckSkills.DAL\bin\Debug\netstandard2.0\CheckSkills.DAL.pdb
+D:\CheckSkills\src\CheckSkills\CheckSkills.DAL\bin\Debug\netstandard2.0\CheckSkills.Domain.dll
+D:\CheckSkills\src\CheckSkills\CheckSkills.DAL\bin\Debug\netstandard2.0\CheckSkills.Domain.pdb
+D:\CheckSkills\src\CheckSkills\CheckSkills.DAL\obj\Debug\netstandard2.0\CheckSkills.DAL.csprojAssemblyReference.cache
+D:\CheckSkills\src\CheckSkills\CheckSkills.DAL\obj\Debug\netstandard2.0\CheckSkills.DAL.csproj.CoreCompileInputs.cache
+D:\CheckSkills\src\CheckSkills\CheckSkills.DAL\obj\Debug\netstandard2.0\CheckSkills.DAL.AssemblyInfoInputs.cache
+D:\CheckSkills\src\CheckSkills\CheckSkills.DAL\obj\Debug\netstandard2.0\CheckSkills.DAL.AssemblyInfo.cs
+D:\CheckSkills\src\CheckSkills\CheckSkills.DAL\obj\Debug\netstandard2.0\CheckSkills.DAL.csproj.CopyComplete
+D:\CheckSkills\src\CheckSkills\CheckSkills.DAL\obj\Debug\netstandard2.0\CheckSkills.DAL.dll
+D:\CheckSkills\src\CheckSkills\CheckSkills.DAL\obj\Debug\netstandard2.0\CheckSkills.DAL.pdb

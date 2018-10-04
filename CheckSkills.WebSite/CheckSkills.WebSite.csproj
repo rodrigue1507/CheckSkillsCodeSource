@@ -1,0 +1,101 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
+    <PackageReference Include="Rotativa.AspNetCore" Version="1.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CheckSkills.DAL\CheckSkills.DAL.csproj" />
+    <ProjectReference Include="..\CheckSkills.Domain\CheckSkills.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Question\_EditQuestion.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Question\_EditAnswers.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_Layout4.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_Layout3.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_Layout2.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Survey\Create.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Survey\EditorTemplates\_QuestionViewModel.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Survey\List.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Survey\PrintSurvey.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Survey\ShowSaveSurvey.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Shared\DisplayTemplates\" />
+    <Folder Include="wwwroot\lib\jquery\NewFolder\" />
+    <Folder Include="wwwroot\lib\jquery\toastr\.git\objects\info\" />
+    <Folder Include="wwwroot\lib\jquery\toastr\.git\refs\tags\" />
+    <Folder Include="wwwroot\Rotativa\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\jquery\toastr\.git\config" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\description" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\HEAD" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\hooks\applypatch-msg.sample" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\hooks\commit-msg.sample" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\hooks\fsmonitor-watchman.sample" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\hooks\post-update.sample" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\hooks\pre-applypatch.sample" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\hooks\pre-commit.sample" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\hooks\pre-push.sample" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\hooks\pre-rebase.sample" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\hooks\pre-receive.sample" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\hooks\prepare-commit-msg.sample" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\hooks\update.sample" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\index" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\info\exclude" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\logs\HEAD" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\logs\refs\heads\master" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\logs\refs\remotes\origin\HEAD" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\objects\pack\pack-03ab145e80b840f4dcdd6bd074bdcd5896943c25.idx" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\objects\pack\pack-03ab145e80b840f4dcdd6bd074bdcd5896943c25.pack" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\packed-refs" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\refs\heads\master" />
+    <None Include="wwwroot\lib\jquery\toastr\.git\refs\remotes\origin\HEAD" />
+  </ItemGroup>
+
+</Project>

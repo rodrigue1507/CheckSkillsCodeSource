@@ -1,0 +1,111 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    
+}
+
+.top-header {
+    position: fixed;
+    font-size: 14px;
+    background-color: rgb(166, 210, 219);
+}
+
+.top-header_left {
+    float: left;
+    margin-left: 100px;
+    font-weight: bold;
+    background-color:green;
+}
+
+.top-header_right {
+    float: right;
+    position: relative;
+    right: 5px;
+    top: 5px;
+    margin-left: 100px;
+    font-weight: bold;
+}
+
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 3px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+
+.filter-selected-option
+{
+    /*width: 350px !important;*/
+    margin: 13px;
+    margin-top:40px;
+    text-align:center;
+   
+}
+
+
+
+#filtre {
+    float: left;
+    width: 600px;
+    height: 530px;
+    /*margin-top: 20px;*/
+    position: sticky;
+    top:20px;
+}
+
+#question-list {
+    position: relative;
+    left: 700px;
+    width: 900px;
+    float: left;
+}
+
+footer
+{
+    clear:both;
+}
+
+hr
+{
+    clear:both;
+}
+
+#create-retour-button 
+{
+    clear: both;
+    top:30px;
+    
+}
+ul,li
+{
+    list-style:none;
+}
+
+

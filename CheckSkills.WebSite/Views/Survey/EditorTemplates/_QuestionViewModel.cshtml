@@ -1,0 +1,22 @@
+﻿@model QuestionViewModel
+
+<div class="panel panel-default">
+    <div class="panel-heading"></div>
+    <div class="panel-body">
+        <table class="table  table-hover table-responsive table-condensed">
+            <tr>
+                <td style="width:98px">
+                    [@Html.DisplayFor(m => m.CategoryName)-@Html.DisplayFor(m => m.TypeName)-@Html.DisplayFor(m => m.DifficultyLevel)]
+
+                </td>
+                <td style="font-weight:bold ">
+                    @Html.CheckBoxFor(m => m.IsChecked, new { @class = "selectedQuestion" })
+                    @Html.DisplayFor(m => m.Content)
+                </td>
+
+                @Html.HiddenFor(m => m.Id)
+            </tr>
+        </table>
+    </div>
+
+</div>

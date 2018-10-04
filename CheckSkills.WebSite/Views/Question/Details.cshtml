@@ -1,0 +1,84 @@
+﻿@model QuestionViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4></h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DifficultyLevel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DifficultyLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuestionTypeName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.QuestionTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+    </dl>
+    @if (Model.QuestionTypeName == "QCM")
+    {
+    <div table="table-responsive row">
+        <table class="table col-lg-5">
+            <thead>
+                <tr>
+                    <th>Réponse</th>
+                    <th>Actions </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var answer in Model.QuestionAnswerList)
+                {
+                    <tr>
+                        <td>
+                            @answer.AnswerContent
+                        </td>
+                        <td>
+                            @Html.ActionLink("Modifier", "EditQuestionAnswer", new { answerId = answer.Id }) |
+                            @Html.ActionLink("Supprimer", "DeleteAnswer", new { answerId = answer.Id }) |
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+        <br />
+        @Html.ActionLink("Ajouter une réponse", "AddQuestionAnswer", new { questionId = Model.Id })
+    }
+
+  
+</div>
+<div>
+    @Html.ActionLink("Modifier", "Edit", new { questionId = Model.Id }) |
+    @Html.ActionLink("retour à la Liste", "List")
+</div>

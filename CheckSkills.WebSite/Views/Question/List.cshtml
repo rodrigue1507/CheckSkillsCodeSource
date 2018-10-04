@@ -1,0 +1,48 @@
+﻿@model IEnumerable<QuestionViewModel>
+
+@{
+    ViewData["Title"] = "Liste des questions";
+    Layout = "_Layout";
+}
+<div class="page-header">Liste des questions</div>
+
+@*<div>@Html.ActionLink("Créer une question", "Create", "Question", null, new { type = "button", @class = "btn btn-primary btn-lg btn-block shadow-lg" })</div>*@
+
+<div>
+    @using (Html.BeginForm("List", "Question", FormMethod.Post))
+    {
+        <div >
+            <table class="table table table-responsive table-bordered table table-hover">
+                <tr>
+                    <th class="text-center">Contenu</th>
+                    <th>Type</th>
+                    <th>catégorie</th>
+                    <th>Difficulté</th>
+                </tr>
+                @foreach (var questionVM in Model)
+                {
+
+                <tr>
+                    <td>
+                        @questionVM.Content
+                    </td>
+                    <td>
+                        @questionVM.TypeName
+                    </td>
+                    <td>
+                        @questionVM.CategoryName
+                    </td>
+                    <td class="text-center">
+                        @questionVM.DifficultyLevel
+                    </td>
+                    <td class="glyphicon glyphicon-edit">@Html.ActionLink("Modifier", "Edit", new { type = "button", @class = "btn btn-link", questionId = questionVM.Id })</td>
+                    <td class="glyphicon glyphicon-trash">@Html.ActionLink("Supprimer", "ConfirmDeleteOrNo", new { type = "button", @class = "btn btn-link", questionId = questionVM.Id })</td>
+                </tr>
+
+                }
+            </table>
+
+        </div>
+    }
+</div>
+

@@ -1,0 +1,80 @@
+﻿@model CreateSurveyViewModel
+
+@{
+    ViewData["Title"] = "Creation";
+    Layout = "_Layout";
+}
+
+<div class="page-header" style="font-weight:bold">Création-Formulaire</div>
+@using (Html.BeginForm("Create", "Survey", FormMethod.Post))
+{
+    @Html.ValidationSummary()
+    <div class="form-group row selectform panel panel-primary" id="filtre">
+
+        <div class="panel-heading table-responsive"> Filtrer</div>
+        <div class="panel-body">
+            <div>
+                <div class="form-group row">
+                    <div class="filter-selected-option">@Html.LabelFor(model => model.TypeId, new { @class = "col-sm-2 col-form-label" })</div>
+                    <div class="filter-selected-option">@Html.DropDownListFor(model => model.TypeId, Model.QuestionTypes, "Non-défini", new { @class = "form-control" })</div>
+                </div>
+                <div class="form-group row">
+                    <div class="filter-selected-option">@Html.LabelFor(model => model.CategoryId, new { @class = "col-sm-2 col-form-label" })</div>
+                    <div class="filter-selected-option">
+                        @Html.DropDownListFor(model => model.CategoryId, Model.Categories, "Non-défini", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="filter-selected-option">@Html.LabelFor(model => model.DifficultyId, new { @class = "col-sm-2 col-form-label" })</div>
+                    <div class="filter-selected-option">@Html.DropDownListFor(model => model.DifficultyId, Model.Difficulties, "Non-défini", new { @class = "form-control" })</div>
+                </div>
+            </div>
+            <div class="pull-right">
+                <input type="submit" name="filter" value="soumettre" class="btn btn-primary filter-selected-option"
+                       formaction="FilterQuestions" formmethod="post" />
+            </div>
+        </div>
+        @*<button id="surveyFilterId" data-url="@Url.Action("FilterQuestions", "Survey")">Filtrer</button>*@
+    </div>
+
+
+    <div id="question-list" data-target=".panel-title">
+        <div class="panel-title form-control " style="text-align:center; margin-bottom:15px; width: 900px;">Choisir les questions à insérer dans votre formulaire</div>
+        <div style="background-color:lightgrey; height:480px;">
+            @for (int i = 0; i < Model.SurveySelectedQuestions.Count; i++)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading"></div>
+                    <div class="panel-body">
+                        <table class="table  table-hover table-responsive table-condensed">
+                            <tr>
+                                <td style="width:110px">
+                                    [@Html.DisplayFor(m => m.SurveySelectedQuestions[i].CategoryName)/@Html.DisplayFor(m => m.SurveySelectedQuestions[i].TypeName)/@Html.DisplayFor(m => m.SurveySelectedQuestions[i].DifficultyLevel)]
+
+                                </td>
+                                <td style="font-weight:bold">
+                                    @Html.CheckBoxFor(m => m.SurveySelectedQuestions[i].IsChecked, new { @class = "selectedQuestion" })
+                                    @Html.DisplayFor(m => m.SurveySelectedQuestions[i].Content)
+                                </td>
+
+                                @Html.HiddenFor(m => m.SurveySelectedQuestions[i].Id)
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+    <hr />
+    <div id="create-retour-button">
+        <div id="create-button">
+            <input type="submit" name="create" value="Générer le formulaire"
+                   formaction="Create" formmethod="post" class="btn btn-success" />
+        </div>
+
+        <div id="retour-button">@Html.ActionLink("retour à la page d'accueil", "index", "Home", null, new { type = "button", @class = "btn btn-warning" })</div>
+    </div>
+}
+

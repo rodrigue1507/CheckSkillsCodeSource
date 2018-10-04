@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SurveyViewModel>
+@{
+    Layout = "_Layout";
+}
+
+@using (Html.BeginForm("SurveyList", "Survey", FormMethod.Post))
+{
+    <div>
+        <table class="table table table-responsive table-bordered table table-hover">
+            <tr>
+                <th>Nom</th>
+                <th>Date de création</th>
+            </tr>
+            @foreach (var surveyVM in Model)
+            {
+            <tr>
+                <td>
+                    @surveyVM.name
+                </td>
+
+                <td>
+                    @surveyVM.CreationDate
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "ConsultSurveyDetails", new { surveyId = surveyVM.id })
+                </td>
+
+                <td>
+                    @Html.ActionLink("Supprimer", "ConfirmDelete", new { surveyId = surveyVM.id })
+                </td>
+            </tr>
+            }
+        </table>
+    </div>
+}

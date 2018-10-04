@@ -1,0 +1,11 @@
+D:\CheckSkills\src\CheckSkills\CheckSkills.Web\bin\Debug\netcoreapp2.0\CheckSkills.Web.deps.json
+D:\CheckSkills\src\CheckSkills\CheckSkills.Web\bin\Debug\netcoreapp2.0\CheckSkills.Web.runtimeconfig.json
+D:\CheckSkills\src\CheckSkills\CheckSkills.Web\bin\Debug\netcoreapp2.0\CheckSkills.Web.runtimeconfig.dev.json
+D:\CheckSkills\src\CheckSkills\CheckSkills.Web\bin\Debug\netcoreapp2.0\CheckSkills.Web.dll
+D:\CheckSkills\src\CheckSkills\CheckSkills.Web\bin\Debug\netcoreapp2.0\CheckSkills.Web.pdb
+D:\CheckSkills\src\CheckSkills\CheckSkills.Web\obj\Debug\netcoreapp2.0\CheckSkills.Web.csprojResolveAssemblyReference.cache
+D:\CheckSkills\src\CheckSkills\CheckSkills.Web\obj\Debug\netcoreapp2.0\CheckSkills.Web.csproj.CoreCompileInputs.cache
+D:\CheckSkills\src\CheckSkills\CheckSkills.Web\obj\Debug\netcoreapp2.0\CheckSkills.Web.AssemblyInfoInputs.cache
+D:\CheckSkills\src\CheckSkills\CheckSkills.Web\obj\Debug\netcoreapp2.0\CheckSkills.Web.AssemblyInfo.cs
+D:\CheckSkills\src\CheckSkills\CheckSkills.Web\obj\Debug\netcoreapp2.0\CheckSkills.Web.dll
+D:\CheckSkills\src\CheckSkills\CheckSkills.Web\obj\Debug\netcoreapp2.0\CheckSkills.Web.pdb

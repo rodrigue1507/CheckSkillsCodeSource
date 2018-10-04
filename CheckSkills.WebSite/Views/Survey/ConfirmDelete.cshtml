@@ -1,0 +1,12 @@
+﻿@model SurveyViewModel
+@{
+    ViewData["Title"] = "ConfirmDelete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+voulez-vous supprimer ?
+
+@Html.ActionLink("oui", "Delete")
+@Html.ActionLink("non", "SurveyList")
+
+

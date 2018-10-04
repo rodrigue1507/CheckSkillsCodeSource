@@ -1,0 +1,9 @@
+D:\CheckSkills\src\CheckSkills\CheckSkills.Sevices\bin\Debug\netstandard2.0\CheckSkills.Sevices.deps.json
+D:\CheckSkills\src\CheckSkills\CheckSkills.Sevices\bin\Debug\netstandard2.0\CheckSkills.Sevices.dll
+D:\CheckSkills\src\CheckSkills\CheckSkills.Sevices\bin\Debug\netstandard2.0\CheckSkills.Sevices.pdb
+D:\CheckSkills\src\CheckSkills\CheckSkills.Sevices\obj\Debug\netstandard2.0\CheckSkills.Sevices.csproj.CoreCompileInputs.cache
+D:\CheckSkills\src\CheckSkills\CheckSkills.Sevices\obj\Debug\netstandard2.0\CheckSkills.Sevices.AssemblyInfoInputs.cache
+D:\CheckSkills\src\CheckSkills\CheckSkills.Sevices\obj\Debug\netstandard2.0\CheckSkills.Sevices.AssemblyInfo.cs
+D:\CheckSkills\src\CheckSkills\CheckSkills.Sevices\obj\Debug\netstandard2.0\CheckSkills.Sevices.dll
+D:\CheckSkills\src\CheckSkills\CheckSkills.Sevices\obj\Debug\netstandard2.0\CheckSkills.Sevices.pdb
+D:\CheckSkills\src\CheckSkills\CheckSkills.Sevices\obj\Debug\netstandard2.0\CheckSkills.Sevices.csprojAssemblyReference.cache

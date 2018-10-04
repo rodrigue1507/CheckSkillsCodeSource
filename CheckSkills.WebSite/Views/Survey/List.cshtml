@@ -1,0 +1,86 @@
+﻿@model CreateConfirmationSurveyViewModel
+@{
+    ViewData["Title"] = "Liste des questions";
+    Layout = "_Layout";
+    int i = 0;
+}
+
+@using (Html.BeginForm("SaveSurvey", "Survey", FormMethod.Post))
+{
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">Validation du formlaire</div>
+            <div class="panel-body">
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        @Html.DisplayNameFor(m => m.Name)    
+                    </div>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                        <small id="nameHelp" class="form-text text-muted">Donner un nom à votre formulaire</small>
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </div>
+
+                </div>
+
+                @foreach (var questionGrouped in Model.SurveySelectedQuestions.GroupBy(q => q.CategoryName))
+                {
+                    <h3><span class="label label-info"> @questionGrouped.Key</span></h3>
+                    <div class="form-group col-md-12">
+
+
+                        @foreach (var questionVM in questionGrouped.ToList())
+                        {
+                            i++;
+                            switch (questionVM.TypeName)
+                            {
+                                case "Question-Reponse":
+
+                                    <div class="form-group row">
+                                        <label>Question @i: </label>@questionVM.Content
+                                    </div>
+                                    <div class="form-group row">
+                                        <textarea class="form-control" readonly rows="2"></textarea>
+                                    </div>
+                                    break;
+
+                                case "QCM":
+
+                                    <div class="form-group row">
+                                        <label>Question @i: </label>@questionVM.Content
+                                    </div>
+
+                                    @foreach (var answer in questionVM.QuestionAnswerList)
+                                    {
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="answer_@answer.Id">
+                                            <label class="form-check-label" for="answer_@answer.Id">
+                                                @answer.AnswerContent
+                                            </label>
+                                        </div>
+                                    }
+                                    break;
+                            }
+                        }
+                    </div>
+
+                }
+
+            </div>
+        </div>
+
+        <div class="row">
+            <input type="submit" class="btn btn-primary" value="Enregistrer le formulaire" />
+            @Html.ActionLink("Imprimer le formulaire", "PrintSurvey", "Survey", new { SurveySelectedQuestions = Model.OriginalSurveySelectedQuestions }, new { type = "button", @class = "btn btn-info pull-right" })
+        </div>
+
+        @for (var q = 0; q < Model.OriginalSurveySelectedQuestions.Count(); q++)
+        {
+            var question = Model.OriginalSurveySelectedQuestions.ToList()[q];
+
+            @Html.Hidden("OriginalSurveySelectedQuestions", question)
+        }
+    </div>
+}
+
+

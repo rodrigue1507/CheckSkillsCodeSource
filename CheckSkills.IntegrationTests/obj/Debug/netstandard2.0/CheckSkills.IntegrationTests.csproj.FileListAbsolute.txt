@@ -1,0 +1,17 @@
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\obj\Debug\netstandard2.0\CheckSkills.IntegrationTests.csprojResolveAssemblyReference.cache
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\obj\Debug\netstandard2.0\CheckSkills.IntegrationTests.csproj.CoreCompileInputs.cache
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\obj\Debug\netstandard2.0\CheckSkills.IntegrationTests.AssemblyInfoInputs.cache
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\obj\Debug\netstandard2.0\CheckSkills.IntegrationTests.AssemblyInfo.cs
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\bin\Debug\netstandard2.0\CheckSkills.IntegrationTests.deps.json
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\bin\Debug\netstandard2.0\CheckSkills.IntegrationTests.dll
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\bin\Debug\netstandard2.0\CheckSkills.IntegrationTests.pdb
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\bin\Debug\netstandard2.0\CheckSkills.DAL.dll
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\bin\Debug\netstandard2.0\CheckSkills.Domain.dll
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\bin\Debug\netstandard2.0\CheckSkills.DAL.pdb
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\bin\Debug\netstandard2.0\CheckSkills.Domain.pdb
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\obj\Debug\netstandard2.0\CheckSkills.IntegrationTests.csproj.CopyComplete
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\obj\Debug\netstandard2.0\CheckSkills.IntegrationTests.dll
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\obj\Debug\netstandard2.0\CheckSkills.IntegrationTests.pdb
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\bin\Debug\netstandard2.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\bin\Debug\netstandard2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+D:\CheckSkills\src\CheckSkills\CheckSkills.IntegrationTests\bin\Debug\netstandard2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll

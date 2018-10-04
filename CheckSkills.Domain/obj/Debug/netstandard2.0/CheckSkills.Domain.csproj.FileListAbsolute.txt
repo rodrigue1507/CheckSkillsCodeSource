@@ -1,0 +1,9 @@
+D:\CheckSkills\src\CheckSkills\CheckSkills.Domain\bin\Debug\netstandard2.0\CheckSkills.Domain.deps.json
+D:\CheckSkills\src\CheckSkills\CheckSkills.Domain\bin\Debug\netstandard2.0\CheckSkills.Domain.dll
+D:\CheckSkills\src\CheckSkills\CheckSkills.Domain\bin\Debug\netstandard2.0\CheckSkills.Domain.pdb
+D:\CheckSkills\src\CheckSkills\CheckSkills.Domain\obj\Debug\netstandard2.0\CheckSkills.Domain.csproj.CoreCompileInputs.cache
+D:\CheckSkills\src\CheckSkills\CheckSkills.Domain\obj\Debug\netstandard2.0\CheckSkills.Domain.AssemblyInfoInputs.cache
+D:\CheckSkills\src\CheckSkills\CheckSkills.Domain\obj\Debug\netstandard2.0\CheckSkills.Domain.AssemblyInfo.cs
+D:\CheckSkills\src\CheckSkills\CheckSkills.Domain\obj\Debug\netstandard2.0\CheckSkills.Domain.dll
+D:\CheckSkills\src\CheckSkills\CheckSkills.Domain\obj\Debug\netstandard2.0\CheckSkills.Domain.pdb
+D:\CheckSkills\src\CheckSkills\CheckSkills.Domain\obj\Debug\netstandard2.0\CheckSkills.Domain.csprojAssemblyReference.cache

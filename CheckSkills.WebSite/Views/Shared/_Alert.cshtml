@@ -1,0 +1,13 @@
+﻿@{
+    var success = ViewData["Success"]?.ToString();
+    if (ViewData["Success"] == null)
+    {
+        success = TempData["Success"]?.ToString();
+    }
+}
+<br />
+<br />
+<br />
+    @if (!string.IsNullOrWhiteSpace(success)) {
+<div class="alert alert-success">@success</div>
+}
