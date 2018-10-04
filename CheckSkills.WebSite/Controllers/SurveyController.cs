@@ -179,10 +179,19 @@ namespace CheckSkills.WebSite.Controllers
 
 
 
-        public IActionResult Delete(int s)
+        public IActionResult Delete(int surveyId)
         {
+            var survey = _surveyDao.GetAllSurvey().FirstOrDefault(s => s.Id == surveyId);
+            var model = new SurveyViewModel()
+            {
+               
+                id = survey.Id,
+                name = survey.Name,
+                CreationDate = survey.CreationDate,
+                surveyEvaluation = survey.SurveyEvaluation
+            };
 
-            _surveyDao.DeleteSurvey(s);
+            _surveyDao.DeleteSurvey(surveyId);
 
             return RedirectToAction("SurveyList");
         }

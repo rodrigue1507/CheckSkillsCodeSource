@@ -166,30 +166,30 @@ namespace CheckSkills.DAL
                     SqlCommand cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
                     {
                         CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
-                        CommandText = "DELETE FROM Survey WHERE Id = @Id", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
+                        CommandText = "DELETE FROM Survey_Question WHERE SurveyId = @sId;",
                         Connection = sqlConnection1, // etablie la connection.
                         Transaction = transaction
                     };
 
                     //ouvre la connection à la base de donnée.
                                            // permet de definir les variables values dans CommandText.
-                    cmd.Parameters.AddWithValue("@Id", surveyId);
+                    cmd.Parameters.AddWithValue( "@sId", surveyId);
 
                     var result = cmd.ExecuteNonQuery();
 
-                    if (result > null && int.TryParse(result.ToString(), out var s)) // convertit result.ToString() en int et le stock dans s
+                    if (result != null && int.TryParse(result.ToString(), out var s)) // convertit result.ToString() en int et le stock dans s
                     {
                        
                             var cmd2 = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
                             {
                                 CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
-                                CommandText = "DELETE FROM Survey_Question WHERE SurveyId = @sId;", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
+                                CommandText = "DELETE FROM Survey WHERE Id = @Id",
                                 Connection = sqlConnection1, // etablie la connection.
                                 Transaction = transaction
                             };
 
                             // permet de definir les variables values dans CommandText. 
-                            cmd2.Parameters.AddWithValue("@sId", surveyId);
+                            cmd2.Parameters.AddWithValue("@Id", surveyId);
 
                             cmd2.ExecuteNonQuery();
                         
