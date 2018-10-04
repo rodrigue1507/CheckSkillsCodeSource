@@ -11,7 +11,8 @@ namespace CheckSkills.Domain
 
         int UpdateSurvey(Survey q);
     
-        void DeleteSurvey(int q);
+        void DeleteSurvey(int surveyId);
+
         Survey SelectSurveyInfo(int surveyId);
     }
 }

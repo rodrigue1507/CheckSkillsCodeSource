@@ -67,6 +67,8 @@ namespace CheckSkills.DAL
             return surveys;
         }
 
+
+
         public void DeleteQuestionSurvey(int questionId)
         {
             using (SqlConnection sqlConnection1 = new SqlConnection(_connectionString)) // using permet de refermer la connection après ouverture
@@ -87,27 +89,29 @@ namespace CheckSkills.DAL
         }
 
 
-        public IEnumerable<Question> GetSurvey_Questions (int surveyId)
+        public IEnumerable<Question> GetSurvey_Questions(int surveyId)
         {
             IEnumerable<Question> questions = new List<Question>();
+            IEnumerable<Answer> answers = new List<Answer>();
+
 
             using (SqlConnection sqlConnection1 = new SqlConnection(_connectionString)) // using permet de refermer la connection après ouverture
             {
                 //ouvre la connection à la base de donnée.
-                    
 
-                    var cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
-                    {
-                        CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
-                        CommandText = "SELECT QuestionId FROM Survey_Question WHERE SurveyId = @surveyId;", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
-                        Connection = sqlConnection1, // etablie la connection.
-                    };
 
-                    // permet de definir les variables values dans CommandText. 
-                    cmd.Parameters.AddWithValue("@SurveyId", surveyId);
-                    sqlConnection1.Open();
+                var cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
+                {
+                    CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
+                    CommandText = "SELECT QuestionId FROM Survey_Question WHERE SurveyId = @surveyId;", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
+                    Connection = sqlConnection1, // etablie la connection.
+                };
 
-                    var result = cmd.ExecuteReader(); // execute la requete et return l'element de la première ligne à la première colonne
+                // permet de definir les variables values dans CommandText. 
+                cmd.Parameters.AddWithValue("@SurveyId", surveyId);
+                sqlConnection1.Open();
+
+                var result = cmd.ExecuteReader(); // execute la requete et return l'element de la première ligne à la première colonne
                 var survey_questions = new List<Survey_Question>();
                 while (result.Read())
                 {
@@ -115,7 +119,6 @@ namespace CheckSkills.DAL
                     {
                         SurveyId = surveyId,
                         QuestionId = Convert.ToInt32(result["QuestionId"])
-
                     };
                     survey_questions.Add(survey_question);
                 }
@@ -124,33 +127,32 @@ namespace CheckSkills.DAL
                     questions = _questionDao.GetAll()?.Where(q => survey_questions.Any(sq => sq.QuestionId == q.Id));
                 }
 
+                //une autre manière de recupération de question.
 
-                    //une autre manière de recupération de question.
-                    
-                    //foreach (var element in  survey_questions)
-                    //{
-                    //    var getQuestionById = _questionDao.GetBydId(element.QuestionId);
-                    //    var 
-                    //    foreach (var question in questions)
-                    //    {
-                    //        var q = new Question()
-                    //        {
-                    //            Id = getQuestionById.Id,
-                    //            Content = getQuestionById.Content,
-                    //            Category = getQuestionById.Category,
-                    //            Difficulty = getQuestionById.Difficulty,
-                    //            Type = getQuestionById.Type
-                    //        };
-                    //        questions.Add(q);
-                    //    }
-                    //}
+                //foreach (var element in  survey_questions)
+                //{
+                //    var getQuestionById = _questionDao.GetBydId(element.QuestionId);
+                //    var 
+                //    foreach (var question in questions)
+                //    {
+                //        var q = new Question()
+                //        {
+                //            Id = getQuestionById.Id,
+                //            Content = getQuestionById.Content,
+                //            Category = getQuestionById.Category,
+                //            Difficulty = getQuestionById.Difficulty,
+                //            Type = getQuestionById.Type
+                //        };
+                //        questions.Add(q);
+                //    }
+                //}
 
-                    //};
+                //};
             }
             return questions;
         }
 
 
     }
-    
+
 }

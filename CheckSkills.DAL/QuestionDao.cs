@@ -93,6 +93,7 @@ namespace CheckSkills.DAL
             return questions;
         }
 
+
         public  Question GetBydId(int questionId)
         {
             // Use ADO.Net to DB access

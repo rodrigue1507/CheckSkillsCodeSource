@@ -6,7 +6,7 @@
 
 voulez-vous supprimer ?
 
-@Html.ActionLink("oui", "Delete")
+@Html.ActionLink("oui", "Delete", new { surveyId = Model.id  })
 @Html.ActionLink("non", "SurveyList")
 
 

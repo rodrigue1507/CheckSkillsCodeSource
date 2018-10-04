@@ -90,7 +90,7 @@ namespace CheckSkills.DAL
 
                     var result = cmd.ExecuteScalar(); // execute la requete et return l'element de la première ligne à la première colonne
 
-                    if (result != null && int.TryParse(result.ToString(), out var surveyId)) // convertit result.ToString() en int et le stock dans questionId
+                    if (result != null && int.TryParse(result.ToString(), out var surveyId)) // convertit result.ToString() en int et le stock dans surveyId
                     {
                         foreach (var questionId in questionIds)
                         {
@@ -121,6 +121,9 @@ namespace CheckSkills.DAL
         }
 
 
+
+
+
         public int UpdateSurvey(Survey q)
         {
             using (SqlConnection sqlConnection1 = new SqlConnection(_connectionString)) // using permet de refermer la connection après ouverture
@@ -130,6 +133,7 @@ namespace CheckSkills.DAL
                     CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
                     CommandText = "UPDATE Question SET Name = @Name, @SurveyEvaluation = @SurveyEvaluation, WHERE Id = @Id", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
                     Connection = sqlConnection1, // etablie la connection.
+
                 };
 
 
@@ -155,20 +159,54 @@ namespace CheckSkills.DAL
         {
             using (SqlConnection sqlConnection1 = new SqlConnection(_connectionString)) // using permet de refermer la connection après ouverture
             {
-                SqlCommand cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
+                sqlConnection1.Open();
+                var transaction = sqlConnection1.BeginTransaction();
+                try
                 {
-                    CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
-                    CommandText = "DELETE FROM Survey WHERE Id = @Id", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
-                    Connection = sqlConnection1, // etablie la connection.
-                };
+                    SqlCommand cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
+                    {
+                        CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
+                        CommandText = "DELETE FROM Survey WHERE Id = @Id", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
+                        Connection = sqlConnection1, // etablie la connection.
+                        Transaction = transaction
+                    };
 
-                sqlConnection1.Open(); //ouvre la connection à la base de donnée.
+                    //ouvre la connection à la base de donnée.
+                                           // permet de definir les variables values dans CommandText.
+                    cmd.Parameters.AddWithValue("@Id", surveyId);
 
-                // permet de definir les variables values dans CommandText.
-                cmd.Parameters.AddWithValue("@Id", surveyId);
-                cmd.ExecuteNonQuery();
+                    var result = cmd.ExecuteNonQuery();
+
+                    if (result > null && int.TryParse(result.ToString(), out var s)) // convertit result.ToString() en int et le stock dans s
+                    {
+                       
+                            var cmd2 = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
+                            {
+                                CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
+                                CommandText = "DELETE FROM Survey_Question WHERE SurveyId = @sId;", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
+                                Connection = sqlConnection1, // etablie la connection.
+                                Transaction = transaction
+                            };
+
+                            // permet de definir les variables values dans CommandText. 
+                            cmd2.Parameters.AddWithValue("@sId", surveyId);
+
+                            cmd2.ExecuteNonQuery();
+                        
+                    }
+
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+
             }
         }
+
+
 
         public Survey SelectSurveyInfo(int surveyId)
         {
