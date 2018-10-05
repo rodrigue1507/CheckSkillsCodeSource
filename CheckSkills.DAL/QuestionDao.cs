@@ -153,7 +153,7 @@ namespace CheckSkills.DAL
                         Name = result["QuestionTypeName"].ToString()
                     }
                 };
-                //question.Answers = _answerDao.GetByQuestionId(question.Id);
+                question.Answers = _answerDao.GetByQuestionId(question.Id);
                 return question;
             }
         }

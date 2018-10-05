@@ -5,6 +5,7 @@
 }
 
 
+<div class="container-fluid">
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">Validation du formlaire</div>
@@ -14,7 +15,7 @@
                         @Html.DisplayNameFor(m => m.Name)
                     </div>
                     <div class="col-md-10">
-                       
+
                         @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @disabled = true })
                         <small id="nameHelp" class="form-text text-muted">Donner un nom à votre formulaire</small>
                     </div>
@@ -28,7 +29,6 @@
                     <h3><span class="label label-info"> @questionGrouped.Key</span></h3>
                     <div class="form-group col-md-12">
 
-
                         @foreach (var questionVM in questionGrouped.ToList())
                         {
                             i++;
@@ -40,7 +40,7 @@
                                         <label>Question @i: </label>@questionVM.Content
                                     </div>
                                     <div class="form-group row">
-                                        <textarea class="form-control" readonly rows="2"></textarea>
+                                        <textarea class="form-control" readonly rows="4"></textarea>
                                     </div>
                                     break;
 
@@ -68,12 +68,6 @@
 
             </div>
         </div>
-
-        <div class="row">
-            <input type="submit" class="btn btn-primary" value="Enregistrer le formulaire" />
-            @*@Html.ActionLink("Imprimer le formulaire", "PrintSurvey", "Survey", new { SurveySelectedQuestions = Model.OriginalSurveySelectedQuestions }, new { type = "button", @class = "btn btn-info pull-right" })*@
-        </div>
-
-       
+        <a href="@Url.Action("SurveyList","Survey")">retour à la liste</a>
     </div>
-
+</div>

@@ -124,7 +124,7 @@ namespace CheckSkills.WebSite.Controllers
                             TypeName = question.Type.Name,
                             DifficultyLevel = question.Difficulty.DifficultyLevel,
                             Content = question.Content,
-                            QuestionAnswerList = answers.Where(r => r.QuestionId == question.Id).Select(r => new CreateOrUpdateQuestionAnswerViewModel
+                            QuestionAnswerList = answers.Where(r => r.QuestionId == question.Id).Select(r => new CreateOrUpdateAnswerViewModel
                             {
                                 Id = r.Id,
                                 QuestionId = r.QuestionId,
@@ -212,38 +212,41 @@ namespace CheckSkills.WebSite.Controllers
         public IActionResult ConsultSurveyDetails(int surveyId)
         {
             var getSurveyInfo = _surveyDao.SelectSurveyInfo(surveyId);
-            var getSurveyQuestionLists = _survey_Question.GetSurvey_Questions(surveyId);
-            var questiondblists = new List<QuestionViewModel>();
-            foreach (var getSurveyQuestionList in getSurveyQuestionLists)
+            var questionLists = _survey_Question.GetSurvey_Questions(surveyId);
+            var questionViewModels = new List<QuestionViewModel>();
+            foreach (var question in questionLists)
             {
-                var QuestionAnswerLists = new List<CreateOrUpdateQuestionAnswerViewModel>();
-
-                foreach (var QuestionAnswerList in QuestionAnswerLists)
+                var questionViewModel = new QuestionViewModel()
                 {
-                    QuestionAnswerLists.Add(
-                        new CreateOrUpdateQuestionAnswerViewModel()
-                        {
-                            QuestionId = getSurveyQuestionList.Id,
-                            QuestionContent = getSurveyQuestionList.Content,
-                            //AnswerContent = getSurveyQuestionList.Answer.Content
-                        });
+                    Id = question.Id,
+                    Content = question.Content,
+                    TypeName = question.Type.Name,
+                    CategoryName = question.Category.Name                    
                 };
-                questiondblists.Add(
-                        new QuestionViewModel()
-                        {
-                            Id = getSurveyQuestionList.Id,
-                            Content = getSurveyQuestionList.Content,
-                            QuestionTypeName = getSurveyQuestionList.Type.Name,
-                            CategoryName = getSurveyQuestionList.Category.Name,
-                            QuestionAnswerList = QuestionAnswerLists
-                        });
+
+                var answerViewModels = new List<CreateOrUpdateAnswerViewModel>();
+                foreach (var answer in question.Answers)
+                {
+                    var answerViewModel = new CreateOrUpdateAnswerViewModel()
+                    {
+                        Id = answer.Id,
+                        AnswerContent = answer.Content,
+                        QuestionId = question.Id,
+                        QuestionContent = question.Content
+                    };
+
+                    answerViewModels.Add(answerViewModel);
+                };
+                questionViewModel.QuestionAnswerList = answerViewModels;
+                questionViewModels.Add(questionViewModel);
             };
+
             var model = new SurveyDetailViewModel()
             {
                 Name = getSurveyInfo.Name,
                 DateCreation = getSurveyInfo.CreationDate,
                 SurveyEvaluation = getSurveyInfo.SurveyEvaluation,
-                SurveySelectedQuestions = questiondblists
+                SurveySelectedQuestions = questionViewModels
             };
 
             return View(model);

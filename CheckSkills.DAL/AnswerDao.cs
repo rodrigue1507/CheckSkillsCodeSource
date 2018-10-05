@@ -95,7 +95,42 @@ namespace CheckSkills.DAL
                 return answer;
             }
         }
-        
+
+
+
+        public IEnumerable<Answer> GetByQuestionId(int questionId)
+        {
+            var answers = new List<Answer>();
+            using (SqlConnection sqlConnection1 = new SqlConnection(_connectionString)) // using permet de refermer la connection après ouverture
+            {
+                SqlCommand cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
+                {
+                    CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
+                    CommandText = "SELECT Content FROM Answer WHERE QuestionId = @qId;", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
+                    Connection = sqlConnection1, // etablie la connection.
+                };
+
+                // permet de definir les variables values dans CommandText. 
+                cmd.Parameters.AddWithValue("@qId", questionId);
+
+                sqlConnection1.Open(); //ouvre la connection à la base de donnée.
+
+                var result = cmd.ExecuteReader(); // execute la requete et return l'element de la première ligne à la première colonne
+
+                while (result.Read())
+                {
+                    var answer = new Answer()
+                    {
+                        Content = result["Content"].ToString()
+                    };
+                answers.Add(answer);
+                };
+            }
+
+            return answers;
+        }
+
+
 
         public int CreateAnswer(Answer r)
         {
@@ -171,7 +206,7 @@ namespace CheckSkills.DAL
                 SqlCommand cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
                 {
                     CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
-                    CommandText = "UPDATE Answer SET Content = @Content  WHERE Id = @answerId", 
+                    CommandText = "UPDATE Answer SET Content = @Content  WHERE Id = @answerId",
                     Connection = sqlConnection1, // etablie la connection.
                 };
 

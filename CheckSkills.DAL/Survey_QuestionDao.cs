@@ -127,27 +127,6 @@ namespace CheckSkills.DAL
                     questions = _questionDao.GetAll()?.Where(q => survey_questions.Any(sq => sq.QuestionId == q.Id));
                 }
 
-                //une autre manière de recupération de question.
-
-                //foreach (var element in  survey_questions)
-                //{
-                //    var getQuestionById = _questionDao.GetBydId(element.QuestionId);
-                //    var 
-                //    foreach (var question in questions)
-                //    {
-                //        var q = new Question()
-                //        {
-                //            Id = getQuestionById.Id,
-                //            Content = getQuestionById.Content,
-                //            Category = getQuestionById.Category,
-                //            Difficulty = getQuestionById.Difficulty,
-                //            Type = getQuestionById.Type
-                //        };
-                //        questions.Add(q);
-                //    }
-                //}
-
-                //};
             }
             return questions;
         }

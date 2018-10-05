@@ -7,7 +7,7 @@ namespace CheckSkills.Domain
     {
       IEnumerable<Survey> GetAllSurvey();
       void DeleteQuestionSurvey(int questionId);
-    
       IEnumerable<Question> GetSurvey_Questions(int surveyId);
     }
 }
+    

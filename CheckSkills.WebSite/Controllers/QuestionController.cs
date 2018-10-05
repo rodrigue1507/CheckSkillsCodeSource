@@ -179,7 +179,7 @@ namespace CheckSkills.WebSite.Controllers
                 if (question.Type.Name == "QCM")
                 {
                     var answerDtos = _answerDao.GetAll().Where(r => r.QuestionId == questionId);
-                    var Answers = answerDtos.Select(r => new CreateOrUpdateQuestionAnswerViewModel
+                    var Answers = answerDtos.Select(r => new CreateOrUpdateAnswerViewModel
                     {
                         Id = r.Id,
                         QuestionId = r.QuestionId,
@@ -297,11 +297,11 @@ namespace CheckSkills.WebSite.Controllers
 
             if (question != null)
             {
-                List<CreateOrUpdateQuestionAnswerViewModel> answers = null;
+                List<CreateOrUpdateAnswerViewModel> answers = null;
                 if (question.Type.Name == "QCM")
                 {
                     var answerDtos = _answerDao.GetAll().Where(r => r.QuestionId == questionId);
-                    answers = answerDtos.Select(r => new CreateOrUpdateQuestionAnswerViewModel
+                    answers = answerDtos.Select(r => new CreateOrUpdateAnswerViewModel
                     {
                         Id = r.Id,
                         QuestionId = r.QuestionId,

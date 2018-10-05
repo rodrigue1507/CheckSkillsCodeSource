@@ -21,6 +21,6 @@ namespace CheckSkills.WebSite.ViewModels
 
         public bool IsChecked { get; set; }
 
-        public List<CreateOrUpdateQuestionAnswerViewModel> QuestionAnswerList { get; set; }      
+        public List<CreateOrUpdateAnswerViewModel> QuestionAnswerList { get; set; }      
     }
 }

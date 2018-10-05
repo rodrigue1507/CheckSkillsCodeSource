@@ -13,23 +13,25 @@
             </tr>
             @foreach (var surveyVM in Model)
             {
-            <tr>
-                <td>
-                    @surveyVM.name
-                </td>
+                <tr>
+                    <td>
+                        @surveyVM.name
+                    </td>
 
-                <td>
-                    @surveyVM.CreationDate
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "ConsultSurveyDetails", new { surveyId = surveyVM.id })
-                </td>
+                    <td>
+                        @surveyVM.CreationDate
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "ConsultSurveyDetails", new { surveyId = surveyVM.id })
+                    </td>
 
-                <td>
-                    @Html.ActionLink("Supprimer", "ConfirmDelete", new { surveyId = surveyVM.id })
-                </td>
-            </tr>
+                    <td>
+                        @Html.ActionLink("Supprimer", "ConfirmDelete", new { surveyId = surveyVM.id })
+                    </td>
+                </tr>
             }
         </table>
     </div>
+
+   
 }

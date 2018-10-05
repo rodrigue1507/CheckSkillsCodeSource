@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace CheckSkills.WebSite.ViewModels
 {
     //methode contenant tous les éléments pour la creation de formulaire
-    public class CreateOrUpdateQuestionAnswerViewModel
+    public class CreateOrUpdateAnswerViewModel
     {
         public int? Id { get; set; }
         
@@ -15,5 +15,8 @@ namespace CheckSkills.WebSite.ViewModels
         public string QuestionContent { get; set; }
         [Display(Name="Réponse")]
         public string AnswerContent { get; set; }
+      
+
+
     }
 }

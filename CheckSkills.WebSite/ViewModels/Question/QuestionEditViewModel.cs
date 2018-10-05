@@ -17,7 +17,7 @@ namespace CheckSkills.WebSite.ViewModels
         public string TypeName { get; set; }
         public string DifficultyLevel { get; set; }
         public bool IsChecked { get; set; }
-        public List<CreateOrUpdateQuestionAnswerViewModel> QuestionAnswerList { get; set; }
+        public List<CreateOrUpdateAnswerViewModel> QuestionAnswerList { get; set; }
         public List<CreateOrUpdateQuestionViewModel> QuestionList { get; set; }
 
     }

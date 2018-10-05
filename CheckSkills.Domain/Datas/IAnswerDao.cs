@@ -14,5 +14,6 @@ namespace CheckSkills.Domain
         int UpdateAnswer(Answer r);
         void DeleteAnswer(int answerId);
         void DeleteAnswerQuestionId(int questionId);
+        IEnumerable<Answer> GetByQuestionId(int questionId);
     }
 }
