@@ -20,7 +20,11 @@ ul#menu_right li
     display : inline;
     padding : 0.5em;
 }
-
+ul#action li 
+{
+    display: inline;
+    padding: 1em;
+}
 .top-header_left {
     float: left;
     margin-left: 100px;
