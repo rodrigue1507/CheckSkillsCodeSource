@@ -1,7 +1,6 @@
 ﻿body {
    
-    padding-bottom: 20px;
-    
+    padding-bottom: 20px; 
 }
 
 .top-header {
@@ -20,10 +19,11 @@ ul#menu_right li
     display : inline;
     padding : 0.5em;
 }
-ul#action li 
+
+
+#form-info
 {
-    display: inline;
-    padding: 1em;
+  
 }
 .top-header_left {
     float: left;
