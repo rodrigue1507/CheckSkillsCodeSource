@@ -13,7 +13,7 @@ namespace CheckSkills.WebSite.ViewModels
         public string Name { get; set; }
         public string SurveyEvaluation { get; set; }
 
-        [Display(Name="Catégorie")]
+        [Display(Name = "Catégorie")]
         public int? CategoryId { get; set; }
 
         [Display(Name = "Difficulté")]
@@ -21,6 +21,7 @@ namespace CheckSkills.WebSite.ViewModels
 
         [Display(Name = "Type")]
         public int? TypeId { get; set; }
+        public string Indéfini {get;set;}
 
 
         public IList<QuestionViewModel> SurveySelectedQuestions { get; set; }

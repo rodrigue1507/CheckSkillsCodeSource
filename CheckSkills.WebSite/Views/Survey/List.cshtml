@@ -4,16 +4,16 @@
     Layout = "_Layout";
     int i = 0;
 }
-
+@Html.ValidationSummary("Un ou plusieurs champs sont obligatoire, veuillez vérifier S'il vous plait.")
 @using (Html.BeginForm("SaveSurvey", "Survey", FormMethod.Post))
 {
-    <div class="container">
+    <div class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-heading">Validation du formlaire</div>
             <div class="panel-body">
                 <div class="form-group row">
                     <div class="col-md-2">
-                        @Html.DisplayNameFor(m => m.Name)    
+                        @Html.DisplayNameFor(m => m.Name)
                     </div>
                     <div class="col-md-10">
                         @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })

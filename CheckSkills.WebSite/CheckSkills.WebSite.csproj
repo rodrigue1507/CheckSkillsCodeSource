@@ -44,7 +44,7 @@
     <Content Update="Views\Shared\_Layout3.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Shared\_Layout2.cshtml">
+    <Content Update="Views\Shared\_LayoutPrintSurvey.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Survey\EditorTemplates\_QuestionViewModel.cshtml">

@@ -67,13 +67,17 @@ namespace CheckSkills.WebSite.Controllers
         [HttpGet]
         public IActionResult PrintSurvey(IEnumerable<int> surveySelectedQuestions)
         {
-            var selectedQuestionViewModels = GetSelectedQuestionViewModel(surveySelectedQuestions);
-            var model = new CreateConfirmationSurveyViewModel()
-            {
-                SurveySelectedQuestions = selectedQuestionViewModels,
-                OriginalSurveySelectedQuestions = surveySelectedQuestions
-            };
-            return new ViewAsPdf("PrintSurvey", model);
+            if(ModelState.IsValid)
+                {
+                var selectedQuestionViewModels = GetSelectedQuestionViewModel(surveySelectedQuestions);
+                var model = new CreateConfirmationSurveyViewModel()
+                {
+                    SurveySelectedQuestions = selectedQuestionViewModels,
+                    OriginalSurveySelectedQuestions = surveySelectedQuestions
+                };
+                return new ViewAsPdf("PrintSurvey", model);
+            }
+            return RedirectToAction("SurveyList");
         }
 
 
@@ -94,12 +98,12 @@ namespace CheckSkills.WebSite.Controllers
                 catch (Exception exception)
                 {
 
-                }               
+                }
 
                 return RedirectToAction(nameof(Create));
             }
 
-            surveyModel.SurveySelectedQuestions = GetSelectedQuestionViewModel(surveyModel.OriginalSurveySelectedQuestions);           
+            surveyModel.SurveySelectedQuestions = GetSelectedQuestionViewModel(surveyModel.OriginalSurveySelectedQuestions);
             return View(surveyModel);
         }
 
@@ -184,7 +188,7 @@ namespace CheckSkills.WebSite.Controllers
             var survey = _surveyDao.GetAllSurvey().FirstOrDefault(s => s.Id == surveyId);
             var model = new SurveyViewModel()
             {
-               
+
                 id = survey.Id,
                 name = survey.Name,
                 CreationDate = survey.CreationDate,
@@ -221,7 +225,7 @@ namespace CheckSkills.WebSite.Controllers
                     Id = question.Id,
                     Content = question.Content,
                     TypeName = question.Type.Name,
-                    CategoryName = question.Category.Name                    
+                    CategoryName = question.Category.Name
                 };
 
                 var answerViewModels = new List<CreateOrUpdateAnswerViewModel>();

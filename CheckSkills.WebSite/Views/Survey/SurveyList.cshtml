@@ -45,10 +45,10 @@
                         @foreach (var surveyVM in Model)
                         {
                             <tr class="edit" id="detail">
-                                <td id="no" class="text-center"> @surveyVM.name</td>
-                                <td id="name" class="text-center">  @surveyVM.CreationDate </td>
-                                <td id="mobile" class="text-center">   @Html.ActionLink("Details", "ConsultSurveyDetails", new { surveyId = surveyVM.id }) </td>
-                                <td id="mail" class="text-center">  @Html.ActionLink("Supprimer", "ConfirmDelete", new { surveyId = surveyVM.id }) </td>
+                                <td  class="text-center"> @surveyVM.name</td>
+                                <td  class="text-center">  @surveyVM.CreationDate </td>
+                                <td class="text-center">   @Html.ActionLink("Details", "ConsultSurveyDetails", new { surveyId = surveyVM.id }) </td>
+                                <td class="text-center">  @Html.ActionLink("Supprimer", "ConfirmDelete", new { surveyId = surveyVM.id }) </td>
                             </tr>
                         }
                     </tbody>

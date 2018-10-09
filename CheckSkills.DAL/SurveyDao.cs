@@ -12,7 +12,7 @@ namespace CheckSkills.DAL
         private readonly string _connectionString = @"Data Source=SGEW0481\FORMULAIRE;Initial Catalog=CheckSkills;Integrated Security=true";
 
         public string Name { get; private set; }
-
+        public DateTime date { get; private set; }
 
 
         public IEnumerable<Survey> GetAllSurvey()
@@ -70,6 +70,7 @@ namespace CheckSkills.DAL
 
         public void CreateSurvey(string name, List<int> questionIds)
         {
+            
             using (SqlConnection sqlConnection1 = new SqlConnection(_connectionString)) // using permet de refermer la connection après ouverture
             {
                 sqlConnection1.Open(); //ouvre la connection à la base de donnée.
@@ -80,14 +81,16 @@ namespace CheckSkills.DAL
                     var cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
                     {
                         CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
-                        CommandText = "INSERT Survey (Name) VALUES (@Name); SELECT SCOPE_IDENTITY();", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
+                        CommandText = "INSERT Survey (Name,CreationDate) VALUES (@Name,@CreationDate);", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
                         Connection = sqlConnection1, // etablie la connection.
                         Transaction = transaction
                     };
 
+                    date = DateTime.Now;
                     // permet de definir les variables values dans CommandText. 
                     cmd.Parameters.AddWithValue("@Name", name);
-
+                    cmd.Parameters.AddWithValue("@CreationDate", date);
+     
                     var result = cmd.ExecuteScalar(); // execute la requete et return l'element de la première ligne à la première colonne
 
                     if (result != null && int.TryParse(result.ToString(), out var surveyId)) // convertit result.ToString() en int et le stock dans surveyId
