@@ -7,64 +7,72 @@
 
 @using (Html.BeginForm("Create", "Survey", FormMethod.Post))
 {
-    <div class="container">     
-                    @Html.ValidationSummary()
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="form-group col-xs-3">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">@Html.LabelFor(model => model.TypeId, new { @class = "col-sm-2 col-form-label" })</div>
-                                    <div class="panel-body">@Html.DropDownListFor(model => model.TypeId, Model.QuestionTypes, "Non-défini", new { @class = "form-control" })</div>
-                                </div>
-                            </div>
-                            <div class="form-group row col-xs-3">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">@Html.LabelFor(model => model.CategoryId, new { @class = "col-sm-2 col-form-label" })</div>
-                                    <div class="panel-body">@Html.DropDownListFor(model => model.CategoryId, Model.Categories, "Non-défini", new { @class = "form-control" })</div>
-                                </div>
-                            </div>
+    <div class="container-fluid ">
+        @Html.ValidationSummary()
+        <div class="filtre-border">
+            <div class="row">
+                <div class="form-group col-xs-4 col-sm-4 col-lg-4 col-md-4">
+                    <div class="panel panel-success">
+                        <div class="panel-heading background-color-panel">@Html.LabelFor(model => model.TypeId, new { @class = "col-form-label", })</div>
+                        <div class="panel-body">@Html.DropDownListFor(model => model.TypeId, Model.QuestionTypes, "Non-défini", new { @class = "form-control" })</div>
+                    </div>
+                </div>
+                <div class="form-group row col-xs-4 col-sm-4 col-lg-4 col-md-4">
+                    <div class="panel panel-success">
+                        <div class="panel-heading background-color-panel">@Html.LabelFor(model => model.CategoryId, new { @class = "col-form-label",  })</div>
+                        <div class="panel-body">@Html.DropDownListFor(model => model.CategoryId, Model.Categories, "Non-défini", new { @class = "form-control" })</div>
+                    </div>
+                </div>
 
-                            <div class="form-group row col-xs-3">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">@Html.LabelFor(model => model.DifficultyId, new { @class = "col-sm-2 col-form-label" })</div>
-                                    <div class="panel-body">@Html.DropDownListFor(model => model.DifficultyId, Model.Difficulties, "Non-défini", new { @class = "form-control" })</div>
-                                </div>
-                            </div>
+                <div class="form-group row col-xs-4 col-sm-4 col-lg-4 col-md-4">
+                    <div class="panel panel-success">
+                        <div class="panel-heading background-color-panel">@Html.LabelFor(model => model.DifficultyId, new { @class = "col-form-label",})</div>
+                        <div class="panel-body">@Html.DropDownListFor(model => model.DifficultyId, Model.Difficulties, "Non-défini", new { @class = "form-control" })</div>
+                    </div>
+                </div>
+                <div class="form-group row text-center">
+                    
+                    <div class="col-xs-12 ">
+                        <input type="submit" name="filter" value="Trier" class="btn btn-warning  text-center filter-selected-option"
+                               formaction="FilterQuestions" formmethod="post" />
+                    </div>
+                  
+                </div>
+            </div>
 
-                            <div class="form-group col-xs-3">
-                                <input type="submit" name="filter" value="soumettre" class="btn btn-primary filter-selected-option"
-                                       formaction="FilterQuestions" formmethod="post" />
-                            </div>
-                        </div>
-                        </div>
-                        @*<button id="surveyFilterId" data-url="@Url.Action("FilterQuestions", "Survey")">Filtrer</button>*@
         </div>
-
-        <div>
-            @for (int i = 0; i < Model.SurveySelectedQuestions.Count; i++)
-            {
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <div class="caption">
-                            [@Html.DisplayFor(m => m.SurveySelectedQuestions[i].CategoryName)/@Html.DisplayFor(m => m.SurveySelectedQuestions[i].TypeName)/@Html.DisplayFor(m => m.SurveySelectedQuestions[i].DifficultyLevel)]
-                        </div>
-                        <div class="ratings">
-                            @Html.CheckBoxFor(m => m.SurveySelectedQuestions[i].IsChecked, new { @class = "selectedQuestion" })
-                            @Html.DisplayFor(m => m.SurveySelectedQuestions[i].Content)
-                            @Html.HiddenFor(m => m.SurveySelectedQuestions[i].Id)
+        @*<button id="surveyFilterId" data-url="@Url.Action("FilterQuestions", "Survey")">Filtrer</button>*@
+    </div>
+    <hr />
+    <div class="row">
+        @for (int i = 0; i < Model.SurveySelectedQuestions.Count; i++)
+        {
+            <div class=" col-xs-4 col-sm-4 col-lg-4 col-md-4 panel-body-height">
+                <div class="panel panel-primary parent">
+                    <div class="panel-heading ">
+                        <div class="text-center">@Html.DisplayFor(m => m.SurveySelectedQuestions[i].CategoryName) - @Html.DisplayFor(m => m.SurveySelectedQuestions[i].TypeName) - @Html.DisplayFor(m => m.SurveySelectedQuestions[i].DifficultyLevel)</div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-1 col-sm-1 col-lg-1 col-md-1">@Html.CheckBoxFor(m => m.SurveySelectedQuestions[i].IsChecked, new { @class = "selectedQuestion" })</div>
+                            <div class="col-xs-10 col-sm-10 col-lg-10 col-md-10">
+                                <marquee behavior="slide" scrollamount="17" class="content-child">@Html.DisplayFor(m => m.SurveySelectedQuestions[i].Content)</marquee>
+                                <div class="child">@Html.DisplayFor(m => m.SurveySelectedQuestions[i].Content)</div>
+                            </div>
+                            <div>@Html.HiddenFor(m => m.SurveySelectedQuestions[i].Id)</div>
                         </div>
                     </div>
                 </div>
-            }
-        </div>
-
-        <div id="create-retour-button">
-            <div id="create-button">
-                <input type="submit" name="create" value="Générer le formulaire"
-                       formaction="Create" formmethod="post" class="btn btn-success" />
             </div>
 
-            <div id="retour-button">@Html.ActionLink("retour à la page d'accueil", "index", "Home", null, new { type = "button", @class = "btn btn-warning" })</div>
+        }
+    </div>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="row validation-section">
+            <div id="retour-button" class="col-xs-6">@Html.ActionLink("Retour à liste des formulaires", "SurveyList", "Survey", null, new { type = "button", @class = "btn btn-default", style = "border-color:#1a1a1a;margin:15px" })</div>
+            <div id="create-button" class="col-xs-6 text-right"><input type="submit" name="create" value="Générer le formulaire" formaction="Create" formmethod="post" class="btn btn-success" style="margin:15px"/></div>
         </div>
-    
+    </nav>
+
 }
