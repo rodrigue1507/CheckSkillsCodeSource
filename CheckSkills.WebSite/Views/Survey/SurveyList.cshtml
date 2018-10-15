@@ -15,29 +15,29 @@
                     <div class="col-xs-9 col-sm-9 col-md-9">
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             @*<div class="col-xs-12 col-md-4">
-                                <label> Search </label>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control input-md" name="search">
-                                        <div class="input-group-btn">
-                                            <button type="button" class="btn btn-md btn-warning"> <span class=" glyphicon glyphicon-search"></span></button>
+                                    <label> Search </label>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-md" name="search">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-md btn-warning"> <span class=" glyphicon glyphicon-search"></span></button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>*@
+                                </div>*@
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="panel-body table-responsive">
-                <table class="table table-hover">
+                <table id="table-survey-list-id" class="table table-hover">
                     <thead>
                         <tr>
-                            <th class="text-center"> titre </th>
+                            <th class="text-center"> Titre </th>
                             <th class="text-center"> Date de création </th>
                             <th class="text-center">Détails</th>
-                            <th class="text-center">supprimer</th>
+                            <th class="text-center">Supprimer</th>
                         </tr>
                     </thead>
 
@@ -45,8 +45,8 @@
                         @foreach (var surveyVM in Model)
                         {
                             <tr class="edit" id="detail">
-                                <td  class="text-center"> @surveyVM.name</td>
-                                <td  class="text-center">  @surveyVM.CreationDate </td>
+                                <td class="text-center"> @surveyVM.name</td>
+                                <td class="text-center">  @surveyVM.CreationDate </td>
                                 <td class="text-center">   @Html.ActionLink("Details", "ConsultSurveyDetails", new { surveyId = surveyVM.id }) </td>
                                 <td class="text-center">  @Html.ActionLink("Supprimer", "ConfirmDelete", new { surveyId = surveyVM.id }) </td>
                             </tr>
@@ -71,5 +71,3 @@
 
 
 }
-
- 

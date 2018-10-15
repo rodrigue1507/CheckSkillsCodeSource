@@ -14,8 +14,19 @@
     border-bottom: 1px solid #aaa
 }
 
+#top-header-print {
+    position: fixed;
+    width: 100%;
+    padding-left:15px; 
+    height: 60px;
+    line-height: 48px;
+    text-align: left;
+    font-size: 14px;
+    background-color: #31333b;
+    border-bottom: 1px solid #aaa
+}
+
 ul#menu_right li {
-    
     display: inline;
     padding: 0.5em;
 }
@@ -23,9 +34,10 @@ ul#menu_right li a{
     color:#fff;
 }
 
-/*ul#menu_right li a:hover {
+a, a:hover {
+    text-decoration: none;
     color: #fff;
-}*/
+}
 
 #form-info {
 }
@@ -186,5 +198,114 @@ img {
 
 .list-head-padding{
     background-color:#99FFFF;
+}
+
+.field-validation-error {
+    color: #f00;
+}
+
+.validation-summary-errors {
+    color: #f00;
+    font-weight: bold
+}
+
+.input-validation-error {
+    border: 2px solid #f00;
+    background-color: #fee
+}
+
+input[type="checkbox"].input-validation-error {
+    outline: 2px solid #f00;
+}
+
+
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #5cb85c; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+}
+
+    /* Show the snackbar when clicking on a button (class added with JavaScript) */
+    #snackbar.show {
+        visibility: visible; /* Show the snackbar */
+        /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+   However, delay the fade out process for 2.5 seconds */
+        -webkit-animation: fadein 1s, fadeout 0.5s 2.5s;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+
+#modif {
+    color: #333;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
 }
 

@@ -4,7 +4,7 @@
 }
 
 
-@using (Html.BeginForm("Create", "Question", FormMethod.Post))
+@using (Html.BeginForm("Create", "Question", FormMethod.Post, new { @class = "js-form-createAndContinue-Question" }))
 {
     <div class="container-fluid">
 
@@ -33,7 +33,7 @@
                         @Html.LabelFor(m => m.CategoryId, new { @class = "col-form-label" })
                     </div>
                     <div class="col-xs-10">
-                        @Html.DropDownListFor(m => m.CategoryId, Model.Categories ,"Non-défini", new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.CategoryId, Model.Categories, "Non-défini", new { @class = "form-control" })
                     </div>
                 </div>
                 <div class="form-group row">
@@ -48,37 +48,46 @@
 
             <div class="panel-footer">
                 <div class="row">
-                        <div class="col-xs-4  pull-left">
-                            <button type="submit" class="btn btn-default"> @Html.ActionLink("retour à la liste des questions sans enregistrer", "List")</button>
-                        </div>
+                    <div class="col-xs-4  pull-left">
+                        <button type="submit" class="btn btn-default" style="background-color:#5f677e;border: none;"> @Html.ActionLink("Retour à la liste des questions sans enregistrer", "List")</button>
+                    </div>
 
-                        <div class="col-xs-4 text-center">
-                            <button type="submit" class="btn btn-warning"><a>enregistrer et retour</a></button>
-                        </div>
+                    <div class="col-xs-4 text-center">
+                        <button type="submit" class="btn btn-warning" style="background-color:#5f677e;border: none;">Enregistrer et retour</button>
+                    </div>
 
-                        <div class="col-xs-4 text-right">
-                            <buton type="submit" class="btn btn-success">@Html.ActionLink("enregistrer et nouveau", "SaveNewCreate", "Question", null, new { @class = "saveButton", onclick = "return false;" })</buton>
-                        </div>
+                    <div class="col-xs-4 text-right">
+                        <buton class="btn btn-success js-btn-createAndContinue-Question" style="background-color:#5f677e;border: none;">Enregistrer et nouveau</buton>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 }
 
-@section Scripts
-{
+@section Scripts{
+
     <script>
-        $(document).ready(function () {
-            $('.saveButton').click(function () {
-                $(this).closest('form')[0].action = "/sauvegarde-question";
-                $(this).closest('form')[0].submit(); 
+        $(function () {
+            $(".js-btn-createAndContinue-Question").click(function () {
+                var form = $('.js-form-createAndContinue-Question');
+
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (response) {
+                        location.href = "@Url.Action("Create", "Question", new { created=true})";
+                    }
+                });
+
             });
 
-            $('.saveButton').click(function () {
-                $(this).toastr.success("enregistré")[0].action = "/sauvegarde-question";
-                $(this).toastr.success("enregistré")[0].submit();
-            });
+            if ($('.js-alert') !== undefined)
+                $('.js-alert').show(0).delay(5000).hide(0);
         });
-
     </script>
 }
+
+

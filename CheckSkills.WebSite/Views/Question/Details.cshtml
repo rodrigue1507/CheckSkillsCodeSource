@@ -58,27 +58,38 @@
             <tbody>
                 @foreach (var answer in Model.QuestionAnswerList)
                 {
-                    <tr>
-                        <td>
-                            @answer.AnswerContent
-                        </td>
-                        <td>
-                            @Html.ActionLink("Modifier", "EditQuestionAnswer", new { answerId = answer.Id }) |
-                            @Html.ActionLink("Supprimer", "DeleteAnswer", new { answerId = answer.Id }) |
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @answer.AnswerContent
+                    </td>
+                    <td>
+                        @Html.ActionLink("Modifier", "EditQuestionAnswer", new { answerId = answer.Id }) |
+                        @Html.ActionLink("Supprimer", "DeleteAnswer", new { answerId = answer.Id }) |
+                    </td>
+                </tr>
 
                 }
             </tbody>
         </table>
     </div>
-        <br />
-        @Html.ActionLink("Ajouter une réponse", "AddQuestionAnswer", new { questionId = Model.Id })
+    <br />
+    @Html.ActionLink("Ajouter une réponse", "AddQuestionAnswer", new { questionId = Model.Id })
     }
 
-  
+
 </div>
 <div>
     @Html.ActionLink("Modifier", "Edit", new { questionId = Model.Id }) |
     @Html.ActionLink("retour à la Liste", "List")
 </div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            if ($('.js-alert') !== undefined)
+                $('.js-alert').show(0).delay(1000).hide(0);
+        });
+    </script>
+
+}

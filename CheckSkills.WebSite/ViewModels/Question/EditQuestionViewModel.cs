@@ -9,21 +9,23 @@ namespace CheckSkills.WebSite.ViewModels
     {
         public int? Id { get; set; }
 
-        [Required(ErrorMessage = "Le contenu est obligatoire")]
+        [Required(ErrorMessage = "Vous avez oublié de remplir le champ contenu")]
         [Display(Name = "Contenu")]
         public string Content { get; set; }
 
+        [Required(ErrorMessage = " La catégorie de question n'a pas été précisé")]
         [Display(Name = "Catégorie")]
         public int CategoryId { get; set; }
 
+        [Required(ErrorMessage = "Le niveau de difficulté n'a pas été précisé")]
         [Display(Name = "Difficulté")]
         public int DifficultyId { get; set; }
 
+        [Required(ErrorMessage = "Le type de question n'a pas été précisé")]
         [Display(Name = "Type")]
         public int TypeId { get; set; }
 
-        [Display(Name = "Nom du type")]
-        public string TypeName { get; set; }
+       
 
         public IEnumerable<SelectListItem> Categories { get; set; }
         public IEnumerable<SelectListItem> Difficulties { get; set; }

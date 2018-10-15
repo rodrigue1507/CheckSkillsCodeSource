@@ -4,7 +4,7 @@
     Layout = "_Layout";
     int i = 0;
 }
-@Html.ValidationSummary("Un ou plusieurs champs sont obligatoire, veuillez vérifier S'il vous plait.")
+
 @using (Html.BeginForm("SaveSurvey", "Survey", FormMethod.Post))
 {
     <div class="container-fluid">
@@ -16,7 +16,7 @@
                         @Html.DisplayNameFor(m => m.Name)
                     </div>
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control js-survey-name" })
                         <small id="nameHelp" class="form-text text-muted">Donner un nom à votre formulaire</small>
                         @Html.ValidationMessageFor(m => m.Name)
                     </div>
@@ -71,7 +71,7 @@
 
         <div class="row">
             <input type="submit" class="btn btn-primary" value="Enregistrer le formulaire" />
-            @Html.ActionLink("Imprimer le formulaire", "PrintSurvey", "Survey", new { SurveySelectedQuestions = Model.OriginalSurveySelectedQuestions }, new { type = "button", @class = "btn btn-info pull-right" })
+            <input class="btn btn-info pull-right js-btn-print-survey" type="button" value="Imprimer le formulaireasas" />
         </div>
 
         @for (var q = 0; q < Model.OriginalSurveySelectedQuestions.Count(); q++)
@@ -81,6 +81,17 @@
             @Html.Hidden("OriginalSurveySelectedQuestions", question)
         }
     </div>
+}
+
+@section Scripts
+{
+    <script>
+        $(".js-btn-print-survey").click(function (item) {
+            var surveyName = $(".js-survey-name").val();
+            location.href = '@Url.Action("PrintSurvey", "Survey",new { surveySelectedQuestions = Model.OriginalSurveySelectedQuestions })' + '&surveyName=' + surveyName;
+        });
+
+    </script>
 }
 
 

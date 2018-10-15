@@ -9,6 +9,20 @@ namespace CheckSkills.WebSite.Controllers
             set
             {
                 TempData["Success"] = ViewData["Success"] = value;
-            }}
+               
+            }
+        }
+
+        public string Fail
+        {
+            set
+            {
+                TempData["Fail"] = ViewData["Fail"] = value;
+
+            }
+        }
+        
     }
 }
+
+

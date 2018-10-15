@@ -1,30 +1,35 @@
-﻿@model EditAnswerViewModel;
+﻿@model CreateOrUpdateQuestionViewModel;
 
-<h2>Réponses</h2>
+<div class="js-edit-question-answers ">
+    <h2>Réponses</h2>
 
-<div table="table-responsive row">
-    <table class="table col-lg-5">
-        <thead>
-            <tr>
-                <th>Réponse</th>
-                <th>Actions </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var answer in Model.QuestionAnswerList)
-            {
+    <div table="table-responsive row">
+        <table class="table col-lg-5">
+            <thead>
                 <tr>
-                    <td>
-                        @answer.AnswerContent
-                    </td>
-                    <td>
-                        @Html.ActionLink("Modifier", "EditQuestionAnswer", new { answerId = answer.Id }) |
-                        @Html.ActionLink("Supprimer", "DeleteQuestionAnswer", new { answerId = answer.Id }) |
-                    </td>
+                    <th>Réponse</th>
+                    <th>Actions </th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @if (Model.EditAnswerViewModel != null)
+                {
+                    foreach (var answer in Model.EditAnswerViewModel.QuestionAnswerList)
+                    {
+                        <tr>
+                            <td>
+                                @answer.AnswerContent
+                            </td>
+                            <td>
+                                @Html.ActionLink("Modifier", "EditQuestionAnswer", new { answerId = answer.Id }) |
+                                @Html.ActionLink("Supprimer", "DeleteQuestionAnswer", new { answerId = answer.Id }) |
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <br />
+    @Html.ActionLink("Ajouter une réponse", "AddQuestionAnswer", new { questionId = Model.EditQuestionViewModel.Id })
 </div>
-<br />
-@Html.ActionLink("Ajouter une réponse", "AddQuestionAnswer", new { questionId = Model.QuestionId })

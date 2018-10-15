@@ -65,15 +65,18 @@ namespace CheckSkills.WebSite.Controllers
 
         //action permettant d'imprimer le formulaire generer.
         [HttpGet]
-        public IActionResult PrintSurvey(IEnumerable<int> surveySelectedQuestions)
+        public IActionResult PrintSurvey(IEnumerable<int> surveySelectedQuestions, string surveyName)
         {
+
             if(ModelState.IsValid)
                 {
                 var selectedQuestionViewModels = GetSelectedQuestionViewModel(surveySelectedQuestions);
+                var surveyModel = new CreateConfirmationSurveyViewModel();
                 var model = new CreateConfirmationSurveyViewModel()
                 {
                     SurveySelectedQuestions = selectedQuestionViewModels,
-                    OriginalSurveySelectedQuestions = surveySelectedQuestions
+                    OriginalSurveySelectedQuestions = surveySelectedQuestions,
+                    Name = surveyName
                 };
                 return new ViewAsPdf("PrintSurvey", model);
             }
@@ -157,8 +160,7 @@ namespace CheckSkills.WebSite.Controllers
 
         public IActionResult SurveyList()
         {
-            var surveys = _surveyDao.GetAllSurvey();
-
+            var surveys = _surveyDao.GetAllSurvey(); 
             var surveyListViewModels = new List<SurveyViewModel>();
             if (surveys != null && surveys.Any())
             {
@@ -169,7 +171,7 @@ namespace CheckSkills.WebSite.Controllers
                         {
                             id = survey.Id,
                             name = survey.Name,
-                            CreationDate = survey.CreationDate,
+                            CreationDate = survey.CreationDate.ToString("dd/MM/yyyy"),
                             surveyEvaluation = survey.SurveyEvaluation
                         }
                         );
@@ -191,7 +193,7 @@ namespace CheckSkills.WebSite.Controllers
 
                 id = survey.Id,
                 name = survey.Name,
-                CreationDate = survey.CreationDate,
+                CreationDate = survey.CreationDate.ToString("dd/MM/yyyy"),
                 surveyEvaluation = survey.SurveyEvaluation
             };
 
@@ -207,7 +209,7 @@ namespace CheckSkills.WebSite.Controllers
             {
                 id = survey.Id,
                 name = survey.Name,
-                CreationDate = survey.CreationDate,
+                CreationDate = survey.CreationDate.ToString("dd/MM/yyyy"),
                 surveyEvaluation = survey.SurveyEvaluation
             };
             return View("confirmDelete", model);

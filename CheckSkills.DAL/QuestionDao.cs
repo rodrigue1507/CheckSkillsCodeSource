@@ -115,13 +115,11 @@ namespace CheckSkills.DAL
 	                                    q.Content,
 	                                    c.Name AS QuestionCategoryName,
 	                                    d.QuestionDifficultyLevel ,
-	                                    qt.Name AS QuestionTypeName,
-                                        a.content AS AnwserContent
+	                                    qt.Name AS QuestionTypeName
                                     FROM Question q
                                     INNER JOIN QuestionDifficulty d ON q.QuestionDifficultyId = d.Id
                                     INNER JOIN QuestionType qt ON q.QuestionTypeId = qt.Id
                                     INNER JOIN QuestionCategory c ON q.QuestionCategoryId = c.Id
-                                    INNER JOIN Answer a ON q.Id = a.QuestionId
                                     WHERE q.Id = @questionId",
                     Connection = sqlConnection1, // etablie la connection.
                 };

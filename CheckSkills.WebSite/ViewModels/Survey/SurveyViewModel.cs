@@ -10,7 +10,7 @@ namespace CheckSkills.WebSite.ViewModels
     {
         public int id { get; set; }
         public string name { get; set; }
-        public DateTime CreationDate { get; set; }
+        public string CreationDate { get; set; }
         public string surveyEvaluation { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using CheckSkills.DAL;
 using CheckSkills.Domain;
 using CheckSkills.Domain.Entities;
 using CheckSkills.WebSite.ViewModels.Answer;
+using CheckSkills.Domain.Constants;
 
 namespace CheckSkills.WebSite.Controllers
 {
@@ -19,15 +20,20 @@ namespace CheckSkills.WebSite.Controllers
         private IAnswerDao _answerDao;
         private ISurvey_QuestionDao _survey_QuestionDao;
 
+        private const string SuccessMessage = "La creation a bien ete effectuee";
+
+
+
         //constructeur de questions 
-        public QuestionController()
-            :this(new QuestionDao(new AnswerDao()),
+        public QuestionController(IQuestionDao questionDao)
+            : this(questionDao,
                  new QuestionCategoryDao(),
                  new QuestionDifficultyDao(),
                  new QuestionTypeDao(),
                  new AnswerDao(),
                  new Survey_QuestionDao())
         {
+
         }
 
         // Use this constructor for DI after
@@ -50,8 +56,8 @@ namespace CheckSkills.WebSite.Controllers
         [HttpGet]
         public IActionResult List()
         {
-            
-             var questions = _questionDao.GetAll();
+
+            var questions = _questionDao.GetAll();
 
             // Convertir en view models, 
             // en recuperant seulement les données dont la vue a besoin
@@ -86,7 +92,7 @@ namespace CheckSkills.WebSite.Controllers
 
                 //transformer le viewModel en une entité Question
 
-                var question = new Domain.Entities.Question
+                var question = new Question
                 {
                     Category = new QuestionCategory { Id = model.CategoryId }, //
                     Content = model.Content,
@@ -98,11 +104,12 @@ namespace CheckSkills.WebSite.Controllers
 
                 if (questionId > 0)
                 {
-                    Success = "La creation a bien ete effectuee";
-                    return RedirectToAction(nameof(Details), new { questionId });
+                    return RedirectToAction(nameof(Details), new { questionId, created = true });
                 }
                 else
-                    ModelState.AddModelError("CategoryId", "La question n'a pas été ajoutée!");
+                {
+                    ModelState.AddModelError("CategoryId", "La question n'a pas été créé");
+                }
             }
 
             AddReferenceDataToModel(model);
@@ -114,43 +121,53 @@ namespace CheckSkills.WebSite.Controllers
         public IActionResult SaveNewCreate(EditQuestionViewModel model)
         {
 
-            // Traitement pour sauvegarder les questions
-
-            //transformer le viewModel en une entité Question
-            var question = new Question
+            if (ModelState.IsValid)
             {
-                Category = new QuestionCategory { Id = model.CategoryId }, //
-                Content = model.Content,
-                Difficulty = new QuestionDifficulty { Id = model.DifficultyId },
-                Type = new QuestionType { Id = model.TypeId }
-            };
-            
-            var questionId = _questionDao.CreateQuestion(question);
+                // Traitement pour sauvegarder les questions
 
-            if (questionId > 0)
-            {
-                Success = "La creation a bien ete effectuee";
-                return RedirectToAction(nameof(Create));
+                //transformer le viewModel en une entité Question
+
+                var question = new Question
+                {
+                    Category = new QuestionCategory { Id = model.CategoryId }, //
+                    Content = model.Content,
+                    Difficulty = new QuestionDifficulty { Id = model.DifficultyId },
+                    Type = new QuestionType { Id = model.TypeId }
+                };
+
+                var questionId = _questionDao.CreateQuestion(question);
+
+                if (questionId > 0)
+                {
+                    return RedirectToAction(nameof(Create), new { created = true });
+                }
+                else
+                {
+                    ModelState.AddModelError("CategoryId", "La question n'a pas été créé");
+                }
             }
-                
-            
-            return View("Details", "QuestionViewModel" );
+            Fail = "Echec de creation de question car un des éléments sous dessous n'a pas été precisé";
+            return RedirectToAction(nameof(Create));
 
         }
-
 
 
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(bool created = false)
         {
             var model = new EditQuestionViewModel();
+
             AddReferenceDataToModel(model);
+
+            if (created)
+                ViewBag.Message = SuccessMessage;
+
             return View(model);
         }
 
 
-       
+
 
 
 
@@ -163,20 +180,21 @@ namespace CheckSkills.WebSite.Controllers
             {
                 var model = new CreateOrUpdateQuestionViewModel()
                 {
+                    QuestionTypeEnum = (QuestionTypeEnum)question.Type.Id,
                     EditQuestionViewModel = new EditQuestionViewModel
                     {
                         Id = question.Id,
                         Content = question.Content,
                         DifficultyId = question.Difficulty.Id,
                         TypeId = question.Type.Id,
-                        TypeName = question.Type.Name,
+
                         CategoryId = question.Category.Id
                     }
                 };
 
                 AddReferenceDataToModel(model.EditQuestionViewModel);
-                
-                if (question.Type.Name == "QCM")
+
+                if (model.QuestionTypeEnum == QuestionTypeEnum.Qcm)
                 {
                     var answerDtos = _answerDao.GetAll().Where(r => r.QuestionId == questionId);
                     var Answers = answerDtos.Select(r => new CreateOrUpdateAnswerViewModel
@@ -208,7 +226,7 @@ namespace CheckSkills.WebSite.Controllers
 
                 //transformer le viewModel en une entité Question
 
-                var question = new Domain.Entities.Question
+                var question = new Question
                 {
                     Id = model.Id.Value,
                     Category = new QuestionCategory { Id = model.CategoryId }, //
@@ -217,7 +235,7 @@ namespace CheckSkills.WebSite.Controllers
                     Type = new QuestionType { Id = model.TypeId }
 
                 };
-               
+
                 var questionId = _questionDao.UpdateQuestion(question);
 
                 if (questionId > 0)
@@ -226,7 +244,7 @@ namespace CheckSkills.WebSite.Controllers
                     ModelState.AddModelError("CategoryId", "La question n'a pas été mise à jour!");
             }
 
-           
+
             AddReferenceDataToModel(model);
 
             return View("Edit", model);
@@ -248,7 +266,7 @@ namespace CheckSkills.WebSite.Controllers
                 };
                 return View("Edit", AnswerViewModel);
             }
-            
+
             return RedirectToAction("List");
         }
 
@@ -261,7 +279,7 @@ namespace CheckSkills.WebSite.Controllers
             //_answerDao.DeleteAnswerQuestion(questionId);
             return RedirectToAction("List");
         }
-        
+
         [HttpGet]
         public IActionResult ConfirmDeleteOrNo(int questionId)
         {
@@ -277,12 +295,12 @@ namespace CheckSkills.WebSite.Controllers
                     CategoryName = question.Category.Name,
                     QuestionTypeName = question.Type.Name,
                 };
-                return View("ConfirmDeleteOrNo",model);
+                return View("ConfirmDeleteOrNo", model);
             }
 
             return RedirectToAction("DeleteError");
         }
-         
+
 
         public IActionResult DeleteError()
         {
@@ -291,7 +309,7 @@ namespace CheckSkills.WebSite.Controllers
 
 
         [HttpGet]
-        public IActionResult Details(int questionId)
+        public IActionResult Details(int questionId, bool created = false)
         {
             var question = _questionDao.GetAll().FirstOrDefault(q => q.Id == questionId);
 
@@ -311,7 +329,7 @@ namespace CheckSkills.WebSite.Controllers
                 }
 
 
-                var model = new ViewModels.QuestionViewModel()
+                var model = new QuestionViewModel()
                 {
                     Id = question.Id,
                     Content = question.Content,
@@ -319,15 +337,18 @@ namespace CheckSkills.WebSite.Controllers
                     CategoryName = question.Category.Name,
                     QuestionTypeName = question.Type.Name,
                     QuestionAnswerList = answers,
-                    TypeName = question.Type.Name
+                    TypeName = question.Type.Name,
                 };
+
+                if (created)
+                    ViewBag.Message = SuccessMessage;
 
                 return View(model);
             }
             return RedirectToAction("List");
         }
 
-       
+
 
         [HttpGet]
         public IActionResult AddQuestionAnswer(int questionId)

@@ -34,7 +34,7 @@
             </div>
 
             <div class="panel-body table-responsive">
-                <table class="table table-hover">
+                <table class="table table-hover" id="table-question-list-id">
                     <thead>
                         <tr>
                             <th class="text-center"> Contenu </th>
@@ -49,12 +49,12 @@
                         @foreach (var questionVM in Model)
                         {
                         <tr class="edit" id="detail">
-                            <td id="no" class="text-center"> @questionVM.Content</td>
-                            <td id="name" class="text-center">  @questionVM.TypeName </td>
-                            <td id="mobile" class="text-center">@questionVM.CategoryName</td>
-                            <td id="mail" class="text-center">@questionVM.DifficultyLevel </td>
-                            <td class="glyphicon glyphicon-edit">@Html.ActionLink("modifié","Edit", new { type = "button", @class = "btn btn-link ", questionId = questionVM.Id })</td>
-                            <td class="glyphicon glyphicon-trash">@Html.ActionLink("supprimer","ConfirmDeleteOrNo", new { type = "button", @class = "btn btn-link ", questionId = questionVM.Id })</td>
+                            <td id="cont" class="text-center"> @questionVM.Content</td>
+                            <td id="type" class="text-center">  @questionVM.TypeName </td>
+                            <td id="categ" class="text-center">@questionVM.CategoryName</td>
+                            <td id="diff" class="text-center">@questionVM.DifficultyLevel </td>
+                            <td id="modif">@Html.ActionLink("modifier", "Edit", new { type = "button", @class = "btn btn-default", questionId = questionVM.Id })</td>
+                            <td id="supp">@Html.ActionLink("Supprimer","ConfirmDeleteOrNo", new { type = "button", @class = "btn btn-default", questionId = questionVM.Id })</td>
                         </tr>
                         }
                     </tbody>
