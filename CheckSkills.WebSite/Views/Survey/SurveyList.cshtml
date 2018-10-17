@@ -3,7 +3,7 @@
     Layout = "_Layout";
 }
 
-@using (Html.BeginForm("SurveyList", "Survey", FormMethod.Post))
+@using (Html.BeginForm("SurveyList", "Survey", FormMethod.Post, new { @class = "js-form-SurveyList-Survey" }))
 {
     <div class="container-fluid">
         <div class="panel panel-primary  ">

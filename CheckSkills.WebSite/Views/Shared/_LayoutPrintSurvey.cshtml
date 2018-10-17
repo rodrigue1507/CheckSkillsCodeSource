@@ -21,11 +21,7 @@
 
 <body>
 
-    @Html.Partial("_Alert")
-    @RenderBody()
-
-
-
+    <div>@RenderBody()</div>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -56,4 +52,5 @@
 
     @RenderSection("Scripts", required: false)
 </body>
+
 </html>

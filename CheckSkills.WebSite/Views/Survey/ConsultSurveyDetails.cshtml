@@ -4,70 +4,96 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="row">
+    <div class="col-xs-12">
+        @using (Html.BeginForm("ConsultSurveyDetails", "Survey", FormMethod.Post, new { @class = "js-form-consultSurveyDetails-Survey" }))
+        {
+            <div class="container-fluid" data-url="">
+                <div class="container">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Validation du formlaire</div>
+                        <div class="panel-body">
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    @Html.DisplayNameFor(m => m.Name)
+                                </div>
+                                <div class="col-md-10">
 
-<div class="container-fluid">
-    <div class="container">
-        <div class="panel panel-default">
-            <div class="panel-heading">Validation du formlaire</div>
-            <div class="panel-body">
-                <div class="form-group row">
-                    <div class="col-md-2">
-                        @Html.DisplayNameFor(m => m.Name)
-                    </div>
-                    <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @disabled = true })
 
-                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @disabled = true })
-                       
+                                </div>
+
+                            </div>
+                            @{
+                                int i = 0;
+                            }
+                            @foreach (var questionGrouped in Model.SurveySelectedQuestions.GroupBy(q => q.CategoryName))
+                            {
+                                <h3><span class="label label-info"> @questionGrouped.Key</span></h3>
+                                <div class="form-group col-md-12">
+
+                                    @foreach (var questionVM in questionGrouped.ToList())
+                                    {
+                                        i++;
+                                        switch (questionVM.TypeName)
+                                        {
+                                            case "Question-Reponse":
+
+                                                <div class="form-group row">
+                                                    <label>Question @i: </label>@questionVM.Content
+                                                </div>
+                                                <div class="form-group row">
+                                                    <textarea class="form-control" readonly rows="4"></textarea>
+                                                </div>
+                                                break;
+
+                                            case "QCM":
+
+                                                <div class="form-group row">
+                                                    <label>Question @i: </label>@questionVM.Content
+                                                </div>
+
+                                                @foreach (var answer in questionVM.QuestionAnswerList)
+                                                {
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="answer_@answer.Id">
+                                                        <label class="form-check-label" for="answer_@answer.Id">
+                                                            @answer.AnswerContent
+                                                        </label>
+                                                    </div>
+                                                }
+                                                break;
+                                        }
+                                    }
+                                </div>
+
+                            }
+
+                        </div>
                     </div>
 
                 </div>
-                @{
-                    int i = 0;
-                }
-                @foreach (var questionGrouped in Model.SurveySelectedQuestions.GroupBy(q => q.CategoryName))
-                {
-                    <h3><span class="label label-info"> @questionGrouped.Key</span></h3>
-                    <div class="form-group col-md-12">
-
-                        @foreach (var questionVM in questionGrouped.ToList())
-                        {
-                            i++;
-                            switch (questionVM.TypeName)
-                            {
-                                case "Question-Reponse":
-
-                                    <div class="form-group row">
-                                        <label>Question @i: </label>@questionVM.Content
-                                    </div>
-                                    <div class="form-group row">
-                                        <textarea class="form-control" readonly rows="4"></textarea>
-                                    </div>
-                                    break;
-
-                                case "QCM":
-
-                                    <div class="form-group row">
-                                        <label>Question @i: </label>@questionVM.Content
-                                    </div>
-
-                                    @foreach (var answer in questionVM.QuestionAnswerList)
-                                    {
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="answer_@answer.Id">
-                                            <label class="form-check-label" for="answer_@answer.Id">
-                                                @answer.AnswerContent
-                                            </label>
-                                        </div>
-                                    }
-                                    break;
-                            }
-                        }
-                    </div>
-
-                }
-
             </div>
-        </div>
-        <a href="@Url.Action("SurveyList","Survey")">retour à la liste</a>
+        }
+    </div>
+    <div class="row col-xs-12 ">
+        <button id="js-btn-goBack-survey-consult" class="btn btn-default col-xs-6">Retour à la liste</button>
+        <button id="js-btn-print-survey" class="btn btn-default col-xs-6">imprimer</button>
     </div>
 </div>
+@section Scripts
+    {
+    <script>
+    $(document).ready(function () {
+        $("#js-btn-goBack-survey-consult").click(function () {
+            location.href = '@Url.Action("SurveyList", "Survey")';
+        });
+        });
+
+        $(document).ready(function () {
+            $("#js-btn-print-survey").click(function () {
+            location.href = '@Url.Action("PrintSurvey", "Survey")';
+        });
+    });
+    </script>
+}

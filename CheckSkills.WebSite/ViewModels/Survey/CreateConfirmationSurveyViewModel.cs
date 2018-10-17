@@ -1,4 +1,5 @@
 ﻿using CheckSkills.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,7 +12,7 @@ namespace CheckSkills.WebSite.ViewModels
 
         [Required(ErrorMessage = "Le nom est obligatoire")]
         public string Name { get; set; }
-
+        public string Date { get; set; }
         public IEnumerable<QuestionViewModel> SurveySelectedQuestions { get; set; }
 
         public IEnumerable<int> OriginalSurveySelectedQuestions { get; set; }

@@ -15,15 +15,26 @@
 }
 
 #top-header-print {
-    position: fixed;
-    width: 100%;
+    
     padding-left:15px; 
     height: 60px;
     line-height: 48px;
     text-align: left;
     font-size: 14px;
     background-color: #31333b;
-    border-bottom: 1px solid #aaa
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 30px;
+}
+
+#question-number {
+    border-bottom: 2px solid #d2d2d2;
+    margin-bottom: 30px;
+}
+
+#title {
+    font-size: 1.375rem;
+    line-height: 2rem;
+    margin-bottom:50px;
 }
 
 ul#menu_right li {
@@ -309,3 +320,12 @@ input[type="checkbox"].input-validation-error {
     background-color: #eee;
 }
 
+
+/*.parent:hover {
+    background-color: #85C17E;
+}*/
+
+#form-design
+{
+    border: 1px black solid;
+}

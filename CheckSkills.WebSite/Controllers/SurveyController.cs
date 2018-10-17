@@ -66,23 +66,36 @@ namespace CheckSkills.WebSite.Controllers
         //action permettant d'imprimer le formulaire generer.
         [HttpGet]
         public IActionResult PrintSurvey(IEnumerable<int> surveySelectedQuestions, string surveyName)
-        {
-
+        {        
             if(ModelState.IsValid)
                 {
                 var selectedQuestionViewModels = GetSelectedQuestionViewModel(surveySelectedQuestions);
                 var surveyModel = new CreateConfirmationSurveyViewModel();
                 var model = new CreateConfirmationSurveyViewModel()
                 {
+
                     SurveySelectedQuestions = selectedQuestionViewModels,
                     OriginalSurveySelectedQuestions = surveySelectedQuestions,
-                    Name = surveyName
+                    Name = surveyName,
+                    Date = DateTime.Now.ToString("dd/MM/yyyy"),
                 };
-                return new ViewAsPdf("PrintSurvey", model);
+
+                var report = new ViewAsPdf("PrintSurvey",model)
+                {
+                    FileName = "Name"+ ".pdf",
+                    PageMargins = { Left = 20, Bottom = 20, Right = 20, Top = 20 }, // marge sur les pages.
+                    PageSize = Rotativa.AspNetCore.Options.Size.A4, // format de page.
+                    CustomSwitches = "--page-offset 0 --footer-center [page] --footer-font-size 12" //numéroter les bas de page.
+                };
+
+                return report;
+               
             }
             return RedirectToAction("SurveyList");
         }
 
+        
+      
 
         [HttpPost]
         public IActionResult SaveSurvey(CreateConfirmationSurveyViewModel surveyModel)
