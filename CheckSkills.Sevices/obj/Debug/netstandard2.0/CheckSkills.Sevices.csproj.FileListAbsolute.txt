@@ -6,4 +6,3 @@ D:\CheckSkills\src\CheckSkills\CheckSkills.Sevices\obj\Debug\netstandard2.0\Chec
 D:\CheckSkills\src\CheckSkills\CheckSkills.Sevices\obj\Debug\netstandard2.0\CheckSkills.Sevices.AssemblyInfo.cs
 D:\CheckSkills\src\CheckSkills\CheckSkills.Sevices\obj\Debug\netstandard2.0\CheckSkills.Sevices.dll
 D:\CheckSkills\src\CheckSkills\CheckSkills.Sevices\obj\Debug\netstandard2.0\CheckSkills.Sevices.pdb
-D:\CheckSkills\src\CheckSkills\CheckSkills.Sevices\obj\Debug\netstandard2.0\CheckSkills.Sevices.csprojAssemblyReference.cache

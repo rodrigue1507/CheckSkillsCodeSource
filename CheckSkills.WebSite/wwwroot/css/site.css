@@ -45,10 +45,11 @@ ul#menu_right li a{
     color:#fff;
 }
 
-a, a:hover {
+.navbarlink {
     text-decoration: none;
     color: #fff;
 }
+
 
 #form-info {
 }
@@ -328,4 +329,15 @@ input[type="checkbox"].input-validation-error {
 #form-design
 {
     border: 1px black solid;
+}
+
+.navbarlink
+{
+    color:#fff;
+}
+
+
+#form-head
+{
+    margin-bottom: 20px;
 }

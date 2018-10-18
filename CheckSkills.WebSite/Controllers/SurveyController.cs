@@ -82,7 +82,7 @@ namespace CheckSkills.WebSite.Controllers
 
                 var report = new ViewAsPdf("PrintSurvey",model)
                 {
-                    FileName = "Name"+ ".pdf",
+                    
                     PageMargins = { Left = 20, Bottom = 20, Right = 20, Top = 20 }, // marge sur les pages.
                     PageSize = Rotativa.AspNetCore.Options.Size.A4, // format de page.
                     CustomSwitches = "--page-offset 0 --footer-center [page] --footer-font-size 12" //numéroter les bas de page.

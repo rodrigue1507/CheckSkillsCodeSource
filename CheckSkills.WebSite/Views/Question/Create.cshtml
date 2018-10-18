@@ -49,15 +49,13 @@
             <div class="panel-footer">
                 <div class="row">
                     <div class="col-xs-4  pull-left">
-                        <button type="submit" class="btn btn-default" style="background-color:#5f677e;border: none;"> @Html.ActionLink("Retour à la liste des questions sans enregistrer", "List")</button>
+                        <button class="btn btn-success" onclick="window.location.href='@Url.Action("List", "Question")';" style="background-color:#5f677e;border: none; ">Retour à la liste</button>
                     </div>
-
                     <div class="col-xs-4 text-center">
-                        <button type="submit" class="btn btn-warning" style="background-color:#5f677e;border: none;">Enregistrer et retour</button>
+                        <input type="submit" formaction="Question/SaveNewCreate" formmethod="post" class="btn btn-success js-btn-createAndContinue-Question" style="background-color:#5f677e;border: none;" value="Enregistrer et nouveau" />
                     </div>
-
-                    <div class="col-xs-4 text-right">
-                        <buton class="btn btn-success js-btn-createAndContinue-Question" style="background-color:#5f677e;border: none;">Enregistrer et nouveau</buton>
+                    <div class="col-xs-4  text-right">
+                        <input type="submit" class="btn btn-success" style="background-color:#5f677e;border: none;" value="Enregistrer et retour" />
                     </div>
                 </div>
             </div>
@@ -67,9 +65,11 @@
 }
 
 @section Scripts{
-
+    <script type="text/javascript" src="~/js/site.js"></script>
     <script>
-        $(function () {
+        
+        @*$(function () {
+            window.
             $(".js-btn-createAndContinue-Question").click(function () {
                 var form = $('.js-form-createAndContinue-Question');
 
@@ -85,8 +85,27 @@
             });
 
             if ($('.js-alert') !== undefined)
+                $('.js-alert').show(0).delay(1000).hide(0);
+        });*@
+        @*$(function () {
+            $(".js-btn-goback-Question").click(function () {
+                var form = $('.js-form-List-Question');
+
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (response) {
+                        location.href = "@Url.Action("List", "Question", new { created=true})";
+                    }
+                });
+
+            });
+
+            if ($('.js-alert') !== undefined)
                 $('.js-alert').show(0).delay(5000).hide(0);
-        });
+        });*@
+       
     </script>
 }
 

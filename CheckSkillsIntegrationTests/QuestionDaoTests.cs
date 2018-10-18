@@ -13,7 +13,7 @@ namespace CheckSkills.IntegrationTests
         {
             // Arrange
 
-            var questionDao = new QuestionDao();
+            var questionDao = new QuestionDao(new AnswerDao());
 
             //Action
             var result = questionDao.GetAll();

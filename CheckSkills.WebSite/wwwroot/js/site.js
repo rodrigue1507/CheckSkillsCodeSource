@@ -1,15 +1,11 @@
-﻿function myFunction() {
-    var x = document.getElementById("snackbar");
-    x.className = "show";
-    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-}// Write your JavaScript code.
-
-
-$(document).ready(function () {
-    $("#table-survey-list-id", ).DataTable();
+﻿$(document).ready(function () {
+    $(window).on('load', function () {
+        if ($('.js-alert') !== undefined)
+            $('.js-alert').show(0).delay(1000).hide(0);
+    });   
 });
 
 
-$(document).ready(function () {
-    $("#table-question-list-id", ).DataTable();
-});
+
+
+

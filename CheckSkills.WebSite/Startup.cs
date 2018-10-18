@@ -91,7 +91,7 @@ namespace CheckSkills.WebSite
 
                 routes.MapRoute(
                                 name: "default",
-                                template: "{controller=Home}/{action=Index}/{id?}");
+                                template: "{controller=Survey}/{action=SurveyList}/{id?}");
 
             });
 
