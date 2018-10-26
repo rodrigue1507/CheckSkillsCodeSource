@@ -67,25 +67,45 @@ namespace CheckSkills.DAL
             return surveys;
         }
 
+        public void DeleteQuestionsSurvey( int questionId)
+        {
+             using (SqlConnection sqlConnection1 = new SqlConnection(_connectionString)) // using permet de refermer la connection après ouverture
+            {
+                SqlCommand cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
+                {
+                    CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
+                    CommandText = "DELETE FROM [CheckSkills].[dbo].[Survey_Question] WHERE QuestionId = @questionId ", // stock la requete sql dans commandText.
+                    Connection = sqlConnection1, // etablie la connection.
+                };
+                    // permet de definir les variables values dans CommandText.
+                    cmd.Parameters.AddWithValue("@questionId", questionId);
+               
 
+                sqlConnection1.Open(); //ouvre la connection à la base de donnée.
 
-        public void DeleteQuestionSurvey(int questionId)
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteQuestionSurvey(int questionId, int surveyId)
         {
             using (SqlConnection sqlConnection1 = new SqlConnection(_connectionString)) // using permet de refermer la connection après ouverture
             {
                 SqlCommand cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
                 {
                     CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
-                    CommandText = "DELETE FROM Survey_Question WHERE QuestionId = @questionId", // stock la requete sql dans commandText.
+                    CommandText = "DELETE FROM [CheckSkills].[dbo].[Survey_Question] WHERE QuestionId = @questionId  AND SurveyId = @surveyId ", // stock la requete sql dans commandText.
                     Connection = sqlConnection1, // etablie la connection.
                 };
                 // permet de definir les variables values dans CommandText.
                 cmd.Parameters.AddWithValue("@questionId", questionId);
+                cmd.Parameters.AddWithValue("@surveyId", surveyId);
 
                 sqlConnection1.Open(); //ouvre la connection à la base de donnée.
 
                 cmd.ExecuteNonQuery();
             }
+
         }
 
 
@@ -131,6 +151,32 @@ namespace CheckSkills.DAL
             return questions;
         }
 
+
+        //public IEnumerable<Question> GetSurveyId(int questionId)
+        //{
+           
+
+
+        //    using (SqlConnection sqlConnection1 = new SqlConnection(_connectionString)) // using permet de refermer la connection après ouverture
+        //    {
+        //        //ouvre la connection à la base de donnée.
+
+
+        //        var cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
+        //        {
+        //            CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
+        //            CommandText = "SELECT SurveyId FROM Survey_Question WHERE QuestionId = @questionId;", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
+        //            Connection = sqlConnection1, // etablie la connection.
+        //        };
+
+        //        // permet de definir les variables values dans CommandText. 
+        //        cmd.Parameters.AddWithValue("@questionId", questionId);
+        //        sqlConnection1.Open();
+
+        //        var result = cmd.ExecuteReader(); // execute la requete et return l'element de la première ligne à la première colonne
+
+        //        return questionId;
+        //}
 
     }
 

@@ -3,76 +3,123 @@
     ViewData["Title"] = "Liste des questions";
     Layout = "_Layout";
     int i = 0;
+
 }
 
 @using (Html.BeginForm("SaveSurvey", "Survey", FormMethod.Post))
 {
     <div class="container-fluid">
-        <div class="container">
-            <div class="panel panel-default">
-                <div class="panel-heading">Validation du formlaire</div>
-                <div class="panel-body">
-                    <div class="form-group row">
-                        <div class="col-md-2">
-                            @Html.DisplayNameFor(m => m.Name)
-                        </div>
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control js-survey-name" })
-                            <small id="nameHelp" class="form-text text-muted">Donner un nom à votre formulaire</small>
-                            @Html.ValidationMessageFor(m => m.Name)
-                        </div>
 
+        <div class="container">
+
+            <div class="panel panel-default">
+
+                <div class="panel-body">
+                    <div class="panel panel-default">
+                        <div class="form-group row panel-body">
+                            <div class="col-xs-1">
+                                Titre:
+                            </div>
+                            <div class="col-md-11">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control js-survey-name" })
+                                <small id="nameHelp" class="form-text text-muted">Donner un nom à votre formulaire</small>
+                                @Html.ValidationMessageFor(m => m.Name)
+                            </div>
+                        </div>
                     </div>
 
                     @foreach (var questionGrouped in Model.SurveySelectedQuestions.GroupBy(q => q.CategoryName))
                     {
-                        <h3><span class="label label-info"> @questionGrouped.Key</span></h3>
-                        <div class="form-group col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="background-color:#31333b; color:#fff"><h3>@questionGrouped.Key</h3></div>
 
-
-                            @foreach (var questionVM in questionGrouped.ToList())
-                            {
-                                i++;
-                                switch (questionVM.TypeName)
+                            <div class="panel-body">
+                                @foreach (var questionVM in questionGrouped.ToList())
                                 {
-                                    case "Question-Reponse":
+                                    i++;
+                                    switch (questionVM.TypeName)
+                                    {
+                                        case "Question-Reponse":
+                                            <div class="form-group row col-xs-12" style="margin-bottom:60px">
+                                                <div class="question-design col-xs-12" style="border-bottom:1px solid lightgrey; margin-bottom:10px;">
+                                                    <div class="row">
+                                                        <div class="col-xs-8">
+                                                            <h4 style="border-bottom:2px !important;">Question @i</h4>
+                                                        </div>
+                                                        <div class="col-xs-4 text-right">
+                                                            <a href="@Url.Action("ConfirmDeleteOrNoConsultSurvey", "Question", new { questionId = questionVM.Id, surveyId = Model.Id })">
+                                                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
 
-                                        <div class="form-group row">
-                                            <label>Question @i: </label>@questionVM.Content
-                                        </div>
-                                        <div class="form-group row">
-                                            <textarea class="form-control" readonly rows="4"></textarea>
-                                        </div>
-                                        break;
+                                                    <div class="content-dedsign col-xs-12"><p>@questionVM.Content</p></div>
+                                                    <div class="col-xs-12"><textarea class="form-control" readonly rows="4"></textarea></div>
+                                                </div>
 
-                                    case "QCM":
-
-                                        <div class="form-group row">
-                                            <label>Question @i: </label>@questionVM.Content
-                                        </div>
-
-                                        @foreach (var answer in questionVM.QuestionAnswerList)
-                                        {
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="answer_@answer.Id">
-                                                <label class="form-check-label" for="answer_@answer.Id">
-                                                    @answer.AnswerContent
-                                                </label>
                                             </div>
-                                        }
-                                        break;
-                                }
-                            }
-                        </div>
+                                            break;
 
+                                        case "QCM":
+                                            <div class="form-group row col-xs-12" style="margin-bottom:60px">
+                                                <div class="question-design col-xs-12" style="border-bottom:1px solid lightgrey; margin-bottom:10px;">
+                                                    <div class="row">
+                                                        <div class="col-xs-8">
+                                                            <h4>Question @i</h4>
+                                                        </div>
+                                                        <div class="col-xs-4 text-right">
+                                                            <a href="@Url.Action("ConfirmDeleteOrNoConsultSurvey", "Question", new { questionId = questionVM.Id, surveyId = Model.Id })">
+                                                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="content-dedsign col-xs-12"><p>@questionVM.Content</p></div>
+
+                                                    <div class="col-xs-12">
+                                                        @foreach (var answer in questionVM.QuestionAnswerList)
+                                                        {
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="" id="answer_@answer.Id">
+                                                                <label class="form-check-label" for="answer_@answer.Id">
+                                                                    @answer.AnswerContent
+                                                                </label>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            break;
+                                    }
+                                }
+                            </div>
+                        </div>
                     }
 
                 </div>
-            </div>
 
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a id="popoverData" class="btn btn-default" style="margin-bottom:35px;margin-left:785px"
+                           href="@Url.Action("Create", "Survey",
+    new
+    {
+        selectedQuestionIds = Model.OriginalSurveySelectedQuestions
+    })">
+                            Ajouter une question
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
             <div class="row">
-                <input type="submit" class="btn btn-primary" value="Enregistrer le formulaire" />
-                <input class="btn btn-info pull-right js-btn-print-survey" type="button" value="Imprimer le formulaire" />
+                <input type="submit" class="btn btn-primary" value="Enregistrer" />
+                <input class="btn btn-info pull-right js-btn-print-survey" type="button" value="Imprimer" />
             </div>
 
             @for (var q = 0; q < Model.OriginalSurveySelectedQuestions.Count(); q++)
@@ -86,14 +133,16 @@
 }
 
 @section Scripts
-{
+    {
     <script>
         $(".js-btn-print-survey").click(function (item) {
             var surveyName = $(".js-survey-name").val();
-            location.href = '@Html.Raw(Url.Action("PrintSurvey", "Survey",new { surveySelectedQuestions = Model.OriginalSurveySelectedQuestions.ToList() }))'
+
+            var printUrl = '@Html.Raw(Url.Action("PrintSurvey", "Survey",new { surveySelectedQuestions = Model.OriginalSurveySelectedQuestions.ToList()}))'
                 + '&surveyName='
                 + surveyName;
-        });
+           window.open(printUrl, '_blank');
+            });
 
     </script>
 }

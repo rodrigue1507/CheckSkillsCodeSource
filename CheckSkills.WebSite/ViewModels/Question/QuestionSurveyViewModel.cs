@@ -1,9 +1,10 @@
+using CheckSkills.Domain;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CheckSkills.WebSite.ViewModels
 {
-    public class QuestionViewModel
+    public class QuestionSurveyViewModel
     {
         public int Id { get; set; }
         public string Content { get; set; }
@@ -22,7 +23,7 @@ namespace CheckSkills.WebSite.ViewModels
         public bool IsChecked { get; set; }
 
         public List<CreateOrUpdateAnswerViewModel> QuestionAnswerList { get; set; }
-
+        
         public SurveyDetailViewModel survey { get; set; }
     }
 }

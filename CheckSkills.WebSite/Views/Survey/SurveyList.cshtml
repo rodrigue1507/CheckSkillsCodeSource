@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<SurveyViewModel>
 @{
     Layout = "_Layout";
+    int i = 0;
 }
 
 @using (Html.BeginForm("SurveyList", "Survey", FormMethod.Post, new { @class = "js-form-SurveyList-Survey" }))
@@ -31,12 +32,12 @@
             </div>
 
             <div class="panel-body table-responsive">
-                <table id="table-survey-list-id" class="table table-hover">
+                <table id="table-survey-list-id" class="table table-hover display compact cell-border">
                     <thead>
                         <tr>
                             <th class="text-center"> Titre </th>
                             <th class="text-center"> Date de création </th>
-                            <th class="text-center">Action</th>
+                            <th class="text-center">Editer</th>
                             <th class="text-center">Supprimer</th>
                         </tr>
                     </thead>
@@ -44,6 +45,8 @@
                     <tbody>
                         @foreach (var surveyVM in Model)
                         {
+                            i++;
+
                         <tr class="edit" id="detail">
                             <td class="text-center"> @surveyVM.name</td>
                             <td class="text-center">  @surveyVM.CreationDate </td>
@@ -56,7 +59,7 @@
                             </td>
                             <td class="text-center">
                                 <a href="@Url.Action("ConfirmDelete", "Survey",  new { surveyId = surveyVM.id })">
-                                    <span class="glyphicon glyphicon-remove"></span>
+                                    <span class="glyphicon glyphicon-remove-circle"></span>
                                 </a>
                             </td>
                         </tr>
@@ -84,33 +87,47 @@
 
 @section Scripts{
     <script>
-        $(document).ready(function () {
-            $("#table-survey-list-id", ).DataTable({
+        
+            $(document).ready(function () {
 
-                language: {
-                    "processing": "Traitement en cours...",
-                    "search": "Rechercher&nbsp;:",
-                    "lengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
-                    "info": "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-                    "infoEmpty": "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
-                    "infoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-                    "infoPostFix": "",
-                    "loadingRecords": "Chargement en cours...",
-                    "zeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                    "emptyTable": "Aucune donnée disponible dans le tableau",
-                    "paginate": {
-                        "first": "Premier",
-                        "previous": "Pr&eacute;c&eacute;dent",
-                        "next": "Suivant",
-                        "last": "Dernier"
+                $("#table-survey-list-id", ).DataTable({
+
+                    //dom: " lftrip",
+                    dom: " ftr",
+                    pagingType: "simple",
+                    columns: [{ type: "text" }, { type: "text" }, { orderable: false }, { orderable: false }],
+                    lengthMenu: [5, 10, 15, 20, 25], // nombre de ligne parametrable à afficher
+                    "order": [[0, 'asc'], [1, 'asc']], 
+                    columnDefs: [{targets: 0,className: 'dt-body-left'}],
+                    pageLength: 10, // defini le nombre de ligne
+                    language: {
+                        "processing": "Traitement en cours...",
+                        "search": "Rechercher&nbsp;:",
+                        "lengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+                        "info": "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                        "infoEmpty": "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+                        "infoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                        "infoPostFix": "",
+                        "loadingRecords": "Chargement en cours...",
+                        "zeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                        "emptyTable": "Aucune donnée disponible dans le tableau",
+                        "paginate": {
+                            "first": "Premier",
+                            "previous": "Pr&eacute;c&eacute;dent",
+                            "next": "Suivant",
+                            "last": "Dernier"
+                        },
+                        "aria": {
+                            "sortAscending": ": activer pour trier la colonne par ordre croissant",
+                            "sortDescending": ": activer pour trier la colonne par ordre décroissant"
+                        }
                     },
-                    "aria": {
-                        "sortAscending": ": activer pour trier la colonne par ordre croissant",
-                        "sortDescending": ": activer pour trier la colonne par ordre décroissant"
-                    }
-                }
+                   
 
                 });
-        });
+            });
+       
+
+        
     </script>
 }

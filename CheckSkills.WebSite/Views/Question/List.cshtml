@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="panel-body table-responsive">
-                    <table id="table-question-list-id" class="table table-hover">
+                    <table id="table-question-list-id" class="table table-hover display compact cell-border">
                         <thead>
                             <tr>
                                 <th class="text-center"> Contenu </th>
@@ -56,11 +56,11 @@
                                     <td id="categ" class="text-center">@questionVM.CategoryName</td>
                                     <td id="diff" class="text-center">@questionVM.DifficultyLevel </td>
                                     <td id="modif" class="text-center">
-                                        <a href="@Url.Action(" Edit", "Question" , new { questionId=questionVM.Id })">
+                                        <a href="@Url.Action("Edit", "Question" , new { questionId=questionVM.Id })">
                                             <span class="glyphicon glyphicon-edit"></span>
                                         </a>&nbsp;&nbsp;
-                                        <a href="@Url.Action(" ConfirmDeleteOrNo", "Question" , new { questionId=questionVM.Id })">
-                                            <span class="glyphicon glyphicon-remove"></span>
+                                        <a href="@Url.Action("ConfirmDeleteOrNo", "Question" , new { questionId=questionVM.Id })">
+                                            <span class="glyphicon glyphicon-remove-circle"></span>
                                         </a>
                                     </td>
                                 </tr>
@@ -88,6 +88,12 @@
         <script>
             $(document).ready(function () {
                 $("#table-question-list-id", ).DataTable({
+                    //dom: " lftrip",
+                    dom: "ftrp",
+                    pagingType: "simple",
+                    order: [[1, 'asc'], [0, 'asc'], [2, 'asc'], [3, 'asc']],
+                    columns: [{ type: "text" }, { type: "text" }, { type: "text" }, { type: "num" }, { orderable: false }],
+                    columnDefs: [{ targets: 0, className: 'dt-body-left' }],
                     language: {
                         "processing": "Traitement en cours...",
                         "search": "Rechercher&nbsp;:",
@@ -109,9 +115,10 @@
                             "sortAscending": ": activer pour trier la colonne par ordre croissant",
                             "sortDescending": ": activer pour trier la colonne par ordre décroissant"
                         }
-                    }
+                    },
+                    
                 });
-
+                
             });
         </script>
     }

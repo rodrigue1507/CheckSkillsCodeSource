@@ -18,80 +18,99 @@
 </head>
 
 <body>
-    <header>
-        <div ><img src="/Images/logo.png" /></div>
+    <header class="">
+        <div id="image-print"><img src="~/Images/fnac-darty.jpg" /></div>
     </header>
 
-    <div class="container">
+    <div>
         <div class="row">
             <div class="col-xs-6">
-                <p contenteditable>@Model.Name</p>
-            </div>
-
-            <div class="col-xs-6">
-                <h3>Questionnaire</h3>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-6">
-                <table> 
-                        <tr>
-                            <th>Navigation Front</th>
-                        </tr>
-                        <tr>
-                            <th>Equipe</th>
-                            <td>Navigation</td>
-                        </tr>
+                <table class="table table-bordered table-condensed">
+                    <tr>
+                        <th>Navigation Front</th>
+                    </tr>
+                    <tr>
+                        <th>Equipe : Navigation</th>
+                    </tr>
                 </table>
             </div>
 
             <div class="col-xs-6">
-                <table>
+                <table class="table table-bordered table-condensed">
                     <tr>
-                        <th>Date</th>
-                        <td>@Model.Date</td>
+                        <th>Date </th>
+                        <td class="text-center">@Model.Date</td>
                     </tr>
                 </table>
             </div>
         </div>
+    </div>
+
+    <div><table class="table table-bordered table-condensed"><tr><th><h5 class="text-center">@Model.Name</h5></th></tr></table></div>
+
+    <div>
+
 
 
         @foreach (var questionGrouped in Model.SurveySelectedQuestions.GroupBy(q => q.CategoryName))
         {
-            <h3><span class="label label-info"> @questionGrouped.Key</span></h3>
-            <div class="form-group col-md-12">
-
+            @*class="panel-heading" style="background-color:#31333b; color:#fff; border-bottom:60px !important;border-radius: 5px;"*@
+            <div class="row panel-heading" style="background-color:#31333b; color:#fff; margin-bottom:60px !important;border-radius: 5px;"><h4>@questionGrouped.Key</h4></div>
+            
+            <div class="row">
                 @foreach (var questionVM in questionGrouped.ToList())
                 {
                     i++;
                     switch (questionVM.TypeName)
                     {
                         case "Question-Reponse":
+                            <div class="form-group row col-xs-12" style="margin-bottom:80px">
+                                <div class="question-design col-xs-12" style="border-bottom:1px solid lightgrey; margin-bottom:10px;">
+                                    <div class="row">
+                                        <div class="col-xs-8">
+                                            <h4 style="border-bottom:20px !important;">Question @i</h4>
+                                        </div>
 
-                            <div class="form-group row">
-                                <label>Question @i: </label>@questionVM.Content
-                            </div>
-                            <div class="form-group row">
-                                <textarea class="form-control" readonly rows="4"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <div class="content-dedsign col-xs-12"><p>@questionVM.Content</p></div>
+                                    <div class="col-xs-12"><textarea class="form-control" readonly rows="4"></textarea></div>
+                                </div>
+
                             </div>
                             break;
 
                         case "QCM":
+                            <div class="form-group row col-xs-12" style="margin-bottom:80px">
+                                <div class="question-design col-xs-12" style="border-bottom:1px solid lightgrey; margin-bottom:10px;">
+                                    <div class="row">
+                                        <div class="col-xs-8">
+                                            <h4>Question @i</h4>
+                                        </div>
+                                        <div class="col-xs-4 text-right">
 
-                            <div class="form-group row">
-                                <label>Question @i: </label>@questionVM.Content
-                            </div>
-
-                            @foreach (var answer in questionVM.QuestionAnswerList)
-                            {
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="answer_@answer.Id">
-                                    <label class="form-check-label" for="answer_@answer.Id">
-                                        @answer.AnswerContent
-                                    </label>
+                                        </div>
+                                    </div>
                                 </div>
-                            }
+
+                                <div class="form-group">
+                                    <div class="content-dedsign col-xs-12"><p>@questionVM.Content</p></div>
+
+                                    <div class="col-xs-12">
+                                        @foreach (var answer in questionVM.QuestionAnswerList)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="answer_@answer.Id">
+                                                <label class="form-check-label" for="answer_@answer.Id">
+                                                    @answer.AnswerContent
+                                                </label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                             break;
                     }
                 }
@@ -99,6 +118,8 @@
 
         }
 
+
     </div>
+
 </body>
 </html> 

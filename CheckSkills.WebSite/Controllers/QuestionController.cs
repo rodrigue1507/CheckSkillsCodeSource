@@ -273,12 +273,15 @@ namespace CheckSkills.WebSite.Controllers
         [HttpGet]
         public IActionResult Delete(int questionId)
         {
-            _survey_QuestionDao.DeleteQuestionSurvey(questionId);
+            _survey_QuestionDao.DeleteQuestionsSurvey(questionId);
             _answerDao.DeleteAnswerQuestionId(questionId);
             _questionDao.DeleteQuestion(questionId);
             //_answerDao.DeleteAnswerQuestion(questionId);
             return RedirectToAction("List");
         }
+
+        
+
 
         [HttpGet]
         public IActionResult ConfirmDeleteOrNo(int questionId)

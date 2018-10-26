@@ -32,6 +32,15 @@
     <Content Update="Views\Question\List.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Question\QuestionSurveyView\ConfirmDeleteOrNoConsultSurvey.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Question\QuestionSurveyView\DeleteConsultSurvey.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Question\QuestionSurveyView\EditConsultSurvey.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Question\_EditQuestion.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

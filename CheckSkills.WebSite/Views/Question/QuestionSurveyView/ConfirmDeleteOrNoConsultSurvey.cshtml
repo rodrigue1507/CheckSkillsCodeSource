@@ -1,0 +1,54 @@
+﻿@model QuestionViewModel
+
+@{
+    ViewData["Title"] = "ConfirmDeleteOrNo";
+}
+<form>
+    <fieldset>
+        <legend >Details de la question à supprimer :</legend>
+
+        <div>
+          
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Id)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DifficultyLevel)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DifficultyLevel)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CategoryName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.QuestionTypeName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.QuestionTypeName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Content)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Content)
+                </dd>
+            </dl>
+        </div>
+    </fieldset>
+    <div>
+        @Html.ActionLink(" Je confirme la suppression", "DeleteAndGotoSurveydetail", new { questionId = Model.Id, surveyId = Model.survey.Id }) |
+        @Html.ActionLink("J'annuler", "ConsultSurveyDetails","Survey", new {surveyId = Model.survey.Id})
+    </div>
+</form>

@@ -48,6 +48,10 @@ namespace CheckSkills.WebSite
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                               name: "default",
+                               template: "{controller=Survey}/{action=SurveyList}/{id?}");
+
+                routes.MapRoute(
                     name: "QuestionList",
                     template: "liste-de-questions",
                     defaults: new { Controller = "Question", Action = "List" });
@@ -88,10 +92,11 @@ namespace CheckSkills.WebSite
                                 defaults: new { Controller = "Survey", Action = "SaveSurvey" });
 
 
-
                 routes.MapRoute(
-                                name: "default",
-                                template: "{controller=Survey}/{action=SurveyList}/{id?}");
+                               name: "DeleteQuestion-Survey",
+                               template: "suppression-question-formulaire",
+                               defaults: new { Controller = "Survey", Action = "DeleteAndGotoSurveydetail" });
+
 
             });
 

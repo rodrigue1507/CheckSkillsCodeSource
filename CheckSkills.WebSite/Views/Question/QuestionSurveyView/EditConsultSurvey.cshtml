@@ -1,0 +1,47 @@
+﻿@model CreateOrUpdateQuestionViewModel
+@using   CheckSkills.Domain.Constants;
+
+@{
+    ViewData["Title"] = "Modifier";
+}
+
+
+
+@using (Html.BeginForm("EditQuestionSave", "Question", FormMethod.Post))
+{
+    Html.RenderPartial("_EditQuestion", Model.EditQuestionViewModel);
+}
+
+
+@{
+    Html.RenderPartial("_EditAnswers", Model);
+}
+
+<div>
+    @Html.ActionLink("retour à la Liste", "List")
+</div>
+
+
+@section Scripts
+    {
+    <script>
+        function displayOrHideResponse(questionType) {
+            if (questionType == @((int)QuestionTypeEnum.Qcm)) {
+                $(".js-edit-question-answers").show();
+            } else {
+                $(".js-edit-question-answers").hide();
+            }
+        }
+
+        displayOrHideResponse(@((int)Model.QuestionTypeEnum))
+
+        $(".js-question-type-select").change(function (item) {
+            displayOrHideResponse(item.target.value)
+        });
+
+
+
+        
+
+    </script>
+}

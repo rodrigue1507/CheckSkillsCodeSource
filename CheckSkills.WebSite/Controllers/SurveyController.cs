@@ -18,8 +18,8 @@ namespace CheckSkills.WebSite.Controllers
         private IQuestionDifficultyDao _difficultyDao;
         private IQuestionTypeDao _questionTypeDao;
         private IAnswerDao _answerDao;
-        private ISurvey_QuestionDao _survey_Question;
-
+        private ISurvey_QuestionDao _survey_QuestionDao;
+     
         private const int CATEGORY_ID = 0;
         private const int TYPE_ID = 0;
         private const int DIFFICULTY_ID = 0;
@@ -32,7 +32,7 @@ namespace CheckSkills.WebSite.Controllers
             _categoryDao = new QuestionCategoryDao();
             _difficultyDao = new QuestionDifficultyDao();
             _questionTypeDao = new QuestionTypeDao();
-            _survey_Question = new Survey_QuestionDao();
+            _survey_QuestionDao = new Survey_QuestionDao();
 
         }
 
@@ -41,9 +41,9 @@ namespace CheckSkills.WebSite.Controllers
 
         // actions permettant de creer le formulaire.
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(IEnumerable<int> selectedQuestionIds)
         {
-            var model = BuildSurveyViewModel();
+            var model = BuildSurveyViewModel(selectedQuestionIds);
             return View(model);
         }
 
@@ -82,7 +82,6 @@ namespace CheckSkills.WebSite.Controllers
 
                 var report = new ViewAsPdf("PrintSurvey",model)
                 {
-                    
                     PageMargins = { Left = 20, Bottom = 20, Right = 20, Top = 20 }, // marge sur les pages.
                     PageSize = Rotativa.AspNetCore.Options.Size.A4, // format de page.
                     CustomSwitches = "--page-offset 0 --footer-center [page] --footer-font-size 12" //numéroter les bas de page.
@@ -231,7 +230,7 @@ namespace CheckSkills.WebSite.Controllers
         public IActionResult ConsultSurveyDetails(int surveyId)
         {
             var getSurveyInfo = _surveyDao.SelectSurveyInfo(surveyId);
-            var questionLists = _survey_Question.GetSurvey_Questions(surveyId);
+            var questionLists = _survey_QuestionDao.GetSurvey_Questions(surveyId);
             var questionViewModels = new List<QuestionViewModel>();
             foreach (var question in questionLists)
             {
@@ -260,6 +259,34 @@ namespace CheckSkills.WebSite.Controllers
                 questionViewModels.Add(questionViewModel);
             };
 
+            //var checkSurveyEvaluation = getSurveyInfo.SurveyEvaluation;
+
+            //var model = new SurveyDetailViewModel()
+
+            //if (checkSurveyEvaluation != null)
+            //{
+            //    model = new SurveyDetailViewModel()
+            //    {
+            //        Name = getSurveyInfo.Name,
+            //        DateCreation = getSurveyInfo.CreationDate,
+            //        SurveyEvaluation = getSurveyInfo.SurveyEvaluation,
+            //        SurveySelectedQuestions = questionViewModels
+            //    };
+            //    return View(model);
+            //}
+            //else
+            //{ 
+            //    var model = new SurveyDetailViewModel()
+            //    {
+            //        Name = getSurveyInfo.Name,
+            //        DateCreation = getSurveyInfo.CreationDate,
+            //        SurveyEvaluation = getSurveyInfo.SurveyEvaluation,
+            //        SurveySelectedQuestions = questionViewModels
+            //    };
+            //    return View(model);
+            //}
+
+
             var model = new SurveyDetailViewModel()
             {
                 Name = getSurveyInfo.Name,
@@ -267,12 +294,47 @@ namespace CheckSkills.WebSite.Controllers
                 SurveyEvaluation = getSurveyInfo.SurveyEvaluation,
                 SurveySelectedQuestions = questionViewModels
             };
-
             return View(model);
         }
 
+        //public IActionResult DeleteAndGotoSurveydetail(int questionId, int surveyId)
+        //{
+        //    _survey_QuestionDao.DeleteQuestionsSurvey(questionId);
+        //    _answerDao.DeleteAnswerQuestionId(questionId);
+        //    _questionDao.DeleteQuestion(questionId);
+        //    var model = new QuestionViewModel()
+        //    {
+        //        survey = new SurveyDetailViewModel()
+        //        {
+        //            Id = surveyId,
+        //        }
+        //    };
+        //    return RedirectToAction("ConsultSurveyDetails", new { quest,surveyId });
+        // }
+
+
 
         //cette methode prend en parametre le filtre de l'utilisateur et retourne le model associé
+        private CreateSurveyViewModel BuildSurveyViewModel(IEnumerable<int> selectedQuestionIds)
+        {
+            if (selectedQuestionIds != null && selectedQuestionIds.Any())
+            {
+                var surveyFilterInfoViewModel = new SurveyFilterInfoViewModel()
+                {
+
+                    SurveySelectedQuestions = selectedQuestionIds.Select(s => new SurveySelectedQuestionViewModel()
+                    {
+                        Id = s,
+                        IsChecked = true
+
+                    })
+                };
+
+                return BuildSurveyViewModel(surveyFilterInfoViewModel);
+            }
+            return BuildSurveyViewModel();
+        }
+
         private CreateSurveyViewModel BuildSurveyViewModel(SurveyFilterInfoViewModel surveyFilterInfo = null)
         {
             var model = surveyFilterInfo == null ? new CreateSurveyViewModel()
