@@ -6246,11 +6246,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\CheckSkills\\src\\CheckSkills\\CheckSkillsIntegrationTests\\CheckSkillsIntegrationTests.csproj",
+      "projectUniqueName": "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkillsIntegrationTests\\CheckSkillsIntegrationTests.csproj",
       "projectName": "CheckSkillsIntegrationTests",
-      "projectPath": "D:\\CheckSkills\\src\\CheckSkills\\CheckSkillsIntegrationTests\\CheckSkillsIntegrationTests.csproj",
+      "projectPath": "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkillsIntegrationTests\\CheckSkillsIntegrationTests.csproj",
       "packagesPath": "C:\\Users\\rpouattara\\.nuget\\packages\\",
-      "outputPath": "D:\\CheckSkills\\src\\CheckSkills\\CheckSkillsIntegrationTests\\obj\\",
+      "outputPath": "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkillsIntegrationTests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -6271,8 +6271,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "D:\\CheckSkills\\src\\CheckSkills\\CheckSkills.DAL\\CheckSkills.DAL.csproj": {
-              "projectPath": "D:\\CheckSkills\\src\\CheckSkills\\CheckSkills.DAL\\CheckSkills.DAL.csproj"
+            "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkills.DAL\\CheckSkills.DAL.csproj": {
+              "projectPath": "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkills.DAL\\CheckSkills.DAL.csproj"
             }
           }
         }

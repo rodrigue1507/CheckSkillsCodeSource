@@ -19,10 +19,10 @@
                 <div class="panel-body">
                     <div class="panel panel-default">
                         <div class="form-group row panel-body">
-                            <div class="col-xs-1">
+                            <div class="col-xs-2">
                                 Titre :
                             </div>
-                            <div class="col-md-11">
+                            <div class="col-xs-10">
                                 @Html.TextBoxFor(m => m.Name, new { @class = "form-control js-survey-name" })
                                 <small id="nameHelp" class="form-text text-muted">modifier le titre</small>
                                 @Html.ValidationMessageFor(m => m.Name)
@@ -35,10 +35,18 @@
                             <div class="form-group row panel-body">
                                 <div class="col-xs-2">
                                     commentaire :
-                                    
+
                                 </div>
                                 <div class="col-xs-10">
-                                    <textarea class="form-control" rows="6"></textarea>                
+                                    <textarea class="form-control" rows="6"></textarea>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <a class="btn btn-default" style="margin-bottom:35px;margin-left:785px" href="@Url.Action("addComment", "Survey",  new {Model.Id})">
+                                            Ajouter le commentaire
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -141,7 +149,7 @@
 }
 
 @section Scripts
-    {
+ {
     <script>
     $(document).ready(function () {
         $("#js-btn-goBack-survey-consult").click(function () {
@@ -159,6 +167,7 @@
             $('[data-toggle="popover"]').popover();
         });
     </script>
+     
 }
 
 

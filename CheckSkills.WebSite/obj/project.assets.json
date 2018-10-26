@@ -13297,11 +13297,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\CheckSkills\\src\\CheckSkills\\CheckSkills.WebSite\\CheckSkills.WebSite.csproj",
+      "projectUniqueName": "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkills.WebSite\\CheckSkills.WebSite.csproj",
       "projectName": "CheckSkills.WebSite",
-      "projectPath": "D:\\CheckSkills\\src\\CheckSkills\\CheckSkills.WebSite\\CheckSkills.WebSite.csproj",
+      "projectPath": "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkills.WebSite\\CheckSkills.WebSite.csproj",
       "packagesPath": "C:\\Users\\rpouattara\\.nuget\\packages\\",
-      "outputPath": "D:\\CheckSkills\\src\\CheckSkills\\CheckSkills.WebSite\\obj\\",
+      "outputPath": "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkills.WebSite\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13322,11 +13322,11 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "D:\\CheckSkills\\src\\CheckSkills\\CheckSkills.DAL\\CheckSkills.DAL.csproj": {
-              "projectPath": "D:\\CheckSkills\\src\\CheckSkills\\CheckSkills.DAL\\CheckSkills.DAL.csproj"
+            "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkills.DAL\\CheckSkills.DAL.csproj": {
+              "projectPath": "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkills.DAL\\CheckSkills.DAL.csproj"
             },
-            "D:\\CheckSkills\\src\\CheckSkills\\CheckSkills.Domain\\CheckSkills.Domain.csproj": {
-              "projectPath": "D:\\CheckSkills\\src\\CheckSkills\\CheckSkills.Domain\\CheckSkills.Domain.csproj"
+            "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkills.Domain\\CheckSkills.Domain.csproj": {
+              "projectPath": "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkills.Domain\\CheckSkills.Domain.csproj"
             }
           }
         }

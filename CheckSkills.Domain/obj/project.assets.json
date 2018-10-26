@@ -822,11 +822,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\CheckSkills\\src\\CheckSkills\\CheckSkills.Domain\\CheckSkills.Domain.csproj",
+      "projectUniqueName": "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkills.Domain\\CheckSkills.Domain.csproj",
       "projectName": "CheckSkills.Domain",
-      "projectPath": "D:\\CheckSkills\\src\\CheckSkills\\CheckSkills.Domain\\CheckSkills.Domain.csproj",
+      "projectPath": "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkills.Domain\\CheckSkills.Domain.csproj",
       "packagesPath": "C:\\Users\\rpouattara\\.nuget\\packages\\",
-      "outputPath": "D:\\CheckSkills\\src\\CheckSkills\\CheckSkills.Domain\\obj\\",
+      "outputPath": "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkills.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

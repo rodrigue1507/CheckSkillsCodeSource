@@ -182,11 +182,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\CheckSkills\\src\\CheckSkills\\CheckSkills.Sevices\\CheckSkills.Sevices.csproj",
+      "projectUniqueName": "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkills.Sevices\\CheckSkills.Sevices.csproj",
       "projectName": "CheckSkills.Sevices",
-      "projectPath": "D:\\CheckSkills\\src\\CheckSkills\\CheckSkills.Sevices\\CheckSkills.Sevices.csproj",
+      "projectPath": "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkills.Sevices\\CheckSkills.Sevices.csproj",
       "packagesPath": "C:\\Users\\rpouattara\\.nuget\\packages\\",
-      "outputPath": "D:\\CheckSkills\\src\\CheckSkills\\CheckSkills.Sevices\\obj\\",
+      "outputPath": "D:\\Formulaire\\CheckSkillsCodeSource\\CheckSkills.Sevices\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

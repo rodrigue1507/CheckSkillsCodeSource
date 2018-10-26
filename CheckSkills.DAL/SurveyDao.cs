@@ -127,34 +127,28 @@ namespace CheckSkills.DAL
 
 
 
-        public int UpdateSurvey(Survey q)
+        public void UpdateSurvey(Survey s)
         {
             using (SqlConnection sqlConnection1 = new SqlConnection(_connectionString)) // using permet de refermer la connection après ouverture
             {
                 SqlCommand cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
                 {
                     CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
-                    CommandText = "UPDATE Question SET Name = @Name, @SurveyEvaluation = @SurveyEvaluation, WHERE Id = @Id", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
+                    CommandText = "UPDATE Question SET Name = @Name, SurveyEvaluation = @SurveyEvaluation, WHERE Id = @Id", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
                     Connection = sqlConnection1, // etablie la connection.
 
                 };
 
 
                 // permet de definir les variables values dans CommandText.
-                cmd.Parameters.AddWithValue("@Id", q.Id);
-
-                cmd.Parameters.AddWithValue("@Name", q.Name);
-                cmd.Parameters.AddWithValue("@SurveyEvaluation", q.SurveyEvaluation);
+                cmd.Parameters.AddWithValue("@Id", s.Id);
+                cmd.Parameters.AddWithValue("@Name", s.Name);
+                cmd.Parameters.AddWithValue("@SurveyEvaluation", s.SurveyEvaluation);
 
                 sqlConnection1.Open(); //ouvre la connection à la base de donnée.
 
                 var result = cmd.ExecuteNonQuery(); // execute et retoune la premier ligne
-                if (result > 0)
-                {
-                    return q.Id;
-                }
-
-                return 0;
+             
             }
         }
 

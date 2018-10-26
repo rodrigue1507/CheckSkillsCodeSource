@@ -7,3 +7,12 @@ D:\CheckSkills\src\CheckSkills\CheckSkills.Domain\obj\Debug\netstandard2.0\Check
 D:\CheckSkills\src\CheckSkills\CheckSkills.Domain\obj\Debug\netstandard2.0\CheckSkills.Domain.dll
 D:\CheckSkills\src\CheckSkills\CheckSkills.Domain\obj\Debug\netstandard2.0\CheckSkills.Domain.pdb
 D:\CheckSkills\src\CheckSkills\CheckSkills.Domain\obj\Debug\netstandard2.0\CheckSkills.Domain.csprojAssemblyReference.cache
+D:\Formulaire\CheckSkillsCodeSource\CheckSkills.Domain\bin\Debug\netstandard2.0\CheckSkills.Domain.deps.json
+D:\Formulaire\CheckSkillsCodeSource\CheckSkills.Domain\bin\Debug\netstandard2.0\CheckSkills.Domain.dll
+D:\Formulaire\CheckSkillsCodeSource\CheckSkills.Domain\bin\Debug\netstandard2.0\CheckSkills.Domain.pdb
+D:\Formulaire\CheckSkillsCodeSource\CheckSkills.Domain\obj\Debug\netstandard2.0\CheckSkills.Domain.csprojAssemblyReference.cache
+D:\Formulaire\CheckSkillsCodeSource\CheckSkills.Domain\obj\Debug\netstandard2.0\CheckSkills.Domain.csproj.CoreCompileInputs.cache
+D:\Formulaire\CheckSkillsCodeSource\CheckSkills.Domain\obj\Debug\netstandard2.0\CheckSkills.Domain.AssemblyInfoInputs.cache
+D:\Formulaire\CheckSkillsCodeSource\CheckSkills.Domain\obj\Debug\netstandard2.0\CheckSkills.Domain.AssemblyInfo.cs
+D:\Formulaire\CheckSkillsCodeSource\CheckSkills.Domain\obj\Debug\netstandard2.0\CheckSkills.Domain.dll
+D:\Formulaire\CheckSkillsCodeSource\CheckSkills.Domain\obj\Debug\netstandard2.0\CheckSkills.Domain.pdb

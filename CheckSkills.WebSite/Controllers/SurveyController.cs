@@ -259,43 +259,68 @@ namespace CheckSkills.WebSite.Controllers
                 questionViewModels.Add(questionViewModel);
             };
 
-            //var checkSurveyEvaluation = getSurveyInfo.SurveyEvaluation;
+            var checkSurveyEvaluation = getSurveyInfo.SurveyEvaluation;
+
+            var model = new SurveyDetailViewModel();
+
+            if (!string.IsNullOrWhiteSpace(checkSurveyEvaluation))
+            {
+                model = new SurveyDetailViewModel()
+                {
+                    Id = getSurveyInfo.Id,
+                    Name = getSurveyInfo.Name,
+                    DateCreation = getSurveyInfo.CreationDate,
+                    SurveyEvaluation = getSurveyInfo.SurveyEvaluation,
+                    SurveySelectedQuestions = questionViewModels
+                };
+                return View(model);
+            }
+            else
+            {
+                 model = new SurveyDetailViewModel()
+                {
+                    Name = getSurveyInfo.Name,
+                    DateCreation = getSurveyInfo.CreationDate,
+                    SurveyEvaluation = "",
+                    SurveySelectedQuestions = questionViewModels
+                };
+                return View(model);
+            }
+
 
             //var model = new SurveyDetailViewModel()
-
-            //if (checkSurveyEvaluation != null)
             //{
-            //    model = new SurveyDetailViewModel()
-            //    {
-            //        Name = getSurveyInfo.Name,
-            //        DateCreation = getSurveyInfo.CreationDate,
-            //        SurveyEvaluation = getSurveyInfo.SurveyEvaluation,
-            //        SurveySelectedQuestions = questionViewModels
-            //    };
-            //    return View(model);
-            //}
-            //else
-            //{ 
-            //    var model = new SurveyDetailViewModel()
-            //    {
-            //        Name = getSurveyInfo.Name,
-            //        DateCreation = getSurveyInfo.CreationDate,
-            //        SurveyEvaluation = getSurveyInfo.SurveyEvaluation,
-            //        SurveySelectedQuestions = questionViewModels
-            //    };
-            //    return View(model);
-            //}
-
-
-            var model = new SurveyDetailViewModel()
-            {
-                Name = getSurveyInfo.Name,
-                DateCreation = getSurveyInfo.CreationDate,
-                SurveyEvaluation = getSurveyInfo.SurveyEvaluation,
-                SurveySelectedQuestions = questionViewModels
-            };
-            return View(model);
+            //    Name = getSurveyInfo.Name,
+            //    DateCreation = getSurveyInfo.CreationDate,
+            //    SurveyEvaluation = getSurveyInfo.SurveyEvaluation,
+            //    SurveySelectedQuestions = questionViewModels
+            //};
+            //return View(model);
         }
+
+
+        // cette methode permet d'ajouter un commentaire au formulaire 
+        public IActionResult addComment(int surveyId)
+        {
+            var SurveyDetail = new SurveyDetailViewModel();
+            var s = new Survey();
+            //{
+            //    s.Id = surveyId,
+            //    s.Name = SurveyDetail.Name,
+            //    s.SurveyEvaluation = SurveyDetail.SurveyEvaluation,
+            //};
+
+            var surveys = _surveyDao.GetAllSurvey().Where(ss => ss.Id == surveyId);
+            foreach ( var survey in surveys)
+            {
+                _surveyDao.UpdateSurvey(s);
+            }
+            return RedirectToAction("ConsultSurveyDetails", new { surveyId });
+        }
+
+
+
+
 
         //public IActionResult DeleteAndGotoSurveydetail(int questionId, int surveyId)
         //{
