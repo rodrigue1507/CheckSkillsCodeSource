@@ -13,5 +13,6 @@ namespace CheckSkills.WebSite.ViewModels
         public DateTime DateCreation { get; set;}
         public string SurveyEvaluation { get; set;}
         public IEnumerable<QuestionViewModel> SurveySelectedQuestions { get; set;}
+        public IEnumerable<int> OriginalSurveySelectedQuestions { get; set; }
     }
 }

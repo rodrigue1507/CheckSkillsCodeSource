@@ -63,7 +63,7 @@ namespace CheckSkills.WebSite.Controllers
 
 
 
-        //action permettant d'imprimer le formulaire generer.
+        //action permettant d'imprimer le formulaire.
         [HttpGet]
         public IActionResult PrintSurvey(IEnumerable<int> surveySelectedQuestions, string surveyName)
         {        
@@ -95,7 +95,7 @@ namespace CheckSkills.WebSite.Controllers
 
         
       
-
+        //action permettant de sauvegarder le formulaire
         [HttpPost]
         public IActionResult SaveSurvey(CreateConfirmationSurveyViewModel surveyModel)
         {
@@ -123,7 +123,7 @@ namespace CheckSkills.WebSite.Controllers
         }
 
 
-
+       
         private IEnumerable<QuestionViewModel> GetSelectedQuestionViewModel(IEnumerable<int> selectedQuestionIds)
         {
             //récupérer la liste des questions selectionnés
@@ -259,63 +259,36 @@ namespace CheckSkills.WebSite.Controllers
                 questionViewModels.Add(questionViewModel);
             };
 
-            var checkSurveyEvaluation = getSurveyInfo.SurveyEvaluation;
-
-            var model = new SurveyDetailViewModel();
-
-            if (!string.IsNullOrWhiteSpace(checkSurveyEvaluation))
+            var model = new SurveyDetailViewModel
             {
-                model = new SurveyDetailViewModel()
-                {
-                    Id = getSurveyInfo.Id,
-                    Name = getSurveyInfo.Name,
-                    DateCreation = getSurveyInfo.CreationDate,
-                    SurveyEvaluation = getSurveyInfo.SurveyEvaluation,
-                    SurveySelectedQuestions = questionViewModels
-                };
-                return View(model);
-            }
-            else
-            {
-                 model = new SurveyDetailViewModel()
-                {
-                    Name = getSurveyInfo.Name,
-                    DateCreation = getSurveyInfo.CreationDate,
-                    SurveyEvaluation = "",
-                    SurveySelectedQuestions = questionViewModels
-                };
-                return View(model);
-            }
+                Id = getSurveyInfo.Id,
+                Name = getSurveyInfo.Name,
+                DateCreation = getSurveyInfo.CreationDate,
+                SurveyEvaluation = getSurveyInfo.SurveyEvaluation ?? "",
+                SurveySelectedQuestions = questionViewModels
+            };
 
-
-            //var model = new SurveyDetailViewModel()
-            //{
-            //    Name = getSurveyInfo.Name,
-            //    DateCreation = getSurveyInfo.CreationDate,
-            //    SurveyEvaluation = getSurveyInfo.SurveyEvaluation,
-            //    SurveySelectedQuestions = questionViewModels
-            //};
-            //return View(model);
+            return View(model);
         }
 
 
         // cette methode permet d'ajouter un commentaire au formulaire 
-        public IActionResult addComment(int surveyId)
+        [HttpPost]
+        public IActionResult UpdateSurvey(SurveyDetailViewModel surveyDt)
         {
-            var SurveyDetail = new SurveyDetailViewModel();
-            var s = new Survey();
-            //{
-            //    s.Id = surveyId,
-            //    s.Name = SurveyDetail.Name,
-            //    s.SurveyEvaluation = SurveyDetail.SurveyEvaluation,
-            //};
-
-            var surveys = _surveyDao.GetAllSurvey().Where(ss => ss.Id == surveyId);
-            foreach ( var survey in surveys)
+           
+           
+                
+            var s = new Survey
             {
+                Id = surveyDt.Id,
+                Name = surveyDt.Name,
+                SurveyEvaluation = surveyDt.SurveyEvaluation
+            };
+
                 _surveyDao.UpdateSurvey(s);
-            }
-            return RedirectToAction("ConsultSurveyDetails", new { surveyId });
+            Success = "modification effectuer";
+            return RedirectToAction("ConsultSurveyDetails", new { surveyId = surveyDt.Id });
         }
 
 

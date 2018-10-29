@@ -8,8 +8,9 @@
 
 
 
-@using (Html.BeginForm("ConsultSurveyDetails", "Survey", FormMethod.Post))
+@using (Html.BeginForm("UpdateSurvey", "Survey", FormMethod.Post))
 {
+    @Html.HiddenFor(m => m.Id)
     <div class="container-fluid">
 
         <div class="container">
@@ -30,111 +31,115 @@
                         </div>
                     </div>
 
-                    
+
+                    <div class="panel panel-default">
+                        <div class="form-group row panel-body">
+
+                            <div class="col-xs-2">
+                                commentaire :
+
+                            </div>
+                            <div class="col-xs-10" style="margin-bottom: 20px">
+                                @Html.TextAreaFor(m => m.SurveyEvaluation, new { @class = "col-form-label", @rows = "8", @cols = "95" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <button type="submit" class="btn btn-default  form-control " id="js-btn-save-comment">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                enregistrer les modifications
+                            </button>
+                        </div>
+                    </div>
+
+
+                    @foreach (var questionGrouped in Model.SurveySelectedQuestions.GroupBy(q => q.CategoryName))
+                    {
                         <div class="panel panel-default">
-                            <div class="form-group row panel-body">
-                                <div class="col-xs-2">
-                                    commentaire :
+                            <div class="panel-heading" style="background-color:#31333b; color:#fff"><h3>@questionGrouped.Key</h3></div>
 
-                                </div>
-                                <div class="col-xs-10">
-                                    <textarea class="form-control" rows="6"></textarea>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <a class="btn btn-default" style="margin-bottom:35px;margin-left:785px" href="@Url.Action("addComment", "Survey",  new {Model.Id})">
-                                            Ajouter le commentaire
-                                            <span class="glyphicon glyphicon-plus"></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        @foreach (var questionGrouped in Model.SurveySelectedQuestions.GroupBy(q => q.CategoryName))
-                        {
-                            <div class="panel panel-default">
-                                <div class="panel-heading" style="background-color:#31333b; color:#fff"><h3>@questionGrouped.Key</h3></div>
-
-                                <div class="panel-body">
-                                    @foreach (var questionVM in questionGrouped.ToList())
+                            <div class="panel-body">
+                                @foreach (var questionVM in questionGrouped.ToList())
+                                {
+                                    i++;
+                                    switch (questionVM.TypeName)
                                     {
-                                        i++;
-                                        switch (questionVM.TypeName)
-                                        {
-                                            case "Question-Reponse":
-                                                <div class="form-group row col-xs-12" style="margin-bottom:60px">
-                                                    <div class="question-design col-xs-12" style="border-bottom:1px solid lightgrey; margin-bottom:10px;">
-                                                        <div class="row">
-                                                            <div class="col-xs-8">
-                                                                <h4 style="border-bottom:2px !important;">Question @i</h4>
-                                                            </div>
-                                                            <div class="col-xs-4 text-right">
-                                                                <a href="@Url.Action("ConfirmDeleteOrNoConsultSurvey", "Question",  new { questionId = questionVM.Id, surveyId = Model.Id })">
-                                                                    <span class="glyphicon glyphicon-remove-circle"></span>
-                                                                </a>
-                                                            </div>
+                                        case "Question-Reponse":
+                                            <div class="form-group row col-xs-12" style="margin-bottom:60px">
+                                                <div class="question-design col-xs-12" style="border-bottom:1px solid lightgrey; margin-bottom:10px;">
+                                                    <div class="row">
+                                                        <div class="col-xs-8">
+                                                            <h4 style="border-bottom:2px !important;">Question @i</h4>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group">
-
-                                                        <div class="content-dedsign col-xs-12"><p>@questionVM.Content</p></div>
-                                                        <div class="col-xs-12"><textarea class="form-control" readonly rows="4"></textarea></div>
-                                                    </div>
-
-                                                </div>
-                                                break;
-
-                                            case "QCM":
-                                                <div class="form-group row col-xs-12" style="margin-bottom:60px">
-                                                    <div class="question-design col-xs-12" style="border-bottom:1px solid lightgrey; margin-bottom:10px;">
-                                                        <div class="row">
-                                                            <div class="col-xs-8">
-                                                                <h4>Question @i</h4>
-                                                            </div>
-                                                            <div class="col-xs-4 text-right">
-                                                                <a data-toggle="popover" data-content="Supprimer" href="@Url.Action("ConfirmDeleteOrNoConsultSurvey", "Question",  new { questionId = questionVM.Id, surveyId = Model.Id })">
-                                                                    <span class="glyphicon glyphicon-remove-circle"></span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="content-dedsign col-xs-12"><p>@questionVM.Content</p></div>
-
-                                                        <div class="col-xs-12">
-                                                            @foreach (var answer in questionVM.QuestionAnswerList)
-                                                            {
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="" id="answer_@answer.Id">
-                                                                    <label class="form-check-label" for="answer_@answer.Id">
-                                                                        @answer.AnswerContent
-                                                                    </label>
-                                                                </div>
-                                                            }
+                                                        <div class="col-xs-4 text-right">
+                                                            <a>
+                                                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                break;
-                                        }
+                                                <div class="form-group row">
+
+                                                    <div class="content-dedsign col-xs-12"><p>@questionVM.Content</p></div>
+                                                    <div class="col-xs-12"><textarea class="form-control" readonly rows="4"></textarea></div>
+                                                </div>
+
+                                            </div>
+                                            break;
+
+                                        case "QCM":
+                                            <div class="form-group row col-xs-12" style="margin-bottom:60px">
+                                                <div class="question-design col-xs-12" style="border-bottom:1px solid lightgrey; margin-bottom:10px;">
+                                                    <div class="row">
+                                                        <div class="col-xs-8">
+                                                            <h4>Question @i</h4>
+                                                        </div>
+                                                        <div class="col-xs-4 text-right">
+                                                            <a data-toggle="popover" data-content="Supprimer" href="@Url.Action("ConfirmDeleteOrNoConsultSurvey", "Question",  new { questionId = questionVM.Id, surveyId = Model.Id })">
+                                                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="content-dedsign col-xs-12"><p>@questionVM.Content</p></div>
+
+                                                    <div class="col-xs-12">
+                                                        @foreach (var answer in questionVM.QuestionAnswerList)
+                                                        {
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="" id="answer_@answer.Id">
+                                                                <label class="form-check-label" for="answer_@answer.Id">
+                                                                    @answer.AnswerContent
+                                                                </label>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            break;
                                     }
-                                </div>
+                                }
                             </div>
-                        }
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <a class="btn btn-default" style="margin-bottom:35px;margin-left:785px" href="@Url.Action("addQuestion", "Survey",  new { })">
-                                Ajouter une question
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </a>
                         </div>
-                    </div>
+                    }
 
                 </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a class="btn btn-default" style="margin-bottom:35px;margin-left:785px" href="@Url.Action("Create", "Survey",new {selectedQuestionIds = Model.SurveySelectedQuestions })">
+                            Ajouter une question
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
 
 
 
@@ -143,31 +148,31 @@
                 <button id="js-btn-print-survey" class="btn btn-default col-xs-6">imprimer</button>
             </div>
 
-     
+
         </div>
+
     </div>
 }
 
 @section Scripts
- {
+    {
     <script>
-    $(document).ready(function () {
-        $("#js-btn-goBack-survey-consult").click(function () {
-            location.href = '@Url.Action("SurveyList", "Survey")';
-        });
-        });
-
         $(document).ready(function () {
+            $("#js-btn-goBack-survey-consult").click(function () {
+                location.href = '@Url.Action("SurveyList", "Survey")';
+            });
             $("#js-btn-print-survey").click(function () {
-            location.href = '@Html.Raw(Url.Action("PrintSurvey", "Survey", new {  }))';
-        });
-        });
+                location.href = '@Html.Raw(Url.Action("PrintSurvey", "Survey", new { surveySelectedQuestions = Model.SurveySelectedQuestions,surveyName = Model.Name }))';
+            });
 
-        $(document).ready(function () {
+            @*$("#js-btn-save-comment").click(function () {
+                location.href = h'@Url.Action("AddComment", "Survey",  new { surveyId = Model.Id, comment = Model.SurveyEvaluation })'
+            });*@
+
             $('[data-toggle="popover"]').popover();
         });
     </script>
-     
+
 }
 
 

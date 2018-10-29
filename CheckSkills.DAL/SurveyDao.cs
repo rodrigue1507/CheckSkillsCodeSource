@@ -134,7 +134,7 @@ namespace CheckSkills.DAL
                 SqlCommand cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
                 {
                     CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
-                    CommandText = "UPDATE Question SET Name = @Name, SurveyEvaluation = @SurveyEvaluation, WHERE Id = @Id", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
+                    CommandText = "UPDATE Survey SET Name = @Name, SurveyEvaluation = @SurveyEvaluation WHERE Id = @Id", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
                     Connection = sqlConnection1, // etablie la connection.
 
                 };
@@ -212,7 +212,7 @@ namespace CheckSkills.DAL
                 SqlCommand cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
                 {
                     CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
-                    CommandText = "SELECT Name, SurveyEvaluation,CreationDate FROM Survey Where Id = @Id",
+                    CommandText = "SELECT Id, Name, SurveyEvaluation,CreationDate FROM Survey Where Id = @Id",
                     Connection = sqlConnection1, // etablie la connection.
                 };
 
@@ -224,6 +224,7 @@ namespace CheckSkills.DAL
                 resultReader.Read();
                 var s = new Survey()
                 {
+                    Id = Convert.ToInt32(resultReader["Id"]),
                     Name = resultReader["Name"].ToString(),
                     SurveyEvaluation = resultReader["SurveyEvaluation"]?.ToString(),
                 };
