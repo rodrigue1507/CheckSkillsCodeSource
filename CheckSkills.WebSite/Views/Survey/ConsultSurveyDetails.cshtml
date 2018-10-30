@@ -40,7 +40,7 @@
 
                             </div>
                             <div class="col-xs-10" style="margin-bottom: 20px">
-                                @Html.TextAreaFor(m => m.SurveyEvaluation, new { @class = "col-form-label", @rows = "8", @cols = "95" })
+                                @Html.TextAreaFor(m => m.SurveyEvaluation, new { @class = "form-control", @rows = "8", @cols = "95" })
                             </div>
 
                         </div>
@@ -75,7 +75,7 @@
                                                             <h4 style="border-bottom:2px !important;">Question @i</h4>
                                                         </div>
                                                         <div class="col-xs-4 text-right">
-                                                            <a>
+                                                            <a data-toggle="popover" data-container="body" data-placement="right" data-content="Supprimer" href="@Url.Action("DeleteSurveydetail", "Survey",  new { questionId = questionVM.Id, surveyId = Model.Id })">
                                                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                                             </a>
                                                         </div>
@@ -98,7 +98,7 @@
                                                             <h4>Question @i</h4>
                                                         </div>
                                                         <div class="col-xs-4 text-right">
-                                                            <a data-toggle="popover" data-content="Supprimer" href="@Url.Action("ConfirmDeleteOrNoConsultSurvey", "Question",  new { questionId = questionVM.Id, surveyId = Model.Id })">
+                                                            <a data-toggle="popover" data-container="body" data-placement="right" data-content="Supprimer" href="@Url.Action("DeleteSurveydetail", "Survey",  new { questionId = questionVM.Id, surveyId = Model.Id })">
                                                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                                             </a>
                                                         </div>
@@ -132,7 +132,8 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <a class="btn btn-default" style="margin-bottom:35px;margin-left:785px" href="@Url.Action("Create", "Survey",new {selectedQuestionIds = Model.SurveySelectedQuestions })">
+                        <a class="btn btn-default" style="margin-bottom:35px;margin-left:785px" href="@Url.Action("AddQuestionSurvey", "Survey",
+                                                                                                     new {selectedQuestionIds = Model.OriginalSurveySelectedQuestions, isAlreadyCreatedSurvey = true, surveyId = Model.Id})">
                             Ajouter une question
                             <span class="glyphicon glyphicon-plus"></span>
                         </a>
@@ -165,11 +166,19 @@
                 location.href = '@Html.Raw(Url.Action("PrintSurvey", "Survey", new { surveySelectedQuestions = Model.SurveySelectedQuestions,surveyName = Model.Name }))';
             });
 
-            @*$("#js-btn-save-comment").click(function () {
-                location.href = h'@Url.Action("AddComment", "Survey",  new { surveyId = Model.Id, comment = Model.SurveyEvaluation })'
+
+
+             @*$("#js-btn-save-comment").click(function () {
+                location.href = '@Url.Action("", "Survey",  new { surveyId = Model.Id, comment = Model.SurveyEvaluation })'
             });*@
 
             $('[data-toggle="popover"]').popover();
+
+            $(function () {
+                $('.example-popover').popover({
+                    container: 'body'
+                })
+            })
         });
     </script>
 

@@ -1,4 +1,4 @@
-﻿@model CreateSurveyViewModel
+﻿@model CreateEditSurveyViewModel
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,7 +6,7 @@
 
 
 
-@using (Html.BeginForm("AddQuestionSurveyDetails", "Survey", FormMethod.Post))
+@using (Html.BeginForm("AddQuestionSurvey", "Survey", FormMethod.Post))
 {
 <div class="container-fluid ">
    
@@ -71,8 +71,7 @@
 </div>
     <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="row validation-section">
-            <div id="retour-button" class="col-xs-6">@Html.ActionLink("Retour à liste des formulaires", "SurveyList", "Survey", null, new { type = "button", @class = "btn btn-default", style = "border-color:#1a1a1a;margin:15px" })</div>
-            <div id="create-button" class="col-xs-6 text-right"><input type="submit" name="create" value="retour au formulaire" formaction="Create" formmethod="post" class="btn btn-success" style="margin:15px" /></div>
+            <div id="create-button" class="col-xs-12 text-right"><input type="submit" name="create" value="valider" formaction="Create" formmethod="post" class="btn btn-success" style="margin:15px" /></div>
         </div>
     </nav>
 

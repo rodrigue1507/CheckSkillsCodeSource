@@ -81,7 +81,7 @@ namespace CheckSkills.DAL
                     var cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
                     {
                         CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
-                        CommandText = "INSERT Survey (Name,CreationDate) VALUES (@Name,@CreationDate);", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
+                        CommandText = "INSERT Survey (Name,CreationDate) VALUES (@Name,@CreationDate); SELECT SCOPE_IDENTITY()", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
                         Connection = sqlConnection1, // etablie la connection.
                         Transaction = transaction
                     };
@@ -148,7 +148,7 @@ namespace CheckSkills.DAL
                 sqlConnection1.Open(); //ouvre la connection à la base de donnée.
 
                 var result = cmd.ExecuteNonQuery(); // execute et retoune la premier ligne
-             
+
             }
         }
 
@@ -202,7 +202,7 @@ namespace CheckSkills.DAL
 
             }
         }
-            
+
 
 
         public Survey SelectSurveyInfo(int surveyId)
@@ -235,6 +235,58 @@ namespace CheckSkills.DAL
 
                 return s;
 
+            }
+        }
+
+        public void UpdateSurveyQuestions(int surveyId, IEnumerable<int> questionIds)
+        {
+            using (SqlConnection sqlConnection1 = new SqlConnection(_connectionString)) // using permet de refermer la connection après ouverture
+            {
+                sqlConnection1.Open();
+                //var transaction = sqlConnection1.BeginTransaction();
+                //try
+                //{
+                SqlCommand cmd = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
+                {
+                    CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
+                    CommandText = "DELETE FROM Survey_Question WHERE SurveyId = @sId",
+                    Connection = sqlConnection1, // etablie la connection.
+                                                 //Transaction = transaction
+                };
+
+                //ouvre la connection à la base de donnée.
+                // permet de definir les variables values dans CommandText.
+                cmd.Parameters.AddWithValue("@sId", surveyId);
+                cmd.ExecuteNonQuery();
+            }
+            using (SqlConnection sqlConnection1 = new SqlConnection(_connectionString)) // using permet de refermer la connection après ouverture
+            {
+                sqlConnection1.Open();
+                foreach (var questionId in questionIds)
+                {
+                    var cmd2 = new SqlCommand  // objet cmd me permet d'exécuter des requêtes SQL
+                    {
+                        CommandType = CommandType.Text, // methode permettant de definir le type de commande (text = une commande sql; Storeprocedure= le nom de la procedure stockée; TableDirect= le nom d'une table.
+                        CommandText = "INSERT Survey_Question (SurveyId,QuestionId) VALUES (@SurveyId,@QuestionId);", // stock la requete sql dans commandText. SCOPE_IDENTITY renvoie l'Id de  la question inseré.
+                        Connection = sqlConnection1, // etablie la connection.
+                                                     //Transaction = transaction
+                    };
+
+                    // permet de definir les variables values dans CommandText. 
+                    cmd2.Parameters.AddWithValue("@SurveyId", surveyId);
+                    cmd2.Parameters.AddWithValue("@QuestionId", questionId);
+
+                    cmd2.ExecuteNonQuery();
+                }
+                //    transaction.Commit();
+                //}
+                //catch
+                //{
+                //    transaction.Rollback();
+                //    throw;
+                //}
+
+                //}
             }
         }
     }

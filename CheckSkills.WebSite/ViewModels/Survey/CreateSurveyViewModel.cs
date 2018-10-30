@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CheckSkills.WebSite.ViewModels
 {
-    public class CreateSurveyViewModel
+    public class CreateEditSurveyViewModel
     {
         public int? Id { get; set; }
 
@@ -21,12 +21,13 @@ namespace CheckSkills.WebSite.ViewModels
 
         [Display(Name = "Type")]
         public int? TypeId { get; set; }
-        public string Indéfini {get;set;}
+        public string Indéfini { get; set; }
 
-
+       
         public IList<QuestionViewModel> SurveySelectedQuestions { get; set; }
         public IEnumerable<SelectListItem> Categories { get; set; }
         public IEnumerable<SelectListItem> Difficulties { get; set; }
         public IEnumerable<SelectListItem> QuestionTypes { get; set; }
+        public bool IsAlreadyCreatedSurvey { get; set; }
     }
 }

@@ -8,6 +8,7 @@ namespace CheckSkills.WebSite.ViewModels
 {
     public class SurveyFilterInfoViewModel
     {
+        public int? SurveyId { get; set; }
         public int CategoryId { get; set; }
         public int DifficultyId { get; set; }
         public int TypeId { get; set; }

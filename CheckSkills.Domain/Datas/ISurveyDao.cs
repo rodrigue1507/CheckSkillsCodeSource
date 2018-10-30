@@ -8,6 +8,7 @@ namespace CheckSkills.Domain
         IEnumerable<Survey> GetAllSurvey();
         void CreateSurvey(string name, List<int> questionIds);
         void UpdateSurvey(Survey s);
+        void UpdateSurveyQuestions(int id, IEnumerable<int> questionIds);
         void DeleteSurvey(int surveyId);
         Survey SelectSurveyInfo(int surveyId);
     }

@@ -19,10 +19,11 @@ namespace CheckSkills.WebSite.Controllers
         private IQuestionTypeDao _questionTypeDao;
         private IAnswerDao _answerDao;
         private ISurvey_QuestionDao _survey_QuestionDao;
-     
+
         private const int CATEGORY_ID = 0;
         private const int TYPE_ID = 0;
         private const int DIFFICULTY_ID = 0;
+        private const string SuccessMessage = "modification effectuée";
 
         public SurveyController()
         {
@@ -35,9 +36,6 @@ namespace CheckSkills.WebSite.Controllers
             _survey_QuestionDao = new Survey_QuestionDao();
 
         }
-
-
-
 
         // actions permettant de creer le formulaire.
         [HttpGet]
@@ -61,14 +59,28 @@ namespace CheckSkills.WebSite.Controllers
             return View("List", model);
         }
 
+        [HttpGet]
+        public IActionResult AddQuestionSurvey(IEnumerable<int> selectedQuestionIds, bool isAlreadyCreatedSurvey, int surveyId)
+        {
+            isAlreadyCreatedSurvey = true;
+            var model = BuildSurveyViewModel(selectedQuestionIds, isAlreadyCreatedSurvey, surveyId);
+            return View(model);
+        }
 
+        [HttpPost]
+        public IActionResult AddQuestionSurvey(int surveyId, IEnumerable<SurveySelectedQuestionViewModel> surveySelectedQuestions)
+        {
+            var selectedQuestionIds = surveySelectedQuestions.Where(s => s.IsChecked).Select(q => q.Id);
+            _surveyDao.UpdateSurveyQuestions(surveyId, selectedQuestionIds);
+            return RedirectToAction(nameof(ConsultSurveyDetails), new { surveyId = surveyId });
+        }
 
         //action permettant d'imprimer le formulaire.
         [HttpGet]
         public IActionResult PrintSurvey(IEnumerable<int> surveySelectedQuestions, string surveyName)
-        {        
-            if(ModelState.IsValid)
-                {
+        {
+            if (ModelState.IsValid)
+            {
                 var selectedQuestionViewModels = GetSelectedQuestionViewModel(surveySelectedQuestions);
                 var surveyModel = new CreateConfirmationSurveyViewModel();
                 var model = new CreateConfirmationSurveyViewModel()
@@ -80,7 +92,7 @@ namespace CheckSkills.WebSite.Controllers
                     Date = DateTime.Now.ToString("dd/MM/yyyy"),
                 };
 
-                var report = new ViewAsPdf("PrintSurvey",model)
+                var report = new ViewAsPdf("PrintSurvey", model)
                 {
                     PageMargins = { Left = 20, Bottom = 20, Right = 20, Top = 20 }, // marge sur les pages.
                     PageSize = Rotativa.AspNetCore.Options.Size.A4, // format de page.
@@ -88,13 +100,11 @@ namespace CheckSkills.WebSite.Controllers
                 };
 
                 return report;
-               
+
             }
             return RedirectToAction("SurveyList");
         }
 
-        
-      
         //action permettant de sauvegarder le formulaire
         [HttpPost]
         public IActionResult SaveSurvey(CreateConfirmationSurveyViewModel surveyModel)
@@ -122,42 +132,6 @@ namespace CheckSkills.WebSite.Controllers
             return View(surveyModel);
         }
 
-
-       
-        private IEnumerable<QuestionViewModel> GetSelectedQuestionViewModel(IEnumerable<int> selectedQuestionIds)
-        {
-            //récupérer la liste des questions selectionnés
-            var questions = _questionDao.GetAll().Where(q => selectedQuestionIds.Contains(q.Id));
-            var questionListViewModels = new List<QuestionViewModel>();
-            var answers = _answerDao.GetAll();
-
-            if (questions != null && questions.Any())
-            {
-                foreach (var question in questions)
-                {
-                    questionListViewModels.Add(
-                        new QuestionViewModel()
-                        {
-                            Id = question.Id,
-                            CategoryName = question.Category.Name,
-                            TypeName = question.Type.Name,
-                            DifficultyLevel = question.Difficulty.DifficultyLevel,
-                            Content = question.Content,
-                            QuestionAnswerList = answers.Where(r => r.QuestionId == question.Id).Select(r => new CreateOrUpdateAnswerViewModel
-                            {
-                                Id = r.Id,
-                                QuestionId = r.QuestionId,
-                                QuestionContent = question.Content,
-                                AnswerContent = r.Content
-                            }).ToList()
-                        });
-                }
-            }
-            return questionListViewModels;
-        }
-
-
-
         //methode permettant de filtrer les questions en fonction des preferences (SurveyFilterInfo)
         [HttpPost]
         public IActionResult FilterQuestions(SurveyFilterInfoViewModel surveyFilterInfo)
@@ -168,11 +142,9 @@ namespace CheckSkills.WebSite.Controllers
 
         }
 
-
-
         public IActionResult SurveyList()
         {
-            var surveys = _surveyDao.GetAllSurvey(); 
+            var surveys = _surveyDao.GetAllSurvey();
             var surveyListViewModels = new List<SurveyViewModel>();
             if (surveys != null && surveys.Any())
             {
@@ -193,9 +165,6 @@ namespace CheckSkills.WebSite.Controllers
 
             return View(surveyListViewModels);
         }
-
-
-
 
         public IActionResult Delete(int surveyId)
         {
@@ -239,7 +208,8 @@ namespace CheckSkills.WebSite.Controllers
                     Id = question.Id,
                     Content = question.Content,
                     TypeName = question.Type.Name,
-                    CategoryName = question.Category.Name
+                    CategoryName = question.Category.Name,
+                    IsChecked = true
                 };
 
                 var answerViewModels = new List<CreateOrUpdateAnswerViewModel>();
@@ -265,7 +235,8 @@ namespace CheckSkills.WebSite.Controllers
                 Name = getSurveyInfo.Name,
                 DateCreation = getSurveyInfo.CreationDate,
                 SurveyEvaluation = getSurveyInfo.SurveyEvaluation ?? "",
-                SurveySelectedQuestions = questionViewModels
+                SurveySelectedQuestions = questionViewModels,
+                OriginalSurveySelectedQuestions = questionViewModels.Select(q => q.Id)
             };
 
             return View(model);
@@ -276,9 +247,9 @@ namespace CheckSkills.WebSite.Controllers
         [HttpPost]
         public IActionResult UpdateSurvey(SurveyDetailViewModel surveyDt)
         {
-           
-           
-                
+
+
+
             var s = new Survey
             {
                 Id = surveyDt.Id,
@@ -286,46 +257,41 @@ namespace CheckSkills.WebSite.Controllers
                 SurveyEvaluation = surveyDt.SurveyEvaluation
             };
 
-                _surveyDao.UpdateSurvey(s);
-            Success = "modification effectuer";
+            _surveyDao.UpdateSurvey(s);
+            ViewBag.Message = SuccessMessage;
             return RedirectToAction("ConsultSurveyDetails", new { surveyId = surveyDt.Id });
         }
 
+        public IActionResult DeleteSurveydetail(int questionId, int surveyId)
+        {
+            _survey_QuestionDao.DeleteQuestionSurvey(questionId, surveyId);
 
+            return RedirectToAction("ConsultSurveyDetails", new { surveyId });
+        }
 
+        [HttpGet]
+        public IActionResult EditQuestionList(IEnumerable<int> selectedQuestionIds, bool? isAlreadyCreatedSurvey, int? surveyId)
+        {
+            var model = BuildSurveyViewModel(selectedQuestionIds, isAlreadyCreatedSurvey);
+            return View("Create", model);
+        }
 
-
-        //public IActionResult DeleteAndGotoSurveydetail(int questionId, int surveyId)
-        //{
-        //    _survey_QuestionDao.DeleteQuestionsSurvey(questionId);
-        //    _answerDao.DeleteAnswerQuestionId(questionId);
-        //    _questionDao.DeleteQuestion(questionId);
-        //    var model = new QuestionViewModel()
-        //    {
-        //        survey = new SurveyDetailViewModel()
-        //        {
-        //            Id = surveyId,
-        //        }
-        //    };
-        //    return RedirectToAction("ConsultSurveyDetails", new { quest,surveyId });
-        // }
-
-
-
+        #region Privates methods
         //cette methode prend en parametre le filtre de l'utilisateur et retourne le model associé
-        private CreateSurveyViewModel BuildSurveyViewModel(IEnumerable<int> selectedQuestionIds)
+        private CreateEditSurveyViewModel BuildSurveyViewModel(IEnumerable<int> selectedQuestionIds, bool? isAlreadyCreatedSurvey = null, int? surveyId = null)
         {
             if (selectedQuestionIds != null && selectedQuestionIds.Any())
             {
                 var surveyFilterInfoViewModel = new SurveyFilterInfoViewModel()
                 {
-
+                    SurveyId = surveyId,
                     SurveySelectedQuestions = selectedQuestionIds.Select(s => new SurveySelectedQuestionViewModel()
                     {
                         Id = s,
                         IsChecked = true
 
-                    })
+                    }),
+
                 };
 
                 return BuildSurveyViewModel(surveyFilterInfoViewModel);
@@ -333,19 +299,26 @@ namespace CheckSkills.WebSite.Controllers
             return BuildSurveyViewModel();
         }
 
-        private CreateSurveyViewModel BuildSurveyViewModel(SurveyFilterInfoViewModel surveyFilterInfo = null)
+        private CreateEditSurveyViewModel BuildSurveyViewModel(SurveyFilterInfoViewModel surveyFilterInfo = null, bool? isAlreadyCreatedSurvey = null)
         {
-            var model = surveyFilterInfo == null ? new CreateSurveyViewModel()
+            var model = surveyFilterInfo == null ? new CreateEditSurveyViewModel()
             {
                 CategoryId = CATEGORY_ID,
                 DifficultyId = DIFFICULTY_ID,
                 TypeId = TYPE_ID
             } :
-            new CreateSurveyViewModel()
+            new CreateEditSurveyViewModel()
             {
+                Id = surveyFilterInfo.SurveyId,
                 CategoryId = surveyFilterInfo.CategoryId,
                 DifficultyId = surveyFilterInfo.DifficultyId,
-                TypeId = surveyFilterInfo.TypeId
+                TypeId = surveyFilterInfo.TypeId,
+                SurveySelectedQuestions = surveyFilterInfo.SurveySelectedQuestions.Select(s => new QuestionViewModel()
+                {
+                    Id = s.Id,
+                    IsChecked = s.IsChecked
+                }).ToList(),
+                IsAlreadyCreatedSurvey = isAlreadyCreatedSurvey.HasValue ? isAlreadyCreatedSurvey.Value : false
             };
 
             //dans le selectlistItem nous avons  
@@ -353,7 +326,7 @@ namespace CheckSkills.WebSite.Controllers
             {
                 Text = o.Name,
                 Value = o.Id.ToString(),
-                // Put default categoryId qs const
+                // Put default categoryId as const
                 Selected = o.Id == model.CategoryId
             });
             model.Difficulties = _difficultyDao.GetAll().Select(o => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
@@ -381,7 +354,7 @@ namespace CheckSkills.WebSite.Controllers
                                                                )))
                 {
                     questionListViewModels.Add(
-                        new QuestionViewModel()
+                        new QuestionViewModel
                         {
                             Id = question.Id,
                             CategoryName = question.Category.Name,
@@ -399,7 +372,38 @@ namespace CheckSkills.WebSite.Controllers
             return model;
         }
 
-        // methode permettant de recupérer les données formulaires depuis la base.
+        private IEnumerable<QuestionViewModel> GetSelectedQuestionViewModel(IEnumerable<int> selectedQuestionIds)
+        {
+            //récupérer la liste des questions selectionnés
+            var questions = _questionDao.GetAll().Where(q => selectedQuestionIds.Contains(q.Id));
+            var questionListViewModels = new List<QuestionViewModel>();
+            var answers = _answerDao.GetAll();
+
+            if (questions != null && questions.Any())
+            {
+                foreach (var question in questions)
+                {
+                    questionListViewModels.Add(
+                        new QuestionViewModel()
+                        {
+                            Id = question.Id,
+                            CategoryName = question.Category.Name,
+                            TypeName = question.Type.Name,
+                            DifficultyLevel = question.Difficulty.DifficultyLevel,
+                            Content = question.Content,
+                            QuestionAnswerList = answers.Where(r => r.QuestionId == question.Id).Select(r => new CreateOrUpdateAnswerViewModel
+                            {
+                                Id = r.Id,
+                                QuestionId = r.QuestionId,
+                                QuestionContent = question.Content,
+                                AnswerContent = r.Content
+                            }).ToList()
+                        });
+                }
+            }
+            return questionListViewModels;
+        }
+        #endregion
 
     }
 }
