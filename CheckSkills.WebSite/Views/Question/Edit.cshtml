@@ -6,18 +6,18 @@
 }
 
 
-
-@using (Html.BeginForm("EditQuestionSave", "Question", FormMethod.Post))
-{
-    Html.RenderPartial("_EditQuestion", Model.EditQuestionViewModel);
-}
-
-
-@{
-    Html.RenderPartial("_EditAnswers", Model);
-}
-
-<div>
+<div class="col-xs-12">
+    @using (Html.BeginForm("EditQuestionSave", "Question", FormMethod.Post))
+    {
+        Html.RenderPartial("_EditQuestion", Model.EditQuestionViewModel);
+    }
+</div>
+<div class="col-xs-12">
+    @{
+        Html.RenderPartial("_EditAnswers", Model);
+    }
+</div>
+<div class="col-xs-6",style="margin-buttom:20px">
     @Html.ActionLink("retour à la Liste", "List")
 </div>
 
@@ -38,10 +38,5 @@
         $(".js-question-type-select").change(function (item) {
             displayOrHideResponse(item.target.value)
         });
-
-
-
-        
-
     </script>
 }

@@ -41,6 +41,9 @@
     <Content Update="Views\Question\QuestionSurveyView\EditConsultSurvey.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Question\_CreateQuestion.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Question\_EditQuestion.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

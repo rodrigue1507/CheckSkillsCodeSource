@@ -28,7 +28,6 @@ namespace CheckSkills.DAL
         {
             // Use ADO.Net to DB access
             var surveys = new List<Survey>();
-
             try
             {
                 //objet de connection 

@@ -85,9 +85,10 @@ namespace CheckSkills.WebSite.Controllers
         [HttpPost]
         public IActionResult Create(EditQuestionViewModel model)
         {
-
+           
             if (ModelState.IsValid)
             {
+
                 // Traitement pour sauvegarder les questions
 
                 //transformer le viewModel en une entité Question
@@ -97,24 +98,24 @@ namespace CheckSkills.WebSite.Controllers
                     Category = new QuestionCategory { Id = model.CategoryId }, //
                     Content = model.Content,
                     Difficulty = new QuestionDifficulty { Id = model.DifficultyId },
-                    Type = new QuestionType { Id = model.TypeId }
+                    Type = new QuestionType { Id = model.TypeId },
                 };
 
-                var questionId = _questionDao.CreateQuestion(question);
-
-                if (questionId > 0)
-                {
-                    return RedirectToAction(nameof(Details), new { questionId, created = true });
+                    var questionId = _questionDao.CreateQuestion(question);
+                    if (questionId > 0)
+                    {
+                        return RedirectToAction(nameof(Details), new { questionId, created = true });
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("CategoryId", "La question n'a pas été créé");
+                    }
                 }
-                else
-                {
-                    ModelState.AddModelError("CategoryId", "La question n'a pas été créé");
-                }
-            }
-
+            
             AddReferenceDataToModel(model);
             return View(model);
         }
+
 
 
         [HttpPost]
@@ -135,16 +136,38 @@ namespace CheckSkills.WebSite.Controllers
                     Type = new QuestionType { Id = model.TypeId }
                 };
 
-                var questionId = _questionDao.CreateQuestion(question);
-
-                if (questionId > 0)
+                if (question.Type.Name == "QCM")
                 {
-                    return RedirectToAction(nameof(Create), new { created = true });
+                    var answer = new CreateOrUpdateAnswerViewModel();
+                    var AnswerViewModel = new Answer()
+                    {
+                        QuestionId = answer.QuestionId,
+                        Content = answer.AnswerContent
+                    };
+                    var questionId = _questionDao.CreateQuestion(question);
+                    _answerDao.CreateAnswer(AnswerViewModel);
+                    if (questionId > 0)
+                    {
+                        return RedirectToAction(nameof(Details), new { questionId, created = true });
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("CategoryId", "La question n'a pas été créé");
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("CategoryId", "La question n'a pas été créé");
+                    var questionId = _questionDao.CreateQuestion(question);
+                    if (questionId > 0)
+                    {
+                        return RedirectToAction(nameof(Details), new { questionId, created = true });
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("CategoryId", "La question n'a pas été créé");
+                    }
                 }
+
             }
             Fail = "Echec de creation de question car un des éléments sous dessous n'a pas été precisé";
             return RedirectToAction(nameof(Create));
@@ -187,7 +210,6 @@ namespace CheckSkills.WebSite.Controllers
                         Content = question.Content,
                         DifficultyId = question.Difficulty.Id,
                         TypeId = question.Type.Id,
-
                         CategoryId = question.Category.Id
                     }
                 };
@@ -429,7 +451,7 @@ namespace CheckSkills.WebSite.Controllers
         }
 
 
-
+        //prends un modèle en paramètre et 
         private void AddReferenceDataToModel(EditQuestionViewModel model)
         {
             if (model == null)

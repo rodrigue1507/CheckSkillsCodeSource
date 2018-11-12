@@ -6,15 +6,15 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4></h4>
+<div class="container">
+   
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Id)
+            @Html.HiddenFor(model => model.Id)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Id)
+            @Html.HiddenFor(model => model.Id)
         </dd>
 
         <dt>
@@ -80,7 +80,8 @@
 </div>
 <div>
     @Html.ActionLink("Modifier", "Edit", new { questionId = Model.Id }) |
-    @Html.ActionLink("retour à la Liste", "List")
+    @Html.ActionLink("retour à la Liste", "List") |
+    @Html.ActionLink("Continuer la creation", "Create")
 </div>
 
 @section Scripts

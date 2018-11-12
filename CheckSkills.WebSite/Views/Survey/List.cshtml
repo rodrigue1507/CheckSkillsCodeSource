@@ -47,7 +47,9 @@
                                                             <h4 style="border-bottom:2px !important;">Question @i</h4>
                                                         </div>
                                                         <div class="col-xs-4 text-right">
-                                                            <a href="@Url.Action("ConfirmDeleteOrNoConsultSurvey", "Question", new { questionId = questionVM.Id, surveyId = Model.Id })">
+                                                            <a href="@Url.Action("ConfirmDeleteQuestionSurvey",
+                                                                    "Survey", new { originalSurveySelectedQuestions = Model.OriginalSurveySelectedQuestions,
+                                                                        questionId = questionVM.Id})">
                                                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                                             </a>
                                                         </div>
@@ -70,7 +72,9 @@
                                                             <h4>Question @i</h4>
                                                         </div>
                                                         <div class="col-xs-4 text-right">
-                                                            <a href="@Url.Action("ConfirmDeleteOrNoConsultSurvey", "Question", new { questionId = questionVM.Id, surveyId = Model.Id })">
+                                                            <a href="@Url.Action("ConfirmDeleteQuestionSurvey", "Survey",
+                                                                    new { originalSurveySelectedQuestions = Model.OriginalSurveySelectedQuestions,
+                                                                        questionId = questionVM.Id})">
                                                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                                             </a>
                                                         </div>

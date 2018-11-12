@@ -55,7 +55,7 @@
         @foreach (var questionGrouped in Model.SurveySelectedQuestions.GroupBy(q => q.CategoryName))
         {
             @*class="panel-heading" style="background-color:#31333b; color:#fff; border-bottom:60px !important;border-radius: 5px;"*@
-            <div class="row panel-heading" style="background-color:#31333b; color:#fff; margin-bottom:60px !important;border-radius: 5px;"><h4>@questionGrouped.Key</h4></div>
+            <div class="row panel-heading" style="background-color:#31333b; color:#fff; margin-bottom:60px !important;border-radius: 5px; padding-left:30px;font-size:90px"><h4>@questionGrouped.Key</h4></div>
             
             <div class="row">
                 @foreach (var questionVM in questionGrouped.ToList())

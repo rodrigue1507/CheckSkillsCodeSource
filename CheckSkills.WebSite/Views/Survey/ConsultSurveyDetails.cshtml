@@ -49,7 +49,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <button type="submit" class="btn btn-default  form-control " id="js-btn-save-comment">
-                                <i class="glyphicon glyphicon-plus"></i>
+                                @*<i class="glyphicon glyphicon-plus"></i>*@
                                 enregistrer les modifications
                             </button>
                         </div>
@@ -163,7 +163,8 @@
                 location.href = '@Url.Action("SurveyList", "Survey")';
             });
             $("#js-btn-print-survey").click(function () {
-                location.href = '@Html.Raw(Url.Action("PrintSurvey", "Survey", new { surveySelectedQuestions = Model.SurveySelectedQuestions,surveyName = Model.Name }))';
+                var printUrl = '@Html.Raw(Url.Action("PrintSurvey", "Survey", new { surveySelectedQuestions = Model.OriginalSurveySelectedQuestions, surveyName = Model.Name }))';
+                window.open(printUrl, '_blank');
             });
 
 

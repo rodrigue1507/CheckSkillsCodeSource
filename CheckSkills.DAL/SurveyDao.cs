@@ -88,6 +88,10 @@ namespace CheckSkills.DAL
 
                     date = DateTime.Now;
                     // permet de definir les variables values dans CommandText. 
+                    if (name == null)
+                    {
+                        name = "nouveau candidat";
+                    }
                     cmd.Parameters.AddWithValue("@Name", name);
                     cmd.Parameters.AddWithValue("@CreationDate", date);
 
@@ -139,6 +143,10 @@ namespace CheckSkills.DAL
 
                 };
 
+                if (s.SurveyEvaluation == null)
+                {
+                    s.SurveyEvaluation = " ";
+                }
 
                 // permet de definir les variables values dans CommandText.
                 cmd.Parameters.AddWithValue("@Id", s.Id);

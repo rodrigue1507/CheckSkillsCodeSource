@@ -1,6 +1,6 @@
 ﻿@model CreateOrUpdateQuestionViewModel;
 
-<div class="js-edit-question-answers ">
+<div class="js-edit-question-answers">
     <h2>Réponses</h2>
 
     <div table="table-responsive row">
@@ -31,5 +31,5 @@
         </table>
     </div>
     <br />
-    @Html.ActionLink("Ajouter une réponse", "AddQuestionAnswer", new { questionId = Model.EditQuestionViewModel.Id })
+    <div class="col-xs-12 btn btn-default text-center", style="margin-bottom:20px;">@Html.ActionLink("Ajouter une réponse", "AddQuestionAnswer", new { questionId = Model.EditQuestionViewModel.Id })</div>
 </div>

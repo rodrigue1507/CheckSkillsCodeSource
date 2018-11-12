@@ -3,110 +3,93 @@
     ViewData["Title"] = "Creation";
 }
 
-
 @using (Html.BeginForm("Create", "Question", FormMethod.Post, new { @class = "js-form-createAndContinue-Question" }))
 {
-    <div class="container-fluid">
 
-        <div class="panel panel-primary">
-            <div class="panel-heading">Création-question</div>
-            <div id="form-info" class="panel-body">
-                @Html.ValidationSummary(false, "", new { @class = "form-horizontal" })
-                <div class="form-group row ">
-                    <div class="col-xs-1">
-                        @Html.LabelFor(m => m.DifficultyId, new { @class = "col-form-label" })
-                    </div>
-                    <div class="col-xs-10">
-                        @Html.DropDownListFor(m => m.DifficultyId, Model.Difficulties, "Non-défini", new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-xs-1">
-                        @Html.LabelFor(m => m.TypeId, new { @class = "col-form-label" })
-                    </div>
-                    <div class="col-xs-10">
-                        @Html.DropDownListFor(m => m.TypeId, Model.QuestionTypes, "Non-défini", new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-xs-1">
-                        @Html.LabelFor(m => m.CategoryId, new { @class = "col-form-label" })
-                    </div>
-                    <div class="col-xs-10">
-                        @Html.DropDownListFor(m => m.CategoryId, Model.Categories, "Non-défini", new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-xs-1">
-                        @Html.LabelFor(m => m.Content, new { @class = "col-form-label" })
-                    </div>
-                    <div class="col-xs-10">
-                        @Html.TextAreaFor(m => m.Content, new { @class = "form-control", rows = "6" })
-                    </div>
-                </div>
-            </div>
+    <h2>Création</h2>
 
-            <div class="panel-footer">
-                <div class="row">
-                    <div class="col-xs-4  pull-left">
-                        <button class="btn btn-success" onclick="window.location.href='@Url.Action("List", "Question")';" style="background-color:#5f677e;border: none; ">Retour à la liste</button>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                        <input type="submit" formaction="Question/SaveNewCreate" formmethod="post" class="btn btn-success js-btn-createAndContinue-Question" style="background-color:#5f677e;border: none;" value="Enregistrer et nouveau" />
-                    </div>
-                    <div class="col-xs-4  text-right">
-                        <input type="submit" class="btn btn-success" style="background-color:#5f677e;border: none;" value="Enregistrer et retour" />
-                    </div>
-                </div>
-            </div>
+    @Html.ValidationSummary(false, "", new { @class = "form-horizontal" })
+    <div class="form-group row ">
+        <div class="col-xs-1">
+            @Html.LabelFor(m => m.DifficultyId, new { @class = "col-form-label" })
+        </div>
+        <div class="col-xs-10">
+            @Html.DropDownListFor(m => m.DifficultyId, Model.Difficulties, "Non-défini", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-xs-1">
+            @Html.LabelFor(m => m.TypeId, new { @class = "col-form-label" })
+        </div>
+        <div class="col-xs-10">
+            @Html.DropDownListFor(m => m.TypeId, Model.QuestionTypes, "Non-défini", new { @class = "form-control js-question-type-select" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-xs-1">
+            @Html.LabelFor(m => m.CategoryId, new { @class = "col-form-label" })
+        </div>
+        <div class="col-xs-10">
+            @Html.DropDownListFor(m => m.CategoryId, Model.Categories, "Non-défini", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row", style="margin-bottom:30px;">
+        <div class="col-xs-1">
+            @Html.LabelFor(m => m.Content, new { @class = "col-form-label" })
+        </div>
+        <div class="col-xs-10">
+            @Html.TextAreaFor(m => m.Content, new { @class = "form-control", rows = "6" })
         </div>
     </div>
 
-}
 
-@section Scripts{
-    <script type="text/javascript" src="~/js/site.js"></script>
-    <script>
+    <div class="row col-xs-12 container", style="margin-bottom:20px;">
         
-        @*$(function () {
-            window.
-            $(".js-btn-createAndContinue-Question").click(function () {
-                var form = $('.js-form-createAndContinue-Question');
-
-                $.ajax({
-                    type: "POST",
-                    url: form.attr('action'),
-                    data: form.serialize(),
-                    success: function (response) {
-                        location.href = "@Url.Action("Create", "Question", new { created=true})";
-                    }
-                });
-
-            });
-
-            if ($('.js-alert') !== undefined)
-                $('.js-alert').show(0).delay(1000).hide(0);
-        });*@
-        @*$(function () {
-            $(".js-btn-goback-Question").click(function () {
-                var form = $('.js-form-List-Question');
-
-                $.ajax({
-                    type: "POST",
-                    url: form.attr('action'),
-                    data: form.serialize(),
-                    success: function (response) {
-                        location.href = "@Url.Action("List", "Question", new { created=true})";
-                    }
-                });
-
-            });
-
-            if ($('.js-alert') !== undefined)
-                $('.js-alert').show(0).delay(5000).hide(0);
-        });*@
+            <button class="btn btn-default col-xs-5" onclick="window.location.href='@Url.Action("List", "Question")';">Retour à la liste</button>
        
-    </script>
+            <div class="col-xs-2"></div>
+        @*<div class="col-xs-4 text-center">
+                <input type="submit" formaction="Question/SaveNewCreate" formmethod="post" class="btn btn-success js-btn-createAndContinue-Question" style="background-color:#5f677e;border: none;" value="Enregistrer et nouveau" />
+            </div>*@
+        
+            <button type="submit" class="btn btn-default col-xs-5" >Enregistrer</button>
+    </div>
 }
+
+
+
+
+@*@model CreateOrUpdateQuestionViewModel
+    @using   CheckSkills.Domain.Constants;
+    @{
+        ViewData["Title"] = "Creation";
+    }
+
+    @{
+        Html.RenderPartial("_CreateQuestion", Model.EditQuestionViewModel);
+    }
+
+    @{
+        Html.RenderPartial("_EditAnswers", Model.EditAnswerViewModel);
+    }
+
+    @section Scripts{
+        <script>
+
+            function displayOrHideResponse(questionType) {
+                if (questionType == @((int)QuestionTypeEnum.Qcm)) {
+                    $(".js-edit-question-answers").show();
+                } else {
+                    $(".js-edit-question-answers").hide();
+                }
+            }
+
+            displayOrHideResponse(@((int)Model.QuestionTypeEnum))
+
+            $(".js-question-type-select").change(function (item) {
+                displayOrHideResponse(item.target.value)
+            });
+        </script>
+    }*@
 
 

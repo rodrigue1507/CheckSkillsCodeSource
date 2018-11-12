@@ -81,6 +81,7 @@ namespace CheckSkills.WebSite.Controllers
         {
             if (ModelState.IsValid)
             {
+                _surveyDao.CreateSurvey(surveyName, surveySelectedQuestions.ToList());
                 var selectedQuestionViewModels = GetSelectedQuestionViewModel(surveySelectedQuestions);
                 var surveyModel = new CreateConfirmationSurveyViewModel();
                 var model = new CreateConfirmationSurveyViewModel()
@@ -92,11 +93,12 @@ namespace CheckSkills.WebSite.Controllers
                     Date = DateTime.Now.ToString("dd/MM/yyyy"),
                 };
 
-                var report = new ViewAsPdf("PrintSurvey", model)
+                var report = new ViewAsPdf("PrintSurvey", model)//gestion du PDF
                 {
                     PageMargins = { Left = 20, Bottom = 20, Right = 20, Top = 20 }, // marge sur les pages.
                     PageSize = Rotativa.AspNetCore.Options.Size.A4, // format de page.
                     CustomSwitches = "--page-offset 0 --footer-center [page] --footer-font-size 12" //numéroter les bas de page.
+                     //SaveOnServerPath = fullPath
                 };
 
                 return report;
@@ -125,7 +127,7 @@ namespace CheckSkills.WebSite.Controllers
 
                 }
 
-                return RedirectToAction(nameof(Create));
+                return RedirectToAction(nameof(SurveyList));
             }
 
             surveyModel.SurveySelectedQuestions = GetSelectedQuestionViewModel(surveyModel.OriginalSurveySelectedQuestions);
@@ -242,6 +244,18 @@ namespace CheckSkills.WebSite.Controllers
             return View(model);
         }
 
+        public IActionResult ConfirmDeleteQuestionSurvey(IEnumerable<int> originalSurveySelectedQuestions, int questionId)
+        {
+            originalSurveySelectedQuestions = originalSurveySelectedQuestions.Where(o => o != questionId); // gère la supression de questionId
+            var selectedQuestionViewModels = GetSelectedQuestionViewModel(originalSurveySelectedQuestions);
+            var model = new CreateConfirmationSurveyViewModel()
+            {
+                SurveySelectedQuestions = selectedQuestionViewModels,
+                OriginalSurveySelectedQuestions = originalSurveySelectedQuestions
+            };
+
+            return View("List", model);
+        }
 
         // cette methode permet d'ajouter un commentaire au formulaire 
         [HttpPost]

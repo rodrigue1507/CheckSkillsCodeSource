@@ -21,7 +21,9 @@ namespace CheckSkills.WebSite.ViewModels
 
         [Display(Name = "Type")]
         public int? TypeId { get; set; }
-        public string Indéfini { get; set; }
+
+        [Display(Name = "Indéfini")]
+        public string Indefini { get; set; }
 
        
         public IList<QuestionViewModel> SurveySelectedQuestions { get; set; }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using CheckSkills.Domain.Constants;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -25,7 +26,8 @@ namespace CheckSkills.WebSite.ViewModels
         [Display(Name = "Type")]
         public int TypeId { get; set; }
 
-       
+  
+        public QuestionTypeEnum QuestionTypeEnum { get; set; }
 
         public IEnumerable<SelectListItem> Categories { get; set; }
         public IEnumerable<SelectListItem> Difficulties { get; set; }
