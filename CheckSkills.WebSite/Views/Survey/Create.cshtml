@@ -14,7 +14,7 @@
         <div class="row">
             <div class="form-group col-xs-4 col-sm-4 col-lg-4 col-md-4">
                 <div class="panel panel-success">
-                    <div class="panel-heading background-color-panel">@Html.LabelFor(model => model.TypeId, new { @class = "col-form-label", })</div>
+                    <div class="panel-heading">@Html.LabelFor(model => model.TypeId, new { @class = "col-form-label", })</div>
                     <div class="panel-body">@Html.DropDownListFor(model => model.TypeId, Model.QuestionTypes, "Indéfini", new { @class = "form-control custom-select" })</div>
                 </div>
             </div>
@@ -49,8 +49,8 @@
         @for (int i = 0; i < Model.SurveySelectedQuestions.Count; i++)
         {
             <div class=" col-xs-4 col-sm-4 col-lg-4 col-md-4 panel-body-height">
-                <div class="panel panel-primary parent">
-                    <div class="panel-heading ">
+                <div class="panel panel-primary parent" >
+                    <div class="panel-heading " >
                         <div class="text-center">@Html.DisplayFor(m => m.SurveySelectedQuestions[i].CategoryName) - @Html.DisplayFor(m => m.SurveySelectedQuestions[i].TypeName) - @Html.DisplayFor(m => m.SurveySelectedQuestions[i].DifficultyLevel)</div>
                     </div>
                     <div class="panel-body">

@@ -358,8 +358,3 @@ input[type="checkbox"].input-validation-error {
 {
     margin-bottom: 5px;
 }
-
-.breadcrumb {
-    background-color: none !important;
-    padding: 0px 0px !important;
-}

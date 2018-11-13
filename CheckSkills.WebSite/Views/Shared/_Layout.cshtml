@@ -55,8 +55,8 @@
     </nav>
 
     <div class="container-fluid body-content">
-        @Html.Partial("_Alert")
-        <div>@RenderBody()</div>
+        <div style="margin-bottom:3em">@Html.Partial("_Alert")</div>
+        <div style="margin-bottom:10em">@RenderBody()</div>
         <hr />
         <footer>
             @RenderSection("Footer", required: false)
